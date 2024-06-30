@@ -15,13 +15,26 @@ struct UpdateTabScreen: View {
                 statusSectionHeader()
                     .listRowBackground(Color.clear)
                 statusSection()
+                Section {
+                    recentUpdateStatusItemView()
+                } header: {
+                    Text("Recent Updates")
+                }
+                Section {
+                    ChannelListView()
+                } header: {
+                    channelSectionHeader()
+                    
+                }
             }
-            .navigationTitle("Updates")
-            .searchable(text: $searText)
-            .listStyle(.grouped)
+            
         }
+        .navigationTitle("Updates")
+        .searchable(text: $searText)
+        .listStyle(.grouped)
     }
 }
+
 
 private struct statusSectionHeader: View {
     var body: some View {
@@ -29,7 +42,7 @@ private struct statusSectionHeader: View {
             Image(systemName: "circle.dashed")
                 .imageScale(.large)
                 .foregroundStyle(.link)
-             
+            
             VStack(alignment: .leading) {
                 Text("Use status to share photos, text and videos that dissappear in 24 hours.")
                 Text("Status Privacy")
@@ -64,7 +77,36 @@ private struct statusSection: View {
         }
     }
 }
+private struct recentUpdateStatusItemView: View {
+    var body: some View {
+        HStack {
+            Circle()
+                .frame(width: 55, height: 55)
+            VStack(alignment: .leading) {
+                Text("Shopnil Hasan")
+                    .font(.callout)
+                    .bold()
+                Text("1hr ago")
+                    .font(.system(size: 15))
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+}
 
+private struct channelSectionHeader: View {
+    var body: some View {
+        HStack {
+            Text("Channels")
+                .textCase(nil)
+                .font(.headline)
+                .fontWeight(.bold)
+                .foregroundStyle(.whatsAppBlack)
+            Spacer()
+            statusSectionButton(imageName: "plus")
+        }
+    }
+}
 private func statusSectionButton(imageName: String) -> some View {
     Button {
         
@@ -72,7 +114,7 @@ private func statusSectionButton(imageName: String) -> some View {
         Image(systemName: imageName)
             .padding(10)
             .background(Color(.systemGray5))
-            .bold()
+            .fontWeight(.semibold)
             .clipShape(Circle())
     }
 }
