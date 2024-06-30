@@ -13,7 +13,23 @@ struct CallTabScreen: View {
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    CallLinkSectionView()
+                }
                 
+                Section {
+                    ForEach(0..<12) {_ in
+                        RecentItemView()
+                    }
+                }
+            header: {
+                Text("Recent")
+                    .bold()
+                    .textCase(nil)
+                    .font(.headline)
+                    .foregroundStyle(.whatsAppBlack)
+
+            }
             }
             .navigationTitle("Calls")
             .searchable(text: $searchText)
@@ -38,7 +54,7 @@ struct CallTabScreen: View {
                     } label: {
                         Image(systemName: "phone.arrow.up.right")
                     }
-
+                    
                 }
             }
         }

@@ -43,11 +43,12 @@ private struct statusSectionHeader: View {
                 .imageScale(.large)
                 .foregroundStyle(.link)
             
-            VStack(alignment: .leading) {
-                Text("Use status to share photos, text and videos that dissappear in 24 hours.")
+            (
+                Text("Use status to share photos, text and videos that dissappear in 24 hours. ")
+                +
                 Text("Status Privacy")
                     .foregroundStyle(.link).bold()
-            }
+            )
             
             Image(systemName: "xmark")
                 .foregroundStyle(.gray)
