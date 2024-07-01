@@ -18,6 +18,8 @@
 		B380DE072C2EEDB10091BB7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE062C2EEDB10091BB7C /* Assets.xcassets */; };
 		B380DE0A2C2EEDB10091BB7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */; };
 		B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */; };
+		B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */; };
+		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		B380DE062C2EEDB10091BB7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesTabScreen.swift; sourceTree = "<group>"; };
+		B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTabScreen.swift; sourceTree = "<group>"; };
+		B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 			children = (
 				B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */,
 				B353ADFE2C301F0B001C8DD3 /* MainTabView.swift */,
+				B3AA26E72C32C2C700CA8F9D /* ChatTab */,
 				B3AA26E42C32BA5A00CA8F9D /* CommunitiesTab */,
 				B33D47082C317A2F00BD31A6 /* CallTab */,
 				B33D46FF2C316D5D00BD31A6 /* UpdateTab */,
@@ -110,6 +115,15 @@
 				B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */,
 			);
 			path = CommunitiesTab;
+			sourceTree = "<group>";
+		};
+		B3AA26E72C32C2C700CA8F9D /* ChatTab */ = {
+			isa = PBXGroup;
+			children = (
+				B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */,
+				B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */,
+			);
+			path = ChatTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,12 +197,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,
+				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
 				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
 				B380DE032C2EEDB00091BB7C /* WhatsApp_CloneApp.swift in Sources */,
+				B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */,
 				B33D47072C316FCC00BD31A6 /* ChannelListItem.swift in Sources */,
 				B353ADFF2C301F0B001C8DD3 /* MainTabView.swift in Sources */,
 			);
