@@ -17,6 +17,7 @@
 		B380DE032C2EEDB00091BB7C /* WhatsApp_CloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */; };
 		B380DE072C2EEDB10091BB7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE062C2EEDB10091BB7C /* Assets.xcassets */; };
 		B380DE0A2C2EEDB10091BB7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */; };
+		B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp_CloneApp.swift; sourceTree = "<group>"; };
 		B380DE062C2EEDB10091BB7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesTabScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,24 +46,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B33D46FF2C316D5D00BD31A6 /* UpdateTabScreen */ = {
+		B33D46FF2C316D5D00BD31A6 /* UpdateTab */ = {
 			isa = PBXGroup;
 			children = (
 				B353AE002C30274F001C8DD3 /* UpdateTabScreen.swift */,
 				B33D47022C316EC300BD31A6 /* ChannelListView.swift */,
 				B33D47062C316FCC00BD31A6 /* ChannelListItem.swift */,
 			);
-			path = UpdateTabScreen;
+			path = UpdateTab;
 			sourceTree = "<group>";
 		};
-		B33D47082C317A2F00BD31A6 /* CallTabScreen */ = {
+		B33D47082C317A2F00BD31A6 /* CallTab */ = {
 			isa = PBXGroup;
 			children = (
 				B33D47092C317A8A00BD31A6 /* CallTabScreen.swift */,
 				B33D470B2C31804600BD31A6 /* CallLinkSectionView.swift */,
 				B33D470D2C31805E00BD31A6 /* RecentItemView.swift */,
 			);
-			path = CallTabScreen;
+			path = CallTab;
 			sourceTree = "<group>";
 		};
 		B380DDF62C2EEDB00091BB7C = {
@@ -85,8 +87,9 @@
 			children = (
 				B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */,
 				B353ADFE2C301F0B001C8DD3 /* MainTabView.swift */,
-				B33D47082C317A2F00BD31A6 /* CallTabScreen */,
-				B33D46FF2C316D5D00BD31A6 /* UpdateTabScreen */,
+				B3AA26E42C32BA5A00CA8F9D /* CommunitiesTab */,
+				B33D47082C317A2F00BD31A6 /* CallTab */,
+				B33D46FF2C316D5D00BD31A6 /* UpdateTab */,
 				B380DE062C2EEDB10091BB7C /* Assets.xcassets */,
 				B380DE082C2EEDB10091BB7C /* Preview Content */,
 			);
@@ -99,6 +102,14 @@
 				B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B3AA26E42C32BA5A00CA8F9D /* CommunitiesTab */ = {
+			isa = PBXGroup;
+			children = (
+				B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */,
+			);
+			path = CommunitiesTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +184,7 @@
 			files = (
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
+				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
