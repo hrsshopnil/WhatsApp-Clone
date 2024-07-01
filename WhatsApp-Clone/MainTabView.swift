@@ -13,7 +13,7 @@ struct MainTabView: View {
     }
     var body: some View {
         TabView {
-            placeHolderItemView("Chats")
+            ChatTabScreen()
                 .tabItem {
                     Image(systemName: Tab.chats.icon)
                     Text(Tab.chats.title)

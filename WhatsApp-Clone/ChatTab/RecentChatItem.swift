@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecentChatItem: View {
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             Circle()
                 .frame(width: 55, height: 55)
             VStack(alignment: .leading) {
