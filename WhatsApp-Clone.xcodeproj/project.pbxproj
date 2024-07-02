@@ -24,6 +24,7 @@
 		B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */; };
 		B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */; };
 		B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60822C341AE500B3B2CE /* SettingsSectionHeader.swift */; };
+		B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60862C34208900B3B2CE /* ChatRoomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
 		B3ED60822C341AE500B3B2CE /* SettingsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeader.swift; sourceTree = "<group>"; };
+		B3ED60862C34208900B3B2CE /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */,
 				B353ADFE2C301F0B001C8DD3 /* MainTabView.swift */,
+				B3ED60842C34206200B3B2CE /* ChatRoom */,
 				B3ED60792C34169C00B3B2CE /* SettingsTab */,
 				B3AA26E72C32C2C700CA8F9D /* ChatTab */,
 				B3AA26E42C32BA5A00CA8F9D /* CommunitiesTab */,
@@ -158,6 +161,22 @@
 				B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */,
 				B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */,
 				B3ED60822C341AE500B3B2CE /* SettingsSectionHeader.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B3ED60842C34206200B3B2CE /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				B3ED60852C34207800B3B2CE /* View */,
+			);
+			path = ChatRoom;
+			sourceTree = "<group>";
+		};
+		B3ED60852C34207800B3B2CE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B3ED60862C34208900B3B2CE /* ChatRoomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +256,7 @@
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
 				B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */,
 				B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */,
+				B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */,
 				B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
 				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
