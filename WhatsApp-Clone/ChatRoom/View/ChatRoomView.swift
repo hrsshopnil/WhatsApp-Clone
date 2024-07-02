@@ -11,34 +11,39 @@ struct ChatRoomView: View {
     var body: some View {
         ScrollView {
             LazyVStack {
-                ForEach(0..<12) {_ in
-                Text("placeholder")
+                ForEach(0..<120) {_ in
+                    Text("placeholder")
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack {
-                        Circle()
-                            .frame(width: 35, height: 35)
-                        Text("User Name")
-                            .bold()
-                    }
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .safeAreaInset(edge: .bottom) {
+            TextInputArea()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack {
+                    Circle()
+                        .frame(width: 35, height: 35)
+                    Text("User Name")
+                        .bold()
+                }
+            }
+            
+            ToolbarItemGroup {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "video")
                 }
                 
-                ToolbarItemGroup {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "video")
-                    }
-
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "phone")
-                    }
+                Button {
+                    
+                } label: {
+                    Image(systemName: "phone")
                 }
             }
+            
         }
     }
 }
