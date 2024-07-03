@@ -22,6 +22,7 @@
 		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
 		B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA8E2C3568DC0032560F /* MessageListController.swift */; };
 		B3C2DA912C356EB70032560F /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA902C356EB70032560F /* MessageListView.swift */; };
+		B3C2DA942C3571360032560F /* MessageBubbleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA932C3571360032560F /* MessageBubbleItem.swift */; };
 		B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */; };
 		B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */; };
 		B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */; };
@@ -47,6 +48,7 @@
 		B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatItem.swift; sourceTree = "<group>"; };
 		B3C2DA8E2C3568DC0032560F /* MessageListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListController.swift; sourceTree = "<group>"; };
 		B3C2DA902C356EB70032560F /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
+		B3C2DA932C3571360032560F /* MessageBubbleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleItem.swift; sourceTree = "<group>"; };
 		B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabScreen.swift; sourceTree = "<group>"; };
 		B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 			path = ChatTab;
 			sourceTree = "<group>";
 		};
+		B3C2DA922C35711E0032560F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3C2DA932C3571360032560F /* MessageBubbleItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B3ED60792C34169C00B3B2CE /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +184,7 @@
 		B3ED60842C34206200B3B2CE /* ChatRoom */ = {
 			isa = PBXGroup;
 			children = (
+				B3C2DA922C35711E0032560F /* Model */,
 				B3ED60852C34207800B3B2CE /* View */,
 			);
 			path = ChatRoom;
@@ -266,6 +277,7 @@
 				B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */,
 				B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */,
 				B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */,
+				B3C2DA942C3571360032560F /* MessageBubbleItem.swift in Sources */,
 				B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */,
 				B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
