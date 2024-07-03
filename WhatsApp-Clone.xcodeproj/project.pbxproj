@@ -20,6 +20,7 @@
 		B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */; };
 		B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */; };
 		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
+		B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA8E2C3568DC0032560F /* MessageListController.swift */; };
 		B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */; };
 		B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */; };
 		B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */; };
@@ -43,6 +44,7 @@
 		B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesTabScreen.swift; sourceTree = "<group>"; };
 		B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTabScreen.swift; sourceTree = "<group>"; };
 		B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatItem.swift; sourceTree = "<group>"; };
+		B3C2DA8E2C3568DC0032560F /* MessageListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListController.swift; sourceTree = "<group>"; };
 		B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabScreen.swift; sourceTree = "<group>"; };
 		B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			children = (
 				B3ED60862C34208900B3B2CE /* ChatRoomView.swift */,
 				B3ED60882C3427B000B3B2CE /* TextInputArea.swift */,
+				B3C2DA8E2C3568DC0032560F /* MessageListController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */,
 				B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */,
 				B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */,
+				B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
 				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,
