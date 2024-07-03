@@ -9,13 +9,7 @@ import SwiftUI
 
 struct ChatRoomView: View {
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(0..<120) {_ in
-                    Text("placeholder")
-                }
-            }
-        }
+        MessageListView()
         .toolbar(.hidden, for: .tabBar)
         .safeAreaInset(edge: .bottom) {
             TextInputArea()

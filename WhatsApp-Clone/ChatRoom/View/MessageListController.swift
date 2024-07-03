@@ -13,6 +13,7 @@ final class MessageListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpViews()
     }
     
     private let cellIdentifier = "messageListControllerCells"
@@ -20,7 +21,6 @@ final class MessageListController: UIViewController {
        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .red
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -51,7 +51,8 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
             Text("Placeholder")
                 .bold()
                 .font(.largeTitle)
-                .frame(width: .infinity, height: 200)
+                .frame(maxWidth: .infinity)
+                .frame(height: 200)
                 .background(.gray.opacity(0.1))
         }
         return cell
