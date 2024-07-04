@@ -15,6 +15,13 @@ struct MessageBubbleItem: Identifiable {
     static let sentPlaceholder = MessageBubbleItem(text: "Hoo Lee Sheet", direction: .sent)
     static let receivedPlaceholder = MessageBubbleItem(text: "pette", direction: .received)
     
+    var alignment: Alignment {
+        return direction == .received ? .leading : .trailing
+    }
+    
+    var horizontalAlignment: HorizontalAlignment {
+        return direction == .received ? .leading : .trailing
+    }
     var bgColor: Color {
         return direction == .sent ? .bubbleGreen : .bubbleWhite
     }
