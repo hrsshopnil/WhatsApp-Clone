@@ -43,15 +43,21 @@ final class MessageListController: UIViewController {
 
 extension MessageListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return MessageBubbleItem.stubMessages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        let message = MessageBubbleItem.stubMessages[indexPath.row]
         cell.contentConfiguration = UIHostingConfiguration {
-            BubbleTextView(item: .sentPlaceholder)
+            switch message.type {
+            case .text:
+                BubbleTextView(item: message)
+            case .photo, .video:
+                BubblePhotoView(item: message)
+            }
         }
         return cell
     }

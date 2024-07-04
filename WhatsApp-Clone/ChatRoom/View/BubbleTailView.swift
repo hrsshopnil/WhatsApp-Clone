@@ -14,6 +14,7 @@ struct BubbleTailView: View {
     private var bgColor: Color {
         return direction == .sent ? .bubbleGreen : .bubbleWhite
     }
+    
     var body: some View {
         Image(direction == .sent ? .outgoingTail : .incomingTail)
             .renderingMode(.template)
