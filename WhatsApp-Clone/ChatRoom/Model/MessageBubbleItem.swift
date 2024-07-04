@@ -3,15 +3,21 @@
 //  WhatsApp-Clone
 //
 //  Created by shopnil hasan on 3/7/24.
-//
 
-import Foundation
+import SwiftUI
 
 struct MessageBubbleItem: Identifiable {
     
     let id = UUID().uuidString
     let text: String
     let direction: MessageDirection
+    
+    static let sentPlaceholder = MessageBubbleItem(text: "Hoo Lee Sheet", direction: .sent)
+    static let receivedPlaceholder = MessageBubbleItem(text: "pette", direction: .received)
+    
+    var bgColor: Color {
+        return direction == .sent ? .bubbleGreen : .bubbleWhite
+    }
 }
 
 enum MessageDirection {
