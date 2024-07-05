@@ -14,6 +14,7 @@ struct ChatRoomView: View {
         .safeAreaInset(edge: .bottom) {
             TextInputArea()
         }
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 HStack {
