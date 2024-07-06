@@ -33,6 +33,10 @@ struct BubbleAudioView: View {
             .applyTail(item.direction)
             TimeStampView(item: item)
         }
+        .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
+        .frame(maxWidth: .infinity, alignment: item.alignment)
+        .padding(.leading, item.direction == .received ? 5 : 100)
+        .padding(.trailing, item.direction == .received ? 100 : 5)
     }
 }
 
