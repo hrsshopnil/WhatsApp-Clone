@@ -30,7 +30,8 @@ struct MessageBubbleItem: Identifiable {
         MessageBubbleItem(text: "hello there", type: .text, direction: .received),
         MessageBubbleItem(text: "Check this photo", type: .photo, direction: .sent),
         MessageBubbleItem(text: "Play this video", type: .video, direction: .received),
-        MessageBubbleItem(text: "", type: .audio, direction: .received)
+        MessageBubbleItem(text: "", type: .audio, direction: .received),
+        MessageBubbleItem(text: "", type: .audio, direction: .sent)
     ]
 }
 
@@ -40,7 +41,7 @@ enum MessageType {
 enum MessageDirection {
     case sent, received
     
-    static var random: MessageDirection {
-        return [MessageDirection.sent, .received].randomElement() ?? .sent
-    }
+//    static var random: MessageDirection {
+//        return [MessageDirection.sent, .received].randomElement() ?? .sent
+//    }
 }
