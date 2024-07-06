@@ -19,7 +19,7 @@ struct BubblePhotoView: View {
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
                     .overlay{
                         if item.type == .video {
-                            playButton()
+                            PlayButton(item: item)
                         }
                     }
                 if item.direction == .received {shareButton()}
@@ -27,15 +27,6 @@ struct BubblePhotoView: View {
             
             if item.direction == .received {Spacer()}
         }
-    }
-    
-    private func playButton() -> some View {
-        Image(systemName: "play.fill")
-            .padding()
-            .imageScale(.large)
-            .foregroundStyle(.gray)
-            .background(.thinMaterial)
-            .clipShape(Circle())
     }
     
     private func messagePhotoView() -> some View {
