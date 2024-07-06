@@ -130,7 +130,6 @@
 		B380DE012C2EEDB00091BB7C /* WhatsApp-Clone */ = {
 			isa = PBXGroup;
 			children = (
-				B3A47B462C36C02300CF9939 /* Helpers */,
 				B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */,
 				B353ADFE2C301F0B001C8DD3 /* MainTabView.swift */,
 				B3ED60842C34206200B3B2CE /* ChatRoom */,
@@ -139,6 +138,7 @@
 				B3AA26E42C32BA5A00CA8F9D /* CommunitiesTab */,
 				B33D47082C317A2F00BD31A6 /* CallTab */,
 				B33D46FF2C316D5D00BD31A6 /* UpdateTab */,
+				B3A47B462C36C02300CF9939 /* Helpers */,
 				B380DE062C2EEDB10091BB7C /* Assets.xcassets */,
 				B380DE082C2EEDB10091BB7C /* Preview Content */,
 			);
