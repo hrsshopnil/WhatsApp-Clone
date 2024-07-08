@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C02C3BFBD700FC584D /* RegisterView.swift */; };
 		B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB972C3964E7007B725D /* PlayButton.swift */; };
 		B32BFB9B2C396633007B725D /* BubbleAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB9A2C396633007B725D /* BubbleAudioView.swift */; };
 		B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D47022C316EC300BD31A6 /* ChannelListView.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B30059C02C3BFBD700FC584D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B32BFB972C3964E7007B725D /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		B32BFB9A2C396633007B725D /* BubbleAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAudioView.swift; sourceTree = "<group>"; };
 		B33D47022C316EC300BD31A6 /* ChannelListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelListView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B30059C22C3BFED600FC584D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B345D59B2C3AAB0700346152 /* LoginView.swift */,
+				B30059C02C3BFBD700FC584D /* RegisterView.swift */,
+				B345D59D2C3AAB1100346152 /* AuthHeaderView.swift */,
+				B345D59F2C3AAB2100346152 /* TextFieldView.swift */,
+				B345D5A12C3AC82D00346152 /* AuthButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B30059C32C3BFF1500FC584D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B32BFB962C3964D0007B725D /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,10 +155,8 @@
 		B345D59A2C3AAAE900346152 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				B345D59B2C3AAB0700346152 /* LoginView.swift */,
-				B345D59D2C3AAB1100346152 /* AuthHeaderView.swift */,
-				B345D59F2C3AAB2100346152 /* TextFieldView.swift */,
-				B345D5A12C3AC82D00346152 /* AuthButton.swift */,
+				B30059C32C3BFF1500FC584D /* ViewModel */,
+				B30059C22C3BFED600FC584D /* Views */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -365,6 +384,7 @@
 				B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */,
 				B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */,
 				B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */,
+				B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
 				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,

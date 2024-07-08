@@ -27,7 +27,7 @@ struct LoginView: View {
             }
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(LinearGradient(colors: [.teal.opacity(0.5), .teal], startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(colors: [.teal.opacity(0.6), .teal], startPoint: .top, endPoint: .bottom))
             .ignoresSafeArea()
         }
     }
@@ -47,11 +47,11 @@ private func forgotPassword() -> some View {
 
 private func signUpButton() -> some View {
     NavigationLink {
-        Text("alsdkfj")
+        RegisterView()
     } label: {
         HStack {
             (
-            Text("Don't have an account?")
+            Text("Don't have an account? ")
             +
             Text("Create one")
                 .bold()
