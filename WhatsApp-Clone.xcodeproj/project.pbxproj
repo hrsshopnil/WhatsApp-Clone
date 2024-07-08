@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C02C3BFBD700FC584D /* RegisterView.swift */; };
+		B30059C52C3C007200FC584D /* AuthScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C42C3C007200FC584D /* AuthScreenModel.swift */; };
 		B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB972C3964E7007B725D /* PlayButton.swift */; };
 		B32BFB9B2C396633007B725D /* BubbleAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB9A2C396633007B725D /* BubbleAudioView.swift */; };
 		B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D47022C316EC300BD31A6 /* ChannelListView.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		B30059C02C3BFBD700FC584D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		B30059C42C3C007200FC584D /* AuthScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreenModel.swift; sourceTree = "<group>"; };
 		B32BFB972C3964E7007B725D /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		B32BFB9A2C396633007B725D /* BubbleAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAudioView.swift; sourceTree = "<group>"; };
 		B33D47022C316EC300BD31A6 /* ChannelListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelListView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		B30059C32C3BFF1500FC584D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B30059C42C3C007200FC584D /* AuthScreenModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				B353ADFF2C301F0B001C8DD3 /* MainTabView.swift in Sources */,
 				B32BFB9B2C396633007B725D /* BubbleAudioView.swift in Sources */,
 				B3ED60892C3427B000B3B2CE /* TextInputArea.swift in Sources */,
+				B30059C52C3C007200FC584D /* AuthScreenModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,20 +10,19 @@ import SwiftUI
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @State private var email = ""
-    @State private var username = ""
-    @State private var password = ""
+    @ObservedObject var authScreenModel: AuthScreenModel
     var body: some View {
         VStack {
             Spacer()
             
             AuthHeaderView()
-            TextFieldView(image: "envelope", placeHolder: "email", isPassword: false, text: $email)
-            TextFieldView(image: "at", placeHolder: "username", isPassword: false, text: $username)
-            TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $password)
+            TextFieldView(image: "envelope", placeHolder: "email", isPassword: false, text: $authScreenModel.email)
+            TextFieldView(image: "at", placeHolder: "username", isPassword: false, text: $authScreenModel.username)
+            TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $authScreenModel.password)
             AuthButton(title: "Register") {
                 //
             }
+            .disabled(authScreenModel.disabledRegisterButton)
             .padding(.top)
             
             Spacer()
@@ -38,6 +37,7 @@ struct RegisterView: View {
                 )
                 .foregroundStyle(.white)
             }
+            .padding(.bottom, 25)
 
         }
         .padding(20)
@@ -48,5 +48,5 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView()
+    RegisterView(authScreenModel: AuthScreenModel())
 }

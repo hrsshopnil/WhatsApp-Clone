@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var password = ""
+    @StateObject private var authScreenModel = AuthScreenModel()
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 AuthHeaderView()
-                TextFieldView(image: "envelope", placeHolder: "email", isPassword: false, text: $email)
-                TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $password)
+                TextFieldView(image: "envelope", placeHolder: "email", isPassword: false, text: $authScreenModel.email)
+                TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $authScreenModel.password)
                 forgotPassword()
                 AuthButton(title: "Login") {
                     //
                 }
+                .disabled(authScreenModel.disabledLoginButton)
                 Spacer()
                 signUpButton()
-                    .padding(.bottom)
+                    .padding(.bottom, 40)
             }
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -31,33 +31,34 @@ struct LoginView: View {
             .ignoresSafeArea()
         }
     }
-}
-
-private func forgotPassword() -> some View {
-    Button {
-        
-    } label: {
-        Text("Forgot Password?")
-            .font(.subheadline)
-            .foregroundStyle(.white)
-            .padding(.vertical, 10)
-            .bold()
-    }
-}
-
-private func signUpButton() -> some View {
-    NavigationLink {
-        RegisterView()
-    } label: {
-        HStack {
-            (
-            Text("Don't have an account? ")
-            +
-            Text("Create one")
+    
+    
+    private func forgotPassword() -> some View {
+        Button {
+            
+        } label: {
+            Text("Forgot Password?")
+                .font(.subheadline)
+                .foregroundStyle(.white)
+                .padding(.vertical, 10)
                 .bold()
-            )
         }
-        .foregroundStyle(.white)
+    }
+    
+    private func signUpButton() -> some View {
+        NavigationLink {
+            RegisterView(authScreenModel: authScreenModel)
+        } label: {
+            HStack {
+                (
+                    Text("Don't have an account? ")
+                    +
+                    Text("Create one")
+                        .bold()
+                )
+            }
+            .foregroundStyle(.white)
+        }
     }
 }
 #Preview {
