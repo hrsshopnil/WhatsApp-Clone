@@ -20,7 +20,9 @@ struct RegisterView: View {
             TextFieldView(image: "at", placeHolder: "username", isPassword: false, text: $authScreenModel.username)
             TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $authScreenModel.password)
             AuthButton(title: "Register") {
-                //
+                Task {
+                    await authScreenModel.handleSignIn()
+                }
             }
             .disabled(authScreenModel.disabledRegisterButton)
             .padding(.top)
