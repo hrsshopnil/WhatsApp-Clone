@@ -10,10 +10,6 @@ import Combine
 import FirebaseAuth
 import FirebaseDatabase
 
-enum AuthState {
-    case pending, loggedin, loggedout
-}
-
 protocol AuthProvidor {
     static var shared: AuthProvidor {get}
     var authstate: CurrentValueSubject<AuthState, Never> {get}
@@ -22,6 +18,25 @@ protocol AuthProvidor {
     func register(email: String, username: String, password: String) async throws
     func logOut() async throws
 }
+
+enum AuthState {
+    case pending, loggedin, loggedout
+}
+
+enum AuthError: Error {
+    case failedToRegister(_ description: String), failedToSaveData(_ description: String)
+    
+    var errorMessage: String? {
+        switch self {
+            
+        case .failedToRegister(let description):
+            return description
+        case .failedToSaveData(let description):
+            return description
+        }
+    }
+}
+
 
 final class AuthManager: AuthProvidor {
     
@@ -42,10 +57,15 @@ final class AuthManager: AuthProvidor {
     }
     
     func register(email: String, username: String, password: String) async throws {
-        let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
-        let uid = authResult.user.uid
-        let newUser = UserItem(id: uid, username: username, email: email)
-        try await saveUserInfoDatabase(user: newUser)
+        do {
+            let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            let uid = authResult.user.uid
+            let newUser = UserItem(id: uid, username: username, email: email)
+            try await saveUserInfoDatabase(user: newUser)
+        } catch {
+            print("failed to register: \(error.localizedDescription)")
+            throw AuthError.failedToRegister(error.localizedDescription)
+        }
     }
     
     func logOut() async throws {
@@ -53,8 +73,14 @@ final class AuthManager: AuthProvidor {
     }
     
     private func saveUserInfoDatabase(user: UserItem) async throws {
-        let userDictionary = ["uid": user.id, "username": user.username, "email": user.email]
-        try await Database.database().reference().child("users").child(user.id).setValue(userDictionary)
+        do {
+            let userDictionary = ["uid": user.id, "username": user.username, "email": user.email]
+            try await Database.database().reference().child("users").child(user.id).setValue(userDictionary)
+        }
+        catch {
+            print("failed to save user info into database: \(error.localizedDescription)")
+            throw AuthError.failedToSaveData(error.localizedDescription)
+        }
     }
 }
 

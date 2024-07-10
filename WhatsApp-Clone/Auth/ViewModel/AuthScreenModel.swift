@@ -29,8 +29,9 @@ final class AuthScreenModel: ObservableObject {
         isLoading = true
         do {
             try await AuthManager.shared.register(email: email, username: username, password: password)
-        } catch {
-            errorstate.errorMessage = "Failed to create accoung \(error.localizedDescription)"
+        } 
+        catch {
+            errorstate.errorMessage = "Failed to Register \(error.localizedDescription)"
             errorstate.showError = true
             isLoading = false
         }
