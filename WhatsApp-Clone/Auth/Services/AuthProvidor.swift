@@ -10,15 +10,6 @@ import Combine
 import FirebaseAuth
 import FirebaseDatabase
 
-protocol AuthProvidor {
-    static var shared: AuthProvidor {get}
-    var authstate: CurrentValueSubject<AuthState, Never> {get}
-    func autoLogin() async
-    func login(email: String, password: String) async throws
-    func register(email: String, username: String, password: String) async throws
-    func logOut() async throws
-}
-
 enum AuthState {
     case pending, loggedin, loggedout
 }
@@ -37,6 +28,14 @@ enum AuthError: Error {
     }
 }
 
+protocol AuthProvidor {
+    static var shared: AuthProvidor {get}
+    var authstate: CurrentValueSubject<AuthState, Never> {get}
+    func autoLogin() async
+    func login(email: String, password: String) async throws
+    func register(email: String, username: String, password: String) async throws
+    func logOut() async throws
+}
 
 final class AuthManager: AuthProvidor {
     
@@ -49,7 +48,11 @@ final class AuthManager: AuthProvidor {
     var authstate = CurrentValueSubject<AuthState, Never>(.pending)
     
     func autoLogin() async {
-        
+        if Auth.auth().currentUser == nil {
+            authstate.send(.loggedout)
+        } else {
+            Task { await fetchCurrentUser() }
+        }
     }
     
     func login(email: String, password: String) async throws {
@@ -90,4 +93,16 @@ struct UserItem: Identifiable, Hashable, Codable {
     let email: String
     var bio: String? = "Hey there I'm using whatsapp"
     var profileImageUrl: String? = nil
+}
+
+extension AuthManager {
+    private func fetchCurrentUser() async {
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}
+        Database.database().reference().child("users").child(currentUid).observe(.value) { snapshot in
+            
+        } withCancel: { error in
+            print("Failed to get current user info")
+        }
+
+    }
 }
