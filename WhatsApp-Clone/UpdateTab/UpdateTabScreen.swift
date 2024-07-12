@@ -73,8 +73,8 @@ private struct statusSection: View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            statusSectionButton(imageName: "camera.fill")
-            statusSectionButton(imageName: "pencil")
+            IconWithTransparentBG(imageName: "camera.fill")
+            IconWithTransparentBG(imageName: "pencil")
         }
     }
 }
@@ -104,19 +104,8 @@ private struct channelSectionHeader: View {
                 .fontWeight(.bold)
                 .foregroundStyle(.whatsAppBlack)
             Spacer()
-            statusSectionButton(imageName: "plus")
+            IconWithTransparentBG(imageName: "plus")
         }
-    }
-}
-private func statusSectionButton(imageName: String) -> some View {
-    Button {
-        
-    } label: {
-        Image(systemName: imageName)
-            .padding(10)
-            .background(Color(.systemGray5))
-            .fontWeight(.semibold)
-            .clipShape(Circle())
     }
 }
 #Preview {

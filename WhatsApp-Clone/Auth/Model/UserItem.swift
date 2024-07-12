@@ -11,9 +11,12 @@ struct UserItem: Identifiable, Hashable, Codable {
     let id: String
     let username: String
     let email: String
-    var bio: String? = "Hey there I'm using whatsapp"
+    var bio: String?
     var profileImageUrl: String? = nil
     
+    var bioUnwrapped: String {
+        return bio ?? "Hey there I'm using whatsapp"
+    }
     static let placeHolder = UserItem(id: "2", username: "hrrshopnil", email: "a@b")
 }
 

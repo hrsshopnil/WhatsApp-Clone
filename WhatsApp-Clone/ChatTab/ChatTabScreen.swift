@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatTabScreen: View {
     @State private var searchText = ""
+    @State private var newChat = false
     var body: some View {
         NavigationStack {
             List {
@@ -39,6 +40,9 @@ struct ChatTabScreen: View {
                 .font(.caption)
                 .padding(.horizontal)
             }
+            .sheet(isPresented: $newChat) {
+                ChatPartnerPickerScreen()
+            }
             .listStyle(.plain)
             .navigationTitle("Chat")
             .searchable(text: $searchText)
@@ -62,20 +66,17 @@ struct ChatTabScreen: View {
                     } label: {
                         Image(.circle)
                     }
-                    
                     Button {
                         
                     } label: {
                         Image(systemName: "camera")
                     }
-                    
                     Button {
-                        
+                        newChat = true
                     } label: {
                         Image(systemName: "plus.circle.fill")
                             .foregroundStyle(.blue)
                     }
-                    
                 }
             }
         }
