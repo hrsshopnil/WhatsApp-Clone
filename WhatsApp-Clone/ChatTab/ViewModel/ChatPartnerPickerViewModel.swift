@@ -13,4 +13,23 @@ enum ChatCreationRoute {
 
 final class ChatPartnerPickerViewModel: ObservableObject {
     @Published var navStack = [ChatCreationRoute]()
+    @Published var selectedChatPartners = [UserItem]()
+    
+    var showSelectedUser: Bool {
+        return !selectedChatPartners.isEmpty
+    }
+    
+    func handleItemSelection(_ item: UserItem) {
+        if isUserSelected(item) {
+            guard let index = selectedChatPartners.firstIndex(where: {$0.id == item.id}) else {return}
+            selectedChatPartners.remove(at: index)
+        } else {
+            selectedChatPartners.append(item)
+        }
+    }
+    
+    func isUserSelected(_ user: UserItem) -> Bool {
+        let isSelected = selectedChatPartners.contains {$0.id == user.id}
+        return isSelected
+    }
 }

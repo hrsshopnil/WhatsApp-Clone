@@ -12,12 +12,20 @@ struct AddGroupChatPartnerScreen: View {
     @State private var searchText = ""
     var body: some View {
         List {
+            if viewModel.showSelectedUser {
+                Text("aldsfkalkdf")
+            }
             Section {
-                ForEach(0..<12) {_ in
-                    chatPartnerSelectView(.placeHolder)
+                ForEach([UserItem.placeHolder]) {item in
+                    Button {
+                        viewModel.handleItemSelection(item)
+                    } label: {
+                        chatPartnerSelectView(.placeHolder)
+                    }
                 }
             }
         }
+        .animation(.easeInOut, value: viewModel.showSelectedUser)
         .searchable(text: $searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: "Search name or number")
@@ -25,9 +33,12 @@ struct AddGroupChatPartnerScreen: View {
     
     private func chatPartnerSelectView(_ user: UserItem) -> some View {
         ChatPartnerRowView(user: user) {
+            let isSelected = viewModel.isUserSelected(user)
+            let imageName = isSelected ? "checkmark.circle.fill" : "circle"
+            let color = isSelected ? Color.blue : Color.gray
             Spacer()
-            Image(systemName: "circle")
-                .foregroundStyle(.gray)
+            Image(systemName: imageName)
+                .foregroundStyle(color)
                 .imageScale(.large)
         }
     }
