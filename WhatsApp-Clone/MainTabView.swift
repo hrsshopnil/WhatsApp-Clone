@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MainTabView: View {
-    init() {
+    private let loggedInUser: UserItem
+    init(_ user: UserItem) {
+        self.loggedInUser = user
         makeTabBarOpaque()
         let thumbImage = UIImage(systemName: "circle.fill")
         UISlider.appearance().setThumbImage(thumbImage, for: .normal)
@@ -87,5 +89,5 @@ extension MainTabView {
     }
 }
 #Preview {
-    MainTabView()
+    MainTabView(.placeHolder)
 }

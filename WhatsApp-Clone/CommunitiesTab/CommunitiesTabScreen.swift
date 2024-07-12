@@ -12,7 +12,10 @@ struct CommunitiesTabScreen: View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading,  spacing: 10) {
-                    Image(.communities)
+                    VStack(alignment: .center) {
+                        Image(.communities)
+                    }
+                    .frame(maxWidth: .infinity)
                     Group {
                         Text("Stay connected with communities")
                             .font(.title2)

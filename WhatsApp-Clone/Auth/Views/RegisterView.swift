@@ -21,7 +21,7 @@ struct RegisterView: View {
             TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $authScreenModel.password)
             AuthButton(title: "Register") {
                 Task {
-                    await authScreenModel.handleSignIn()
+                    await authScreenModel.handleRegistration()
                 }
             }
             .disabled(authScreenModel.disabledRegisterButton)

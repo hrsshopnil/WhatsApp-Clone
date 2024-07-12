@@ -13,6 +13,8 @@ struct UserItem: Identifiable, Hashable, Codable {
     let email: String
     var bio: String? = "Hey there I'm using whatsapp"
     var profileImageUrl: String? = nil
+    
+    static let placeHolder = UserItem(id: "2", username: "hrrshopnil", email: "a@b")
 }
 
 extension String {

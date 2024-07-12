@@ -18,7 +18,9 @@ struct LoginView: View {
                 TextFieldView(image: "lock", placeHolder: "password", isPassword: true, text: $authScreenModel.password)
                 forgotPassword()
                 AuthButton(title: "Login") {
-                    //
+                    Task {
+                        await authScreenModel.handleLogIn()
+                    }
                 }
                 .disabled(authScreenModel.disabledLoginButton)
                 Spacer()

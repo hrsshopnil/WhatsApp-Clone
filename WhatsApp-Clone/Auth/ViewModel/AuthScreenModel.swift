@@ -26,7 +26,7 @@ final class AuthScreenModel: ObservableObject {
         email.isEmpty || password.isEmpty || username.isEmpty || isLoading || email.contains(" ") || password.count < 6 || !email.contains("@")
     }
     
-    func handleSignIn() async {
+    func handleRegistration() async {
         isLoading = true
         do {
             try await AuthManager.shared.register(email: email, username: username, password: password)
@@ -37,4 +37,17 @@ final class AuthScreenModel: ObservableObject {
             isLoading = false
         }
     }
+    
+    func handleLogIn() async {
+        isLoading = true
+        do {
+            try await AuthManager.shared.login(email: email, password: password)
+        }
+        catch {
+            errorstate.errorMessage = "Failed to Login \(error.localizedDescription)"
+            errorstate.showError = true
+            isLoading = false
+        }
+    }
+
 }

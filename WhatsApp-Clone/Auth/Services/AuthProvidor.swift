@@ -15,7 +15,9 @@ enum AuthState {
 }
 
 enum AuthError: Error {
-    case failedToRegister(_ description: String), failedToSaveData(_ description: String)
+    case failedToRegister(_ description: String),
+         failedToSaveData(_ description: String),
+         failedToLogin(_ description: String)
     
     var errorMessage: String? {
         switch self {
@@ -23,6 +25,8 @@ enum AuthError: Error {
         case .failedToRegister(let description):
             return description
         case .failedToSaveData(let description):
+            return description
+        case .failedToLogin(let description):
             return description
         }
     }
@@ -56,7 +60,17 @@ final class AuthManager: AuthProvidor {
     }
     
     func login(email: String, password: String) async throws {
-        
+        do {
+            let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
+            fetchCurrentUser()
+            if let userEmail = authResult.user.email {
+                print("Successfully logged in \(userEmail)")
+            }
+        }
+        catch {
+            print("failed to login \(email)")
+            throw AuthError.failedToLogin(error.localizedDescription)
+        }
     }
     
     func register(email: String, username: String, password: String) async throws {
