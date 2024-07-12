@@ -40,6 +40,8 @@
 		B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */; };
 		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
 		B3B512962C3D7BB700B7E81A /* AuthProvidor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512952C3D7BB700B7E81A /* AuthProvidor.swift */; };
+		B3BCCAE62C417C9400B19191 /* ChatPartnerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BCCAE52C417C9400B19191 /* ChatPartnerPickerViewModel.swift */; };
+		B3BCCAE82C41837B00B19191 /* AddGroupChatPartnerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BCCAE72C41837B00B19191 /* AddGroupChatPartnerScreen.swift */; };
 		B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA8E2C3568DC0032560F /* MessageListController.swift */; };
 		B3C2DA912C356EB70032560F /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA902C356EB70032560F /* MessageListView.swift */; };
 		B3C2DA942C3571360032560F /* MessageBubbleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA932C3571360032560F /* MessageBubbleItem.swift */; };
@@ -88,6 +90,8 @@
 		B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTabScreen.swift; sourceTree = "<group>"; };
 		B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatItem.swift; sourceTree = "<group>"; };
 		B3B512952C3D7BB700B7E81A /* AuthProvidor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvidor.swift; sourceTree = "<group>"; };
+		B3BCCAE52C417C9400B19191 /* ChatPartnerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerViewModel.swift; sourceTree = "<group>"; };
+		B3BCCAE72C41837B00B19191 /* AddGroupChatPartnerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupChatPartnerScreen.swift; sourceTree = "<group>"; };
 		B3C2DA8E2C3568DC0032560F /* MessageListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListController.swift; sourceTree = "<group>"; };
 		B3C2DA902C356EB70032560F /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
 		B3C2DA932C3571360032560F /* MessageBubbleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleItem.swift; sourceTree = "<group>"; };
@@ -248,10 +252,12 @@
 		B3AA26E72C32C2C700CA8F9D /* ChatTab */ = {
 			isa = PBXGroup;
 			children = (
+				B3BCCAE42C417BF900B19191 /* ViewModel */,
 				B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */,
 				B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */,
 				B3D467972C41567200FE4263 /* ChatPartnerPickerScreen.swift */,
 				B3D467992C4159DA00FE4263 /* ChatPartnerRowView.swift */,
+				B3BCCAE72C41837B00B19191 /* AddGroupChatPartnerScreen.swift */,
 			);
 			path = ChatTab;
 			sourceTree = "<group>";
@@ -262,6 +268,14 @@
 				B3B512952C3D7BB700B7E81A /* AuthProvidor.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B3BCCAE42C417BF900B19191 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B3BCCAE52C417C9400B19191 /* ChatPartnerPickerViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B3C2DA922C35711E0032560F /* Model */ = {
@@ -444,6 +458,7 @@
 				B3A47B4A2C36D3EC00CF9939 /* BubblePhotoView.swift in Sources */,
 				B3C5E4D92C4031FB00C16537 /* RootView.swift in Sources */,
 				B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */,
+				B3BCCAE62C417C9400B19191 /* ChatPartnerPickerViewModel.swift in Sources */,
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,
 				B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */,
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
@@ -453,6 +468,7 @@
 				B3C2DA942C3571360032560F /* MessageBubbleItem.swift in Sources */,
 				B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */,
 				B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */,
+				B3BCCAE82C41837B00B19191 /* AddGroupChatPartnerScreen.swift in Sources */,
 				B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */,
 				B3C5E4DB2C40320200C16537 /* RootModel.swift in Sources */,
 				B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */,
