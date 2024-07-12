@@ -45,6 +45,8 @@
 		B3C2DA942C3571360032560F /* MessageBubbleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2DA932C3571360032560F /* MessageBubbleItem.swift */; };
 		B3C5E4D92C4031FB00C16537 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C5E4D82C4031FB00C16537 /* RootView.swift */; };
 		B3C5E4DB2C40320200C16537 /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C5E4DA2C40320200C16537 /* RootModel.swift */; };
+		B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6E1FF2C40FAB70086A14C /* UserItem.swift */; };
+		B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */; };
 		B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */; };
 		B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */; };
 		B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */; };
@@ -88,6 +90,8 @@
 		B3C2DA932C3571360032560F /* MessageBubbleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleItem.swift; sourceTree = "<group>"; };
 		B3C5E4D82C4031FB00C16537 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B3C5E4DA2C40320200C16537 /* RootModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootModel.swift; sourceTree = "<group>"; };
+		B3D6E1FF2C40FAB70086A14C /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
+		B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabScreen.swift; sourceTree = "<group>"; };
 		B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 			children = (
 				B3B512942C3D7B8F00B7E81A /* Services */,
 				B30059C32C3BFF1500FC584D /* ViewModel */,
+				B3D6E2012C40FAC20086A14C /* Model */,
 				B30059C22C3BFED600FC584D /* Views */,
 			);
 			path = Auth;
@@ -201,6 +206,7 @@
 				B33D47082C317A2F00BD31A6 /* CallTab */,
 				B33D46FF2C316D5D00BD31A6 /* UpdateTab */,
 				B3A47B462C36C02300CF9939 /* Helpers */,
+				B3D6E2022C40FB1F0086A14C /* Utilities */,
 				B345D5982C3AA37700346152 /* GoogleService-Info.plist */,
 				B380DE062C2EEDB10091BB7C /* Assets.xcassets */,
 				B380DE082C2EEDB10091BB7C /* Preview Content */,
@@ -264,6 +270,22 @@
 				B3C5E4D82C4031FB00C16537 /* RootView.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		B3D6E2012C40FAC20086A14C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3D6E1FF2C40FAB70086A14C /* UserItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3D6E2022C40FB1F0086A14C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B3ED60792C34169C00B3B2CE /* SettingsTab */ = {
@@ -406,6 +428,7 @@
 				B3C5E4D92C4031FB00C16537 /* RootView.swift in Sources */,
 				B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */,
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,
+				B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */,
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
 				B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */,
 				B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */,
@@ -424,6 +447,7 @@
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
 				B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */,
+				B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */,
 				B380DE032C2EEDB00091BB7C /* WhatsApp_CloneApp.swift in Sources */,
 				B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */,
 				B345D5A22C3AC82D00346152 /* AuthButton.swift in Sources */,

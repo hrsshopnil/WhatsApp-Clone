@@ -13,7 +13,8 @@ final class RootModel: ObservableObject {
     private var cancellable: AnyCancellable?
     
     init() {
-        cancellable = AuthManager.shared.authstate.receive(on: DispatchQueue.main)
+        cancellable = AuthManager.shared.authstate
+            .receive(on: DispatchQueue.main)
             .sink {[weak self] latestAuthState in
                 self?.authstate = latestAuthState
             }

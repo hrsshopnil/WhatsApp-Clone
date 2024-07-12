@@ -14,7 +14,7 @@ struct RootView: View {
         case .pending:
             ProgressView()
                 .controlSize(.large)
-        case .loggedin(let loggedInUser):
+        case .loggedin(_):
             MainTabView()
         case .loggedout:
             LoginView()

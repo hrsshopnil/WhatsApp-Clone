@@ -73,13 +73,20 @@ final class AuthManager: AuthProvidor {
     }
     
     func logOut() async throws {
-        
+        do {
+            try Auth.auth().signOut()
+            authstate.send(.loggedout)
+            print("Succesfully logged out")
+        }
+        catch {
+            print("failed to log out \(error.localizedDescription)")
+        }
     }
     
     private func saveUserInfoDatabase(user: UserItem) async throws {
         do {
-            let userDictionary = ["uid": user.id, "username": user.username, "email": user.email]
-            try await Database.database().reference().child("users").child(user.id).setValue(userDictionary)
+            let userDictionary: [String: Any] = [.id: user.id, .username: user.username, .email: user.email]
+            try await FirebaseConstants.userRef.child(user.id).setValue(userDictionary)
         }
         catch {
             print("🔐 Failed to save user info into database: \(error.localizedDescription)")
@@ -88,19 +95,11 @@ final class AuthManager: AuthProvidor {
     }
 }
 
-struct UserItem: Identifiable, Hashable, Codable {
-    let id: String
-    let username: String
-    let email: String
-    var bio: String? = "Hey there I'm using whatsapp"
-    var profileImageUrl: String? = nil
-}
-
 extension AuthManager {
     private func fetchCurrentUser() {
         guard let currentUid = Auth.auth().currentUser?.uid else {return}
         
-        Database.database().reference().child("users").child(currentUid).observe(.value) {[weak self] snapshot in
+        FirebaseConstants.userRef.child(currentUid).observe(.value) {[weak self] snapshot in
             
             guard let userDictionary = snapshot.value as? [String: Any] else {return}
             let loggedInUser = UserItem(dictionary: userDictionary)
@@ -109,24 +108,5 @@ extension AuthManager {
         } withCancel: { error in
             print("Failed to get current user info")
         }
-
-    }
-}
-
-extension String {
-    static let id = "id"
-    static let username = "username"
-    static let email = "email"
-    static let bio = "bio"
-    static let profileImageUrl = "profileImageUrl"
-}
-
-extension UserItem {
-    init(dictionary: [String: Any]) {
-        self.id = dictionary["id"] as? String ?? ""
-        self.username = dictionary[.username] as? String ?? ""
-        self.email = dictionary[.email] as? String ?? ""
-        self.bio = dictionary[.bio] as? String? ?? nil
-        self.profileImageUrl = dictionary[.profileImageUrl] as? String? ?? nil
     }
 }

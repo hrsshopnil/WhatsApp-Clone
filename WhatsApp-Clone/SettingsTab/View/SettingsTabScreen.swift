@@ -35,6 +35,15 @@ struct SettingsTabScreen: View {
                     SettingsItemView(item: .help)
                     SettingsItemView(item: .tellFriend)
                 }
+                Button {
+                    Task {
+                        try? await AuthManager.shared.logOut()
+                    }
+                } label: {
+                    Text("Log Out")
+                        .foregroundStyle(.red)
+                }
+
             }
             .navigationTitle("Settings")
             .searchable(text: $searchText)
