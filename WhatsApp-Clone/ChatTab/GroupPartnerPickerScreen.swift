@@ -7,20 +7,22 @@
 
 import SwiftUI
 
-struct AddGroupChatPartnerScreen: View {
+struct GroupPartnerPickerScreen: View {
     @ObservedObject var viewModel: ChatPartnerPickerViewModel
     @State private var searchText = ""
     var body: some View {
         List {
             if viewModel.showSelectedUser {
-                Text("aldsfkalkdf")
+                SelectedPartnerView(users: viewModel.selectedChatPartners) {user in
+                    viewModel.handleItemSelection(user)
+                }
             }
             Section {
-                ForEach([UserItem.placeHolder]) {item in
+                ForEach(UserItem.placeHolders) {item in
                     Button {
                         viewModel.handleItemSelection(item)
                     } label: {
-                        chatPartnerSelectView(.placeHolder)
+                        chatPartnerSelectView(item)
                     }
                 }
             }
@@ -45,5 +47,5 @@ struct AddGroupChatPartnerScreen: View {
 }
 
 #Preview {
-    AddGroupChatPartnerScreen(viewModel: ChatPartnerPickerViewModel())
+    GroupPartnerPickerScreen(viewModel: ChatPartnerPickerViewModel())
 }

@@ -66,7 +66,7 @@ extension ChatPartnerPickerScreen {
         switch route {
             
         case .addGroupChatMember:
-            AddGroupChatPartnerScreen(viewModel: viewModel)
+            GroupPartnerPickerScreen(viewModel: viewModel)
         case .setUpGroup:
             Text("Set Up Chat Group")
         }
