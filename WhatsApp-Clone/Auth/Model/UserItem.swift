@@ -30,7 +30,7 @@ extension String {
 
 extension UserItem {
     init(dictionary: [String: Any]) {
-        self.id = dictionary["id"] as? String ?? ""
+        self.id = dictionary[.id] as? String ?? ""
         self.username = dictionary[.username] as? String ?? ""
         self.email = dictionary[.email] as? String ?? ""
         self.bio = dictionary[.bio] as? String? ?? nil

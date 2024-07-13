@@ -96,6 +96,9 @@ final class AuthManager: AuthProvidor {
             print("failed to log out \(error.localizedDescription)")
         }
     }
+}
+
+extension AuthManager {
     
     private func saveUserInfoDatabase(user: UserItem) async throws {
         do {
@@ -107,9 +110,7 @@ final class AuthManager: AuthProvidor {
             throw AuthError.failedToSaveData(error.localizedDescription)
         }
     }
-}
-
-extension AuthManager {
+    
     private func fetchCurrentUser() {
         guard let currentUid = Auth.auth().currentUser?.uid else {return}
         
