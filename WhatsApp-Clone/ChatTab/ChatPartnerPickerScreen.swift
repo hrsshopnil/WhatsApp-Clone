@@ -68,35 +68,11 @@ extension ChatPartnerPickerScreen {
         case .addGroupChatMember:
             GroupPartnerPickerScreen(viewModel: viewModel)
         case .setUpGroup:
-            Text("Set Up Chat Group")
+            SetUpGroupView(viewModel: viewModel)
         }
     }
 }
-enum ChatPartnerPickerOption: String, CaseIterable, Identifiable {
-    case newGroup = "New Group"
-    case newChat = "New Contact"
-    case addToContact = "New Community"
-    
-    var id: String {
-        return rawValue
-    }
-    
-    var title: String {
-        return rawValue
-    }
-    
-    var imageName: String {
-        switch self {
-            
-        case .newGroup:
-            return "person.2.fill"
-        case .newChat:
-            return "person.fill.badge.plus"
-        case .addToContact:
-            return "person.3.fill"
-        }
-    }
-}
+
 #Preview {
     ChatPartnerPickerScreen()
 }

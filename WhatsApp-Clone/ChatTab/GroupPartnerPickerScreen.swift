@@ -22,7 +22,7 @@ struct GroupPartnerPickerScreen: View {
                     Button {
                         viewModel.handleItemSelection(item)
                     } label: {
-                        chatPartnerSelectView(item)
+                        chatPartnerSelectionView(item)
                     }
                 }
             }
@@ -31,9 +31,28 @@ struct GroupPartnerPickerScreen: View {
         .searchable(text: $searchText,
                     placement: .navigationBarDrawer(displayMode: .always),
                     prompt: "Search name or number")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("New Participants")
+                    let count = viewModel.selectedChatPartners.count
+                    let maxCount = UserItem.placeHolders.count - 5
+                    Text("\(count)/\(maxCount)")
+                        .font(.footnote)
+                        .foregroundStyle(.gray)
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Next") {
+                    viewModel.navStack.append(.setUpGroup)
+                }
+                .disabled(viewModel.disableNextButton)
+            }
+        }
     }
     
-    private func chatPartnerSelectView(_ user: UserItem) -> some View {
+    private func chatPartnerSelectionView(_ user: UserItem) -> some View {
         ChatPartnerRowView(user: user) {
             let isSelected = viewModel.isUserSelected(user)
             let imageName = isSelected ? "checkmark.circle.fill" : "circle"
@@ -47,5 +66,7 @@ struct GroupPartnerPickerScreen: View {
 }
 
 #Preview {
-    GroupPartnerPickerScreen(viewModel: ChatPartnerPickerViewModel())
+    NavigationStack {
+        GroupPartnerPickerScreen(viewModel: ChatPartnerPickerViewModel())
+    }
 }

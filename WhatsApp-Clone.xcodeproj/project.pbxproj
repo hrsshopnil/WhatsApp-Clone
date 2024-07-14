@@ -32,6 +32,8 @@
 		B380DE032C2EEDB00091BB7C /* WhatsApp_CloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */; };
 		B380DE072C2EEDB10091BB7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE062C2EEDB10091BB7C /* Assets.xcassets */; };
 		B380DE0A2C2EEDB10091BB7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */; };
+		B38D80E02C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */; };
+		B38D81022C4415BE00A0CF82 /* SetUpGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */; };
 		B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */; };
 		B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */; };
 		B3A47B482C36C04800CF9939 /* BubbleTailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */; };
@@ -83,6 +85,8 @@
 		B380DE022C2EEDB00091BB7C /* WhatsApp_CloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp_CloneApp.swift; sourceTree = "<group>"; };
 		B380DE062C2EEDB10091BB7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerOption.swift; sourceTree = "<group>"; };
+		B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpGroupView.swift; sourceTree = "<group>"; };
 		B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailView.swift; sourceTree = "<group>"; };
 		B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTextView.swift; sourceTree = "<group>"; };
 		B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailModifier.swift; sourceTree = "<group>"; };
@@ -258,8 +262,10 @@
 				B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */,
 				B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */,
 				B3D467972C41567200FE4263 /* ChatPartnerPickerScreen.swift */,
+				B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */,
 				B3D467992C4159DA00FE4263 /* ChatPartnerRowView.swift */,
 				B3BCCAE72C41837B00B19191 /* GroupPartnerPickerScreen.swift */,
+				B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */,
 				B3B628DE2C42F7E600D226E8 /* SelectedPartnerView.swift */,
 			);
 			path = ChatTab;
@@ -455,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38D81022C4415BE00A0CF82 /* SetUpGroupView.swift in Sources */,
 				B345D59E2C3AAB1100346152 /* AuthHeaderView.swift in Sources */,
 				B3A47B482C36C04800CF9939 /* BubbleTailModifier.swift in Sources */,
 				B3B512962C3D7BB700B7E81A /* AuthProvidor.swift in Sources */,
@@ -466,6 +473,7 @@
 				B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */,
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
 				B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */,
+				B38D80E02C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift in Sources */,
 				B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */,
 				B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */,
 				B3C2DA942C3571360032560F /* MessageBubbleItem.swift in Sources */,
