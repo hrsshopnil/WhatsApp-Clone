@@ -23,7 +23,7 @@ struct ChatPartnerPickerScreen: View {
                         IconWithTransparentBG(imageName: item.imageName)
                         Text(item.title)
                     }
-                }
+                  }
                 }
                 Section {
                     ForEach(0..<20) { _ in
