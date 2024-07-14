@@ -22,7 +22,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         return !selectedChatPartners.isEmpty
     }
     
-    var disableNextButton: Bool {
+    var disableButton: Bool {
         return selectedChatPartners.isEmpty
     }
     

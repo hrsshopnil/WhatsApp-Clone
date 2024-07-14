@@ -47,7 +47,7 @@ struct GroupPartnerPickerScreen: View {
                 Button("Next") {
                     viewModel.navStack.append(.setUpGroup)
                 }
-                .disabled(viewModel.disableNextButton)
+                .disabled(viewModel.disableButton)
             }
         }
     }

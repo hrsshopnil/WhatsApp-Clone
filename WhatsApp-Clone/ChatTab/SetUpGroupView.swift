@@ -33,14 +33,17 @@ struct SetUpGroupView: View {
             } header: {
                 Text("Participants ")
             }
+            .listRowBackground(Color.clear)
         }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("New Group")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Text("Create")
-                        .fontWeight(.semibold)
+                    Button("Create") {
+                        
+                    }
+                    .disabled(viewModel.disableButton)
                 }
             }
         
