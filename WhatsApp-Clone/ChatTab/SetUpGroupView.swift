@@ -31,7 +31,9 @@ struct SetUpGroupView: View {
                     viewModel.handleItemSelection(user)
                 }
             } header: {
-                Text("Participants ")
+                let count = viewModel.selectedChatPartners.count
+                let maxCount = ChannelConstants.maxGroupParticipants
+                Text("Participants: \(count) of \(maxCount)")
             }
             .listRowBackground(Color.clear)
         }

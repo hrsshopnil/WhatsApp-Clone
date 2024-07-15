@@ -23,16 +23,20 @@ struct ChatPartnerPickerScreen: View {
                         IconWithTransparentBG(imageName: item.imageName)
                         Text(item.title)
                     }
-                  }
+                }
                 }
                 Section {
-                    ForEach(0..<20) { _ in
-                        ChatPartnerRowView(user: .placeHolder)
+                    ForEach(viewModel.users) { user in
+                        ChatPartnerRowView(user: user)
                     }
                 } header: {
                     Text("Contact on Whatsapp")
                         .fontWeight(.semibold)
                         .textCase(.none)
+                }
+                
+                if viewModel.isPaginatable {
+                    loadMoreMessage()
                 }
             }
             .searchable(text: $searchText,
@@ -58,8 +62,17 @@ struct ChatPartnerPickerScreen: View {
             }
         }
     }
+    
+    
+    private func loadMoreMessage() -> some View {
+        ProgressView()
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .task {
+                await viewModel.fetchUsers()
+            }
+    }
 }
-
 extension ChatPartnerPickerScreen {
     @ViewBuilder
     private func destinationView(for route: ChatCreationRoute) -> some View {

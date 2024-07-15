@@ -125,3 +125,36 @@ extension AuthManager {
         }
     }
 }
+
+extension AuthManager {
+    static let testEmails: [String] = ["johnsmith@gmail.com",
+                                       "janedoe@gmail.com",
+                                       "michaelbrown@gmail.com",
+                                       "emilyclark@gmail.com",
+                                       "davidlee@gmail.com",
+                                       "sarahwilson@gmail.com",
+                                       "chrisjohnson@gmail.com",
+                                       "annadavis@gmail.com",
+                                       "markthompson@gmail.com",
+                                       "lisamartin@gmail.com",
+                                       "kevinwhite@gmail.com",
+                                       "mariaharris@gmail.com",
+                                       "robertyoung@gmail.com",
+                                       "stephanieroberts@gmail.com",
+                                       "brianwalker@gmail.com",
+                                       "angelamiller@gmail.com",
+                                       "richardhall@gmail.com",
+                                       "nicolescott@gmail.com",
+                                       "jamesallen@gmail.com",
+                                       "ashleyking@gmail.com",
+                                       "danielwright@gmail.com",
+                                       "rebeccabaker@gmail.com",
+                                       "williamgreen@gmail.com",
+                                       "victoriacampbell@gmail.com",
+                                       "josephadams@gmail.com",
+                                       "rachelmoore@gmail.com",
+                                       "charlesmurphy@gmail.com",
+                                       "amandawood@gmail.com",
+                                       "matthewturner@gmail.com",
+                                       "oliviahill@gmail.com"]
+}
