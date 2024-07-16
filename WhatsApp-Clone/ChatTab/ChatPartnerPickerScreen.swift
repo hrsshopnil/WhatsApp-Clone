@@ -16,6 +16,7 @@ struct ChatPartnerPickerScreen: View {
             List {
                 ForEach(ChatPartnerPickerOption.allCases) {item in
                     Button {
+                        guard item == ChatPartnerPickerOption.newGroup else {return}
                         viewModel.navStack.append(.addGroupChatMember)
                     }
                 label:{
