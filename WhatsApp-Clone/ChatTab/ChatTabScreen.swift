@@ -44,7 +44,7 @@ struct ChatTabScreen: View {
                 ChatPartnerPickerScreen(onCreate: viewModel.onNewChannelCreation)
             }
             .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
-                if let newChannel = viewModel.newChannel {
+                if viewModel.newChannel != nil {
                     ChatRoomView()
                 }
             }
