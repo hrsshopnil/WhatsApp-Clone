@@ -41,14 +41,6 @@ struct UserItem: Identifiable, Hashable, Codable {
                                            UserItem(id: "20", username: "James", email: "james@example.com", bio: "Hi, I'm James. Excited to chat!")]
 }
 
-extension String {
-    static let id = "id"
-    static let username = "username"
-    static let email = "email"
-    static let bio = "bio"
-    static let profileImageUrl = "profileImageUrl"
-}
-
 extension UserItem {
     init(dictionary: [String: Any]) {
         self.id = dictionary[.id] as? String ?? ""
@@ -56,5 +48,26 @@ extension UserItem {
         self.email = dictionary[.email] as? String ?? ""
         self.bio = dictionary[.bio] as? String? ?? nil
         self.profileImageUrl = dictionary[.profileImageUrl] as? String? ?? nil
+    }
+}
+
+extension ChannelItem {
+    init(dict: [String: Any]) {
+        self.id = dict[.id] as? String ?? ""
+        self.name = dict[.name] as? String ?? ""
+        self.lastMessage = dict[.lastMessage] as? String ?? ""
+
+        let creationInterval = dict[.creationDate] as? Double ?? 0
+        self.creationDate = Date(timeIntervalSince1970: creationInterval)
+
+        let lastMsgTimeStampInterval = dict[.lastMessageTimeStamp] as? Double ?? 0
+        self.lastMessageTimeStamp = Date(timeIntervalSince1970: lastMsgTimeStampInterval)
+
+        self.membersCount = dict[.membersCount] as? UInt ?? 0
+        self.adminUids = dict[.adminUids] as? [String] ?? []
+        self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
+        self.membersUids = dict[.membersUids] as? [String] ?? []
+
+        self.members = dict[.members] as? [UserItem] ?? []
     }
 }

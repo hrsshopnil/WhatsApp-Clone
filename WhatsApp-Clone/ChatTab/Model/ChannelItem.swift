@@ -14,7 +14,7 @@ struct ChannelItem: Identifiable {
     var creationDate: Date
     var lastMessageTimeStamp: Date
     var membersCount: UInt
-    var adminsUids: [String]
+    var adminUids: [String]
     var membersUids: [String]
     var members: [UserItem]
     var thumbnailUrl: String?
@@ -23,5 +23,5 @@ struct ChannelItem: Identifiable {
         return members.count > 2
     }
     
-    static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminsUids: [], membersUids: [], members: [])
+    static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [])
 }

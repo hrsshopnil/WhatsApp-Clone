@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C02C3BFBD700FC584D /* RegisterView.swift */; };
 		B30059C52C3C007200FC584D /* AuthScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C42C3C007200FC584D /* AuthScreenModel.swift */; };
+		B32BF3562C5279960037D6E4 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BF3552C5279960037D6E4 /* StringExtension.swift */; };
 		B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB972C3964E7007B725D /* PlayButton.swift */; };
 		B32BFB9B2C396633007B725D /* BubbleAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB9A2C396633007B725D /* BubbleAudioView.swift */; };
 		B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D47022C316EC300BD31A6 /* ChannelListView.swift */; };
@@ -69,6 +70,7 @@
 /* Begin PBXFileReference section */
 		B30059C02C3BFBD700FC584D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B30059C42C3C007200FC584D /* AuthScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreenModel.swift; sourceTree = "<group>"; };
+		B32BF3552C5279960037D6E4 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		B32BFB972C3964E7007B725D /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		B32BFB9A2C396633007B725D /* BubbleAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAudioView.swift; sourceTree = "<group>"; };
 		B33D47022C316EC300BD31A6 /* ChannelListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelListView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		B3A47B462C36C02300CF9939 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B32BF3552C5279960037D6E4 /* StringExtension.swift */,
 				B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */,
 			);
 			path = Helpers;
@@ -518,6 +521,7 @@
 				B3B628DF2C42F7E600D226E8 /* SelectedPartnerView.swift in Sources */,
 				B35606712C380D1F008FD937 /* TimeStampView.swift in Sources */,
 				B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */,
+				B32BF3562C5279960037D6E4 /* StringExtension.swift in Sources */,
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
 				B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */,

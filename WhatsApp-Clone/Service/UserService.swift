@@ -15,9 +15,9 @@ struct UserService {
         let mainSnapshot: DataSnapshot
         if lastCursor == nil {
             // Initial Data fetch
-            mainSnapshot = try await FirebaseConstants.userRef.queryLimited(toLast: pageSize).getData()
+            mainSnapshot = try await FirebaseConstants.UserRef.queryLimited(toLast: pageSize).getData()
         } else {
-            mainSnapshot = try await FirebaseConstants.userRef
+            mainSnapshot = try await FirebaseConstants.UserRef
                 .queryOrderedByKey()
                 .queryEnding(atValue: lastCursor)
                 .queryLimited(toLast: pageSize + 1)
