@@ -19,6 +19,7 @@ struct ChannelItem: Identifiable {
     var membersUids: [String]
     var members: [UserItem]
     var thumbnailUrl: String?
+    var createdBy: String
     
     var isGroupChat: Bool {
         return members.count > 2
@@ -40,5 +41,5 @@ struct ChannelItem: Identifiable {
             return memberExcludingMe.first?.username ?? "Unknown"
         }
     }
-    static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [])
+    static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [], createdBy: "")
 }

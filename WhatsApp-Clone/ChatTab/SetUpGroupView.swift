@@ -10,12 +10,13 @@ import SwiftUI
 struct SetUpGroupView: View {
     @State private var groupName = ""
     @ObservedObject var viewModel: ChatPartnerPickerViewModel
+    var onCreate: (_ newChatRoom: ChannelItem) -> Void
     var body: some View {
         List {
             HStack {
-                Image(systemName: "camera")
+                Image(systemName: "camera.fill")
                     .imageScale(.large)
-                    .foregroundStyle(.link)
+                    .foregroundStyle(Color.primary)
                     .padding()
                     .background(.gray.opacity(0.1))
                     .clipShape(Circle())
@@ -43,7 +44,7 @@ struct SetUpGroupView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Create") {
-                        
+                        viewModel.createGroupChannel(groupName, completion: onCreate)
                     }
                     .disabled(viewModel.disableButton)
                 }
@@ -54,6 +55,8 @@ struct SetUpGroupView: View {
 
 #Preview {
     NavigationStack {
-        SetUpGroupView(viewModel: ChatPartnerPickerViewModel())
+        SetUpGroupView(viewModel: ChatPartnerPickerViewModel()) {_ in
+            
+        }
     }
 }

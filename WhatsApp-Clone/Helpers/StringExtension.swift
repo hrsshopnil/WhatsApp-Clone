@@ -24,6 +24,7 @@ extension String {
     static let membersUids = "membersUids"
     static let thumbnailUrl = "thumbnailUrl"
     static let members = "members"
+    static let createdBy = "createdBy"
     
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty

@@ -94,7 +94,7 @@ extension ChatPartnerPickerScreen {
         case .addGroupChatMember:
             GroupPartnerPickerScreen(viewModel: viewModel)
         case .setUpGroup:
-            SetUpGroupView(viewModel: viewModel)
+            SetUpGroupView(viewModel: viewModel, onCreate: onCreate)
         }
     }
 }
