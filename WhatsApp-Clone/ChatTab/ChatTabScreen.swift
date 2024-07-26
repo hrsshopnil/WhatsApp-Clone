@@ -19,7 +19,7 @@ struct ChatTabScreen: View {
                 
                 ForEach(0..<2) {_ in
                     NavigationLink {
-                        ChatRoomView()
+                        ChatRoomView(channel: .placeholder)
                     } label: {
                         RecentChatItem()
                     }
@@ -44,8 +44,8 @@ struct ChatTabScreen: View {
                 ChatPartnerPickerScreen(onCreate: viewModel.onNewChannelCreation)
             }
             .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
-                if viewModel.newChannel != nil {
-                    ChatRoomView()
+                if let newChannel = viewModel.newChannel {
+                    ChatRoomView(channel: newChannel)
                 }
             }
             .listStyle(.plain)

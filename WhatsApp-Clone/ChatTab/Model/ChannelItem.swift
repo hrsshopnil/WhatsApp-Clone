@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct ChannelItem: Identifiable {
     var id: String
@@ -23,5 +24,21 @@ struct ChannelItem: Identifiable {
         return members.count > 2
     }
     
+    var memberExcludingMe: [UserItem] {
+        guard let currentId = Auth.auth().currentUser?.uid else { return [] }
+        return members.filter {$0.id != currentId}
+    }
+    
+    var title: String {
+        if let name = name {
+            return name
+        }
+        
+        if isGroupChat {
+            return "Group Chat"
+        } else {
+            return memberExcludingMe.first?.username ?? "Unknown"
+        }
+    }
     static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [])
 }

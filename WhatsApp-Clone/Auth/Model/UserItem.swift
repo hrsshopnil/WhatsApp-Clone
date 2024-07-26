@@ -54,7 +54,7 @@ extension UserItem {
 extension ChannelItem {
     init(dict: [String: Any]) {
         self.id = dict[.id] as? String ?? ""
-        self.name = dict[.name] as? String ?? ""
+        self.name = dict[.name] as? String? ?? nil
         self.lastMessage = dict[.lastMessage] as? String ?? ""
 
         let creationInterval = dict[.creationDate] as? Double ?? 0
