@@ -63,7 +63,7 @@ extension ChannelItem {
         let lastMsgTimeStampInterval = dict[.lastMessageTimeStamp] as? Double ?? 0
         self.lastMessageTimeStamp = Date(timeIntervalSince1970: lastMsgTimeStampInterval)
 
-        self.membersCount = dict[.membersCount] as? UInt ?? 0
+        self.membersCount = dict[.membersCount] as? Int ?? 0
         self.adminUids = dict[.adminUids] as? [String] ?? []
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
         self.membersUids = dict[.membersUids] as? [String] ?? []
