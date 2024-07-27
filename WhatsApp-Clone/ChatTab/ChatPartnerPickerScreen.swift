@@ -53,13 +53,18 @@ struct ChatPartnerPickerScreen: View {
             .navigationDestination(for: ChatCreationRoute.self) { route in
                 destinationView(for: route)
             }
+            .alert(isPresented: $viewModel.errorState.showError) {
+                Alert(title: Text("Uh oh!"),
+                      message: Text(viewModel.errorState.errorMessage),
+                      dismissButton: .default(Text("OK")))
+            }
             .toolbar{
                 Button {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
                         .imageScale(.medium)
-                        .foregroundStyle(.black.opacity(0.6))
+                        .foregroundStyle(Color.primary.opacity(0.6))
                         .bold()
                         .padding(10)
                         .background(.gray.opacity(0.1))
