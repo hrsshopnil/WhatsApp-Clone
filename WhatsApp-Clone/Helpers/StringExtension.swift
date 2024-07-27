@@ -13,8 +13,6 @@ extension String {
     static let email = "email"
     static let bio = "bio"
     static let profileImageUrl = "profileImageUrl"
-    
-    
     static let name = "name"
     static let lastMessage = "lastMesssage"
     static let creationDate = "creationDate"
@@ -25,6 +23,9 @@ extension String {
     static let thumbnailUrl = "thumbnailUrl"
     static let members = "members"
     static let createdBy = "createdBy"
+    static let timeStamp = "timeStamp"
+    static let ownerID = "ownerID"
+    static let messageType = "messageType"
     
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
