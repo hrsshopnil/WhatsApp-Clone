@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct RecentChatItem: View {
+    let channel: ChannelItem
     var body: some View {
         HStack(alignment: .top) {
             Circle()
                 .frame(width: 55, height: 55)
             VStack(alignment: .leading) {
-                Text("Walter White")
-                Text("welcome")
+                Text(channel.title)
+                Text(channel.lastMessage)
                 .font(.caption)
                 .foregroundStyle(.gray)
             }
@@ -27,5 +28,5 @@ struct RecentChatItem: View {
 }
 
 #Preview {
-    RecentChatItem()
+    RecentChatItem(channel: .placeholder)
 }

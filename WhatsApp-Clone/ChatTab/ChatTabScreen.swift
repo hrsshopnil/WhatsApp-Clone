@@ -17,11 +17,11 @@ struct ChatTabScreen: View {
                     .bold()
                     .foregroundStyle(.gray)
                 
-                ForEach(0..<2) {_ in
+                ForEach(viewModel.channels) {channel in
                     NavigationLink {
-                        ChatRoomView(channel: .placeholder)
+                        ChatRoomView(channel: channel)
                     } label: {
-                        RecentChatItem()
+                        RecentChatItem(channel: channel)
                     }
                 }
                 
