@@ -50,24 +50,3 @@ extension UserItem {
         self.profileImageUrl = dictionary[.profileImageUrl] as? String? ?? nil
     }
 }
-
-extension ChannelItem {
-    init(dict: [String: Any]) {
-        self.id = dict[.id] as? String ?? ""
-        self.name = dict[.name] as? String? ?? nil
-        self.lastMessage = dict[.lastMessage] as? String ?? ""
-
-        let creationInterval = dict[.creationDate] as? Double ?? 0
-        self.creationDate = Date(timeIntervalSince1970: creationInterval)
-
-        let lastMsgTimeStampInterval = dict[.lastMessageTimeStamp] as? Double ?? 0
-        self.lastMessageTimeStamp = Date(timeIntervalSince1970: lastMsgTimeStampInterval)
-
-        self.membersCount = dict[.membersCount] as? Int ?? 0
-        self.adminUids = dict[.adminUids] as? [String] ?? []
-        self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
-        self.membersUids = dict[.membersUids] as? [String] ?? []
-        self.members = dict[.members] as? [UserItem] ?? []
-        self.createdBy = dict[.createdBy] as? String ?? ""
-    }
-}

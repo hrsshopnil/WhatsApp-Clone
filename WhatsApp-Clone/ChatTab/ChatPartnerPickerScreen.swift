@@ -32,7 +32,7 @@ struct ChatPartnerPickerScreen: View {
                     ForEach(viewModel.users) { user in
                         ChatPartnerRowView(user: user)
                             .onTapGesture {
-                                viewModel.creatDirectChannel(user, completion: onCreate)
+                                viewModel.createDirectChannel(user, completion: onCreate)
                             }
                     }
                 } header: {

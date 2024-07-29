@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatTabScreen: View {
     @State private var searchText = ""
     @StateObject private var viewModel = ChannelTabViewModel()
+
     var body: some View {
         NavigationStack {
             List {
@@ -24,7 +25,6 @@ struct ChatTabScreen: View {
                         RecentChatItem(channel: channel)
                     }
                 }
-                
                 HStack {
                     Image(systemName: "lock.fill")
                     
@@ -41,7 +41,7 @@ struct ChatTabScreen: View {
                 .padding(.horizontal)
             }
             .sheet(isPresented: $viewModel.showChatPartnerPickerView) {
-                ChatPartnerPickerScreen(onCreate: viewModel.onNewChannelCreation)
+                    ChatPartnerPickerScreen(onCreate: viewModel.onNewChannelCreation)
             }
             .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
                 if let newChannel = viewModel.newChannel {

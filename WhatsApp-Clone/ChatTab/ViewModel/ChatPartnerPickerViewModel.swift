@@ -91,7 +91,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         return isSelected
     }
     
-    func creatDirectChannel(_ chatPartner: UserItem, completion: @escaping (_ newChannel: ChannelItem) -> Void) {
+    func createDirectChannel(_ chatPartner: UserItem, completion: @escaping (_ newChannel: ChannelItem) -> Void) {
         selectedChatPartners.append(chatPartner)
         Task {
             if let channelID = await verifyDirectChannelExist(with: chatPartner.id) {
@@ -124,9 +124,8 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             print("failed to create group channel \(error.localizedDescription)")
         }
     }
-    
-    typealias ChannelID = String
-    private func verifyDirectChannelExist(with chatPartnerID: String) async -> ChannelID? {
+
+    private func verifyDirectChannelExist(with chatPartnerID: String) async -> String? {
         guard let currentUid = Auth.auth().currentUser?.uid,
               let snapshot = try? await FirebaseConstants.UserDirectChannels.child(currentUid).child(chatPartnerID).getData(),
               snapshot.exists()
