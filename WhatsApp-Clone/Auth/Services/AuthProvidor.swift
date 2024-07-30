@@ -77,7 +77,7 @@ final class AuthManager: AuthProvidor {
         do {
             let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
             let uid = authResult.user.uid
-            let newUser = UserItem(id: uid, username: username, email: email)
+            let newUser = UserItem(email: email, id: uid, username: username)
             try await saveUserInfoDatabase(user: newUser)
             self.authstate.send(.loggedin(newUser))
         } catch {

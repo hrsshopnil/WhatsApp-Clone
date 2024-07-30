@@ -38,44 +38,47 @@ final class ChannelTabViewModel: ObservableObject {
     }
     
     private func getChannel(with channelID: String) {
-        FirebaseConstants.ChannelsRef.child(channelID).observe(.value) {[weak self] snapshot  in
+        FirebaseConstants.ChannelsRef.child(channelID).observe(.value) {[weak self] snapshot   in
             //            print("Channel: \(snapshot.value)")
             guard let dict = snapshot.value as? [String: Any] else { return }
-            var channel = ChannelItem(dict: dict)
+            let channel = ChannelItem(dict: dict)
+//            getMemberUids(channelID: channelID) { names in
+//                var channel = ChannelItem(dict: dict)
+//                channel.name = names
+//            }
             self?.channels.append(channel)
             
             //            self?.getChannelMembers(channel) { members in
             //                channel.members = members
             //            }
         }
-        FirebaseConstants.ChannelsRef.child(channelID).child("membersUids").observe(.value) { snapshot  in
-            //            print(snapshot.value)
-            guard let uids = snapshot.value as? [String] else {return}
-            var users: [UserItem] = []
-            for uid in uids {
-                FirebaseConstants.UserRef.child(uid).observeSingleEvent(of: .value) { snapshot  in
-                    //                    print(snapshot.value)
-                    guard let user = snapshot.value as? [UserItem] else { return }
-                    print(user)
-                    guard let safeUser = user as? [UserItem] else {return}
-                    print(user)
-//                    users.append(user)
-                    if users.count == uids.count {
-                        print("Users are equal")
-                    }
-                }
-            }
+    }
+//    private func getMemberUids(channelID: String, completion: @escaping (_ names: String) -> Void) {
+//        FirebaseConstants.ChannelsRef.child(channelID).child("membersUids").observe(.value) {[weak self] snapshot  in
+//            //            print(snapshot.value)
+//            guard let uids = snapshot.value as? [String] else {return}
+//            self?.getMemberNames(uids: uids) { names in
+//                completion(names)
+//            }
+//        }
+//    }
+//    private func getMemberNames(uids: [String], completion: @escaping (_ names: String) -> Void) {
+//        for uid in uids {
+//            FirebaseConstants.UserRef.child(uid).child("username").observeSingleEvent(of: .value) { snapshot   in
+////                    print(snapshot.value)
+//                guard let user = snapshot.value as? String else { return }
+//                completion(user)
+//            }
+//        }
+//    }
+
             
-        }
-    withCancel: { error in
-        print("Failed to get the channel for id: \(channelID)")
-    }
-        
-    }
-    
-    private func getChannelMembers(_ channel: ChannelItem, completion: @escaping (_ members: [UserItem]) -> Void) {
-        UserService.getUsers(with: channel.membersUids) { userNode in
-            completion(userNode.users)
-        }
-    }
+//        }
+//    }
+//    
+//    private func getChannelMembers(_ channel: ChannelItem, completion: @escaping (_ members: [UserItem]) -> Void) {
+//        UserService.getUsers(with: channel.membersUids) { userNode in
+//            completion(userNode.users)
+//        }
+//    }
 }
