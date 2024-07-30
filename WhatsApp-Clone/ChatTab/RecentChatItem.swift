@@ -14,7 +14,7 @@ struct RecentChatItem: View {
             Circle()
                 .frame(width: 55, height: 55)
             VStack(alignment: .leading) {
-                Text(channel.title)
+                Text(channel.name ?? "Unknown")
                 Text(channel.lastMessage)
                 .font(.caption)
                 .foregroundStyle(.gray)

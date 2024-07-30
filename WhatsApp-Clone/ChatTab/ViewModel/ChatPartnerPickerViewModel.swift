@@ -48,6 +48,36 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         return selectedChatPartners.count == 1
     }
     
+        private var isGroupChat: Bool {
+            return selectedChatPartners.count > 2
+        }
+    
+        private var membersExcludingMe: [UserItem] {
+            guard let currentId = Auth.auth().currentUser?.uid else { return [] }
+            return selectedChatPartners.filter {$0.id != currentId}
+        }
+    
+        var title: String {
+            if isGroupChat {
+                return groupMemberNames
+            } else {
+                return membersExcludingMe.first?.username ?? "Unknown"
+            }
+        }
+    
+        private var groupMemberNames: String {
+            let membmersCount = membersExcludingMe.count
+            let fullNames: [String] = membersExcludingMe.map { $0.username }
+    
+            if membmersCount == 2 {
+                return fullNames.joined(separator: " and ")
+            } else if membmersCount > 2 {
+                let remainingCount = membmersCount - 2
+                return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
+            }
+            return "Unknown"
+        }
+    
     func fetchUsers() async {
         do {
             let userNode = try await UserService.paginateUsers(lastCursor: lastCursor, pageSize: 5)
@@ -166,26 +196,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         if let safeChannelName = channelName, !safeChannelName.isEmptyOrWhiteSpaces {
             channelDict[.name] = safeChannelName
         } else {
-            var channelName = ""
-            let membersExcludingMe = selectedChatPartners.filter({$0.id != currentUid})
-            if isDirectchannel  {
-                if let safeChannelName = membersExcludingMe.first?.username {
-                    channelName = safeChannelName
-                }
-            }else {
-                let membmersCount = membersExcludingMe.count
-                let fullNames: [String] = membersExcludingMe.map { $0.username }
-                
-                if membmersCount == 2 {
-                    channelName = fullNames.joined(separator: " and ")
-                } else if membmersCount > 2 {
-                    let remainingCount = membmersCount - 2
-                    channelName = fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
-                }  else {
-                    channelName = "Unknown"
-                }
-            }
-            channelDict[.name] = channelName
+            channelDict[.name] = title
         }
 
         let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentUid]

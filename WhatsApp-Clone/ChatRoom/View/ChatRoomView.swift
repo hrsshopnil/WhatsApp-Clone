@@ -21,7 +21,7 @@ struct ChatRoomView: View {
                 HStack {
                     Circle()
                         .frame(width: 35, height: 35)
-                    Text(channel.title)
+                    Text(channel.name ?? "Unknown")
                         .bold()
                 }
             }
