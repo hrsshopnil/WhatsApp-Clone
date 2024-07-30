@@ -32,6 +32,7 @@ struct UserService {
             // Initial Data fetch
             mainSnapshot = try await FirebaseConstants.UserRef.queryLimited(toLast: pageSize).getData()
         } else {
+            //Fetching data for the 2nd time and so On
             mainSnapshot = try await FirebaseConstants.UserRef
                 .queryOrderedByKey()
                 .queryEnding(atValue: lastCursor)

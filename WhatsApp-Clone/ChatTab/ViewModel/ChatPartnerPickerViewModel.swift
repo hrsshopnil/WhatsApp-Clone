@@ -165,8 +165,29 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         
         if let safeChannelName = channelName, !safeChannelName.isEmptyOrWhiteSpaces {
             channelDict[.name] = safeChannelName
+        } else {
+            var channelName = ""
+            let membersExcludingMe = selectedChatPartners.filter({$0.id != currentUid})
+            if isDirectchannel  {
+                if let safeChannelName = membersExcludingMe.first?.username {
+                    channelName = safeChannelName
+                }
+            }else {
+                let membmersCount = membersExcludingMe.count
+                let fullNames: [String] = membersExcludingMe.map { $0.username }
+                
+                if membmersCount == 2 {
+                    channelName = fullNames.joined(separator: " and ")
+                } else if membmersCount > 2 {
+                    let remainingCount = membmersCount - 2
+                    channelName = fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
+                }  else {
+                    channelName = "Unknown"
+                }
+            }
+            channelDict[.name] = channelName
         }
-        
+
         let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentUid]
         
         FirebaseConstants.ChannelsRef.child(channelID).setValue(channelDict)
