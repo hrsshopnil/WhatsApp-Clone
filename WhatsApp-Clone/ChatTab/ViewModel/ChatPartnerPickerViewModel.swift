@@ -26,7 +26,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     @Published var errorState: (showError: Bool, errorMessage: String) = (false, "Uh oh")
     
     private var lastCursor: String?
-    
+    let currentUid = Auth.auth().currentUser?.uid
     init() {
         Task {
             await fetchUsers()
@@ -44,45 +44,53 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         return !users.isEmpty
     }
     
+    private func name(_ channelName: String?) -> String {
+        if let safeChannelName = channelName, !safeChannelName.isEmptyOrWhiteSpaces {
+            return safeChannelName
+        } else {
+            return title
+        }
+    }
+    
     private var isDirectchannel: Bool {
         return selectedChatPartners.count == 1
     }
     
-        private var isGroupChat: Bool {
-            return selectedChatPartners.count > 2
-        }
+    private var isGroupChat: Bool {
+        return selectedChatPartners.count > 1
+    }
     
-        private var membersExcludingMe: [UserItem] {
-            guard let currentId = Auth.auth().currentUser?.uid else { return [] }
-            return selectedChatPartners.filter {$0.id != currentId}
-        }
+    private var membersExcludingMe: [UserItem] {
+        guard let currentId = currentUid else { return [] }
+        return selectedChatPartners.filter {$0.id != currentId}
+    }
     
-        var title: String {
-            if isGroupChat {
-                return groupMemberNames
-            } else {
-                return membersExcludingMe.first?.username ?? "Unknown"
-            }
+    var title: String {
+        if isGroupChat {
+            return groupMemberNames
+        } else {
+            return membersExcludingMe.first?.username ?? "Unknown"
         }
+    }
     
-        private var groupMemberNames: String {
-            let membmersCount = membersExcludingMe.count
-            let fullNames: [String] = membersExcludingMe.map { $0.username }
-    
-            if membmersCount == 2 {
-                return fullNames.joined(separator: " and ")
-            } else if membmersCount > 2 {
-                let remainingCount = membmersCount - 2
-                return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
-            }
-            return "Unknown"
+    private var groupMemberNames: String {
+        let membmersCount = membersExcludingMe.count
+        let fullNames: [String] = membersExcludingMe.map { $0.username }
+        
+        if membmersCount == 2 {
+            return fullNames.joined(separator: " and ")
+        } else if membmersCount > 2 {
+            let remainingCount = membmersCount - 2
+            return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
         }
+        return "Unknown"
+    }
     
     func fetchUsers() async {
         do {
             let userNode = try await UserService.paginateUsers(lastCursor: lastCursor, pageSize: 5)
             var fetchedUsers = userNode.users
-            guard let currentId = Auth.auth().currentUser?.uid else {return}
+            guard let currentId = currentUid else {return}
             fetchedUsers = fetchedUsers.filter {$0.id != currentId}
             self.users.append(contentsOf: fetchedUsers)
             self.lastCursor = userNode.currentCursor
@@ -154,18 +162,18 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             print("failed to create group channel \(error.localizedDescription)")
         }
     }
-
+    
     private func verifyDirectChannelExist(with chatPartnerID: String) async -> String? {
-        guard let currentUid = Auth.auth().currentUser?.uid,
-              let snapshot = try? await FirebaseConstants.UserDirectChannels.child(currentUid).child(chatPartnerID).getData(),
+        guard let currentId = currentUid,
+              let snapshot = try? await FirebaseConstants.UserDirectChannels.child(currentId).child(chatPartnerID).getData(),
               snapshot.exists()
         else {return nil}
-
+        
         let directMessage = snapshot.value as! [String: Bool]
         let channelID = directMessage.compactMap {$0.key}.first
         return channelID
     }
-
+    
     // MARK: Creating Channel
     private func createChannel(_ channelName: String?) -> Result<ChannelItem, Error> {
         
@@ -173,33 +181,28 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         
         guard
             let channelID = FirebaseConstants.ChannelsRef.childByAutoId().key,
-            let currentUid = Auth.auth().currentUser?.uid,
+            let currentId = currentUid,
             let messageID = FirebaseConstants.MessageRef.childByAutoId().key
         else { return .failure(ChannelCreationError.failedToCreateUniqueID) }
         let timeStamp = Date().timeIntervalSince1970
         var memberUids = selectedChatPartners.compactMap {$0.id}
-        
-        memberUids.append(currentUid)
+        let name = name(channelName)
+        memberUids.append(currentId)
         let newChannelBroadCast = AdminMessageType.channelCreation.rawValue
-        
         var channelDict: [String: Any] = [
+            .name: name,
             .id: channelID,
             .lastMessage: newChannelBroadCast,
             .creationDate: timeStamp,
             .lastMessageTimeStamp: timeStamp,
             .membersUids: memberUids,
             .membersCount: memberUids.count,
-            .adminUids: [currentUid],
-            .createdBy: currentUid
+            .adminUids: [currentId],
+            .createdBy: currentId
         ]
         
-        if let safeChannelName = channelName, !safeChannelName.isEmptyOrWhiteSpaces {
-            channelDict[.name] = safeChannelName
-        } else {
-            channelDict[.name] = title
-        }
-
-        let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentUid]
+        
+        let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentId]
         
         FirebaseConstants.ChannelsRef.child(channelID).setValue(channelDict)
         FirebaseConstants.MessageRef.child(channelID).child(messageID).setValue(messageDict)
@@ -211,8 +214,8 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         ///Makes sure that a direct channel is unique
         if isDirectchannel {
             let chatPartnerId = selectedChatPartners[0].id
-            FirebaseConstants.UserDirectChannels.child(currentUid).child(chatPartnerId).setValue([channelID: true])
-            FirebaseConstants.UserDirectChannels.child(chatPartnerId).child(currentUid).setValue([channelID: true])
+            FirebaseConstants.UserDirectChannels.child(currentId).child(chatPartnerId).setValue([channelID: true])
+            FirebaseConstants.UserDirectChannels.child(chatPartnerId).child(currentId).setValue([channelID: true])
         }
         
         var newChannelItem = ChannelItem(dict: channelDict)
