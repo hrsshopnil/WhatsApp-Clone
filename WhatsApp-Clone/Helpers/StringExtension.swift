@@ -26,7 +26,9 @@ extension String {
     static let timeStamp = "timeStamp"
     static let ownerID = "ownerID"
     static let messageType = "messageType"
-    
+    static let text = "text"
+    static let type = "type"
+    static let ownerId = "ownerId"
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

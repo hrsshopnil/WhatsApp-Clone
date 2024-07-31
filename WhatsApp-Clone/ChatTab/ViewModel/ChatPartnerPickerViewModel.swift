@@ -24,6 +24,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     @Published var selectedChatPartners = [UserItem]()
     @Published private(set) var users = [UserItem]()
     @Published var errorState: (showError: Bool, errorMessage: String) = (false, "Uh oh")
+
     
     private var lastCursor: String?
     let currentUid = Auth.auth().currentUser?.uid
@@ -189,7 +190,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         let name = name(channelName)
         memberUids.append(currentId)
         let newChannelBroadCast = AdminMessageType.channelCreation.rawValue
-        var channelDict: [String: Any] = [
+        let channelDict: [String: Any] = [
             .name: name,
             .id: channelID,
             .lastMessage: newChannelBroadCast,
@@ -201,7 +202,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             .createdBy: currentId
         ]
         
-        
+//        self.channelDictionary[channelID] = channel
         let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentId]
         
         FirebaseConstants.ChannelsRef.child(channelID).setValue(channelDict)

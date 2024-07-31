@@ -13,6 +13,7 @@ final class ChannelTabViewModel: ObservableObject {
     @Published var newChannel: ChannelItem?
     @Published var showChatPartnerPickerView = false
     @Published var channels = [ChannelItem]()
+    @Published var channelDictionary: [String: ChannelItem] = [:]
     
     init() {
         fetchCurrentUserChannel()
@@ -46,7 +47,8 @@ final class ChannelTabViewModel: ObservableObject {
 //                var channel = ChannelItem(dict: dict)
 //                channel.name = names
 //            }
-            self?.channels.append(channel)
+            self?.channelDictionary[channelID] = channel
+            self?.reloadData()
             
             //            self?.getChannelMembers(channel) { members in
             //                channel.members = members
@@ -81,4 +83,9 @@ final class ChannelTabViewModel: ObservableObject {
 //            completion(userNode.users)
 //        }
 //    }
+    
+    private func reloadData() {
+        self.channels = Array(channelDictionary.values)
+        self.channels.sort {$0.lastMessageTimeStamp > $1.lastMessageTimeStamp}
+    }
 }

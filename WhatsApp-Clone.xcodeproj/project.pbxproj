@@ -36,6 +36,8 @@
 		B380DE0A2C2EEDB10091BB7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */; };
 		B38D80E02C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */; };
 		B38D81022C4415BE00A0CF82 /* SetUpGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */; };
+		B397DB692C5A56C100BA7770 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */; };
+		B397DB6B2C5A6B5300BA7770 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB6A2C5A6B5300BA7770 /* MessageService.swift */; };
 		B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */; };
 		B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */; };
 		B3A47B482C36C04800CF9939 /* BubbleTailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */; };
@@ -94,6 +96,8 @@
 		B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerOption.swift; sourceTree = "<group>"; };
 		B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpGroupView.swift; sourceTree = "<group>"; };
+		B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
+		B397DB6A2C5A6B5300BA7770 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailView.swift; sourceTree = "<group>"; };
 		B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTextView.swift; sourceTree = "<group>"; };
 		B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailModifier.swift; sourceTree = "<group>"; };
@@ -250,6 +254,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		B397DB672C5A56AE00BA7770 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B3A47B462C36C02300CF9939 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */,
+				B397DB6A2C5A6B5300BA7770 /* MessageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -389,6 +402,7 @@
 		B3ED60842C34206200B3B2CE /* ChatRoom */ = {
 			isa = PBXGroup;
 			children = (
+				B397DB672C5A56AE00BA7770 /* ViewModel */,
 				B3C2DA922C35711E0032560F /* Model */,
 				B3ED60852C34207800B3B2CE /* View */,
 			);
@@ -502,6 +516,7 @@
 				B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */,
 				B3BCCAE62C417C9400B19191 /* ChatPartnerPickerViewModel.swift in Sources */,
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,
+				B397DB6B2C5A6B5300BA7770 /* MessageService.swift in Sources */,
 				B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */,
 				B3C2C3FB2C46EFEF004E7E9E /* ChannelTabViewModel.swift in Sources */,
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
@@ -523,6 +538,7 @@
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,
 				B3B628DF2C42F7E600D226E8 /* SelectedPartnerView.swift in Sources */,
 				B35606712C380D1F008FD937 /* TimeStampView.swift in Sources */,
+				B397DB692C5A56C100BA7770 /* ChatRoomViewModel.swift in Sources */,
 				B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */,
 				B32BF3562C5279960037D6E4 /* StringExtension.swift in Sources */,
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,

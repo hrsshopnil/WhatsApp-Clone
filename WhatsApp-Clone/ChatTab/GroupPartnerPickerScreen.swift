@@ -39,8 +39,8 @@ struct GroupPartnerPickerScreen: View {
                 VStack {
                     Text("New Participants")
                     let count = viewModel.selectedChatPartners.count
-                    let maxCount = UserItem.placeHolders.count - 5
-                    Text("\(count)/\(maxCount)")
+//                    let maxCount = UserItem.placeHolders.count
+                    Text("\(count)/\(12)")
                         .font(.footnote)
                         .foregroundStyle(.gray)
                 }
