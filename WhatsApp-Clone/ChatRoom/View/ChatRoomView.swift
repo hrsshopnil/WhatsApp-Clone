@@ -16,7 +16,7 @@ struct ChatRoomView: View {
         _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel))
     }
     var body: some View {
-        MessageListView()
+        MessageListView(viewModel)
         .toolbar(.hidden, for: .tabBar)
         .safeAreaInset(edge: .bottom) {
             TextInputArea(textMessage: $viewModel.textMessage) {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BubblePhotoView: View {
-    let item: MessageBubbleItem
+    let item: MessageItem
     var body: some View {
         HStack {
             if item.direction == .sent {Spacer()}

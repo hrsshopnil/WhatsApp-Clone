@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimeStampView: View {
-    let item: MessageBubbleItem
+    let item: MessageItem
     var body: some View {
         HStack {
             Text("3:05 PM")

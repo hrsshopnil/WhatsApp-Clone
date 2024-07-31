@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct BubbleTextView: View {
-    let item: MessageBubbleItem
+    let item: MessageItem
     var body: some View {
         VStack(alignment: item.horizontalAlignment, spacing: 3) {
-            Text("Hello, World! How are you?")
+            Text(item.text)
                 .padding(10)
                 .background(item.bgColor)
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))

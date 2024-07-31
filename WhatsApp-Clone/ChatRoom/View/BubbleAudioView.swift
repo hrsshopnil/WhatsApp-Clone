@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BubbleAudioView: View {
-    let item: MessageBubbleItem
+    let item: MessageItem
     @State private var sliderValue = 0.0
     @State private var sliderRange = 0...20.0
     var body: some View {

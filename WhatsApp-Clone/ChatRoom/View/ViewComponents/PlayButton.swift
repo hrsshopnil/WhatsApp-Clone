@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayButton: View {
-    let item: MessageBubbleItem
+    let item: MessageItem
     var body: some View {
         
         Image(systemName: "play.fill")
