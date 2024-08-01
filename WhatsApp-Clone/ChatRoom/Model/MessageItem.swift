@@ -13,9 +13,14 @@ struct MessageItem: Identifiable {
     let text: String
     let type: MessageType
     let ownerId: String
+    let timeStamp: Date
     
     var direction: MessageDirection {
-        return ownerId == Auth.auth().currentUser?.uid ? .sent : .received
+        if ownerId == Auth.auth().currentUser?.uid {
+            return .sent
+        } else {
+            return .received
+        }
     }
     
     var alignment: Alignment {
@@ -29,14 +34,14 @@ struct MessageItem: Identifiable {
         return direction == .sent ? .bubbleGreen : .bubbleWhite
     }
     
-    static let sentPlaceholder = MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .text, ownerId: "1")
-    static let receivedPlaceholder = MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .text, ownerId: "2")
+    static let sentPlaceholder = MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date())
+    static let receivedPlaceholder = MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .text, ownerId: "2", timeStamp: Date())
     
     static let stubMessages: [MessageItem] = [
-        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .text, ownerId: "3"),
-        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .photo, ownerId: "4"),
-        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .video, ownerId: "5"),
-        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .audio, ownerId: "6")
+        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .text, ownerId: "3", timeStamp: Date()),
+        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .photo, ownerId: "4", timeStamp: Date()),
+        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .video, ownerId: "5", timeStamp: Date()),
+        MessageItem(id: UUID().uuidString, text: "Hoo lee Sheet", type: .audio, ownerId: "6", timeStamp: Date())
     ]
 }
 
@@ -45,15 +50,19 @@ extension MessageItem {
         self.id = id
         self.text = dict[.text] as? String ?? ""
         let type = dict[.type] as? String ?? "text"
-        self.type = MessageType(type)
+        self.type = MessageType(type) ?? .text
         self.ownerId = dict[.ownerID] as? String ?? ""
+        let timeInterval = dict[.timeStamp] as? TimeInterval ?? 0
+        self.timeStamp = Date(timeIntervalSince1970: timeInterval)
     }
 }
 enum MessageType {
-    case text, photo, video, audio
+    case admin(_ type: AdminMessageType), text, photo, video, audio
     
     var title: String {
         switch self {
+        case .admin:
+            return "admin"
         case .text:
             return "text"
         case .photo:
@@ -65,7 +74,7 @@ enum MessageType {
         }
     }
     
-    init(_ stringValue: String) {
+    init?(_ stringValue: String) {
         switch stringValue {
         case "text":
             self = .text
@@ -76,11 +85,32 @@ enum MessageType {
         case "audio":
             self = .audio
         default:
-            self = .text
+            if let adminMessageType = AdminMessageType(rawValue: stringValue) {
+                self = .admin(adminMessageType)
+            } else {
+                return nil
+            }
         }
     }
 }
 
+extension MessageType: Equatable {
+    static func ==(lhs: MessageType, rhs: MessageType) -> Bool {
+        switch(lhs, rhs) {
+        case (.admin(let leftAdmin), .admin(let rightAdmin)):
+            return leftAdmin == rightAdmin
+            
+        case (.text, .text),
+            (.photo, .photo),
+            (.video, .video),
+            (.audio, .audio):
+            return true
+            
+        default:
+            return false
+        }
+    }
+}
 enum MessageDirection {
     case sent, received
     

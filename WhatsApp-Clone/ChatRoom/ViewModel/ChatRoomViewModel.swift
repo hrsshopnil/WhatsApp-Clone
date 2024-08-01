@@ -48,7 +48,7 @@ final class ChatRoomViewModel: ObservableObject {
     private func getMessages() {
         MessageService.getMessages(channel) {[weak self] messages in
             self?.messages = messages
-            print("Messages: \(messages.map {$0.text})")
+            print(messages.map {$0.text})
         }
     }
 }

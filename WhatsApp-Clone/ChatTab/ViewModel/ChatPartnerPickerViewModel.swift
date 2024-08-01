@@ -185,11 +185,13 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             let currentId = currentUid,
             let messageID = FirebaseConstants.MessageRef.childByAutoId().key
         else { return .failure(ChannelCreationError.failedToCreateUniqueID) }
+        
         let timeStamp = Date().timeIntervalSince1970
         var memberUids = selectedChatPartners.compactMap {$0.id}
         let name = name(channelName)
         memberUids.append(currentId)
         let newChannelBroadCast = AdminMessageType.channelCreation.rawValue
+        
         let channelDict: [String: Any] = [
             .name: name,
             .id: channelID,
@@ -202,7 +204,6 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             .createdBy: currentId
         ]
         
-//        self.channelDictionary[channelID] = channel
         let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentId]
         
         FirebaseConstants.ChannelsRef.child(channelID).setValue(channelDict)

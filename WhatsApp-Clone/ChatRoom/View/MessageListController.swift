@@ -14,6 +14,8 @@ final class MessageListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = .clear
+        view.backgroundColor = .clear
         setUpViews()
         messageListener()
     }
@@ -27,6 +29,7 @@ final class MessageListController: UIViewController {
         subscriptions.forEach {$0.cancel()}
         subscriptions.removeAll()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder: ) hasn't been implemented")
     }
@@ -34,6 +37,7 @@ final class MessageListController: UIViewController {
     private let viewModel: ChatRoomViewModel
     private let cellIdentifier = "messageListControllerCells"
     private var subscriptions = Set<AnyCancellable>()
+    
     private lazy var tableView: UITableView = {
        let tableView = UITableView()
         tableView.delegate = self
@@ -44,10 +48,22 @@ final class MessageListController: UIViewController {
         return tableView
     }()
     
+    private let backgroundImageView: UIImageView = {
+        let bgImage = UIImageView(image: .chatbackground)
+        bgImage.translatesAutoresizingMaskIntoConstraints = false
+        return bgImage
+    }()
+    
     private func setUpViews() {
+        view.addSubview(backgroundImageView)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -79,6 +95,13 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
         let message = viewModel.messages[indexPath.row]
         cell.contentConfiguration = UIHostingConfiguration {
             switch message.type {
+            case .admin(let messageType):
+                switch messageType {
+                case .channelCreation:
+                    Text("CHANNEL CREATION")
+                default:
+                    Text("ADMIN TEXT")
+                }
             case .text:
                 BubbleTextView(item: message)
             case .photo, .video:
