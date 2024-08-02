@@ -16,7 +16,7 @@ struct MessageItem: Identifiable {
     let timeStamp: Date
     
     var direction: MessageDirection {
-        if ownerId == Auth.auth().currentUser?.uid {
+        if ownerId == K.currentUserId {
             return .sent
         } else {
             return .received

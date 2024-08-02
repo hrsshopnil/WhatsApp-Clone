@@ -112,7 +112,7 @@ extension AuthManager {
     }
     
     private func fetchCurrentUser() {
-        guard let currentUid = Auth.auth().currentUser?.uid else {return}
+        guard let currentUid = K.currentUserId else {return}
         
         FirebaseConstants.UserRef.child(currentUid).observeSingleEvent(of: .value) {[weak self] snapshot in
             guard let userDictionary = snapshot.value as? [String: Any] else {return}

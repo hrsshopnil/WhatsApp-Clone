@@ -27,7 +27,6 @@ final class ChatPartnerPickerViewModel: ObservableObject {
 
     
     private var lastCursor: String?
-    let currentUid = Auth.auth().currentUser?.uid
     init() {
         Task {
             await fetchUsers()
@@ -62,7 +61,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     }
     
     private var membersExcludingMe: [UserItem] {
-        guard let currentId = currentUid else { return [] }
+        guard let currentId = K.currentUserId else { return [] }
         return selectedChatPartners.filter {$0.id != currentId}
     }
     
@@ -91,7 +90,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         do {
             let userNode = try await UserService.paginateUsers(lastCursor: lastCursor, pageSize: 5)
             var fetchedUsers = userNode.users
-            guard let currentId = currentUid else {return}
+            guard let currentId = K.currentUserId else {return}
             fetchedUsers = fetchedUsers.filter {$0.id != currentId}
             self.users.append(contentsOf: fetchedUsers)
             self.lastCursor = userNode.currentCursor
@@ -165,7 +164,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     }
     
     private func verifyDirectChannelExist(with chatPartnerID: String) async -> String? {
-        guard let currentId = currentUid,
+        guard let currentId = K.currentUserId,
               let snapshot = try? await FirebaseConstants.UserDirectChannels.child(currentId).child(chatPartnerID).getData(),
               snapshot.exists()
         else {return nil}
@@ -182,7 +181,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         
         guard
             let channelID = FirebaseConstants.ChannelsRef.childByAutoId().key,
-            let currentId = currentUid,
+            let currentId = K.currentUserId,
             let messageID = FirebaseConstants.MessageRef.childByAutoId().key
         else { return .failure(ChannelCreationError.failedToCreateUniqueID) }
         
@@ -204,7 +203,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             .createdBy: currentId
         ]
         
-        let messageDict: [String: Any] = [.messageType: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentId]
+        let messageDict: [String: Any] = [.text: newChannelBroadCast, .type: newChannelBroadCast, .timeStamp: timeStamp, .ownerID: currentId]
         
         FirebaseConstants.ChannelsRef.child(channelID).setValue(channelDict)
         FirebaseConstants.MessageRef.child(channelID).child(messageID).setValue(messageDict)

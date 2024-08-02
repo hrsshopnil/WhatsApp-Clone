@@ -25,7 +25,7 @@ final class ChannelTabViewModel: ObservableObject {
     }
     
     private func fetchCurrentUserChannel() {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let currentUid = K.currentUserId else { return }
         FirebaseConstants.UserChannelRef.child(currentUid).observe(.value) {[weak self] snapshot in
             guard let dict = snapshot.value as? [String: Bool] else { return }
             dict.forEach { key, value in
