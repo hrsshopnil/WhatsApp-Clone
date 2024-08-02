@@ -22,10 +22,18 @@ struct ChannelItem: Identifiable {
     var createdBy: String
     
     // MARK: gives a name that is computed in local machine
-//    private var isGroupChat: Bool {
-//        return members.count > 2
-//    }
-//    
+    var isGroupChat: Bool {
+        return membersUids.count > 2
+    }
+    
+    var isCreatedByMe: Bool {
+        return createdBy == K.currentUserId
+    }
+    
+    var creatorName: String {
+        return members.first {$0.id == createdBy}?.username ?? "Someone"
+    }
+//
 //    private var membersExcludingMe: [UserItem] {
 //        guard let currentId = Auth.auth().currentUser?.uid else { return [] }
 //        return members.filter {$0.id != currentId}

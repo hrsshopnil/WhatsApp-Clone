@@ -98,7 +98,12 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
             case .admin(let messageType):
                 switch messageType {
                 case .channelCreation:
-                    Text("CHANNEL CREATION")
+                    ChannelCreationTextView()
+                    if viewModel.channel.isGroupChat {
+                        AdminTextView(channel: viewModel.channel)
+                    } else {
+                        Text("Error validing Group chat")
+                    }
                 default:
                     Text("ADMIN TEXT")
                 }

@@ -12,7 +12,7 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var textMessage = ""
     @Published var messages = [MessageItem]()
     private var currenUser: UserItem?
-    private var channel: ChannelItem
+    private(set) var channel: ChannelItem
     private var subscription = Set<AnyCancellable>()
     
     init(_ channel: ChannelItem) {

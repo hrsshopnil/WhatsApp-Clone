@@ -16,14 +16,7 @@ struct MessageItem: Identifiable {
     let timeStamp: Date
     
     var direction: MessageDirection {
-        print(ownerId)
-        print(text)
-//        print(K.currentUserId)
-        if ownerId == K.currentUserId {
-            return .sent
-        } else {
-            return .received
-        }
+        return ownerId == K.currentUserId ? .sent : .received
     }
     
     var alignment: Alignment {

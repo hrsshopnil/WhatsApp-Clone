@@ -35,6 +35,8 @@
 		B380DE072C2EEDB10091BB7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE062C2EEDB10091BB7C /* Assets.xcassets */; };
 		B380DE0A2C2EEDB10091BB7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */; };
 		B382B0F82C5D070000CC0D50 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382B0F72C5D070000CC0D50 /* Constants.swift */; };
+		B382B0FA2C5D1DC400CC0D50 /* ChannelCreationTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382B0F92C5D1DC400CC0D50 /* ChannelCreationTextView.swift */; };
+		B382B0FC2C5D29BA00CC0D50 /* AdminTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */; };
 		B38D80E02C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */; };
 		B38D81022C4415BE00A0CF82 /* SetUpGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */; };
 		B397DB692C5A56C100BA7770 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */; };
@@ -96,6 +98,8 @@
 		B380DE062C2EEDB10091BB7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B380DE092C2EEDB10091BB7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B382B0F72C5D070000CC0D50 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B382B0F92C5D1DC400CC0D50 /* ChannelCreationTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCreationTextView.swift; sourceTree = "<group>"; };
+		B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTextView.swift; sourceTree = "<group>"; };
 		B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerOption.swift; sourceTree = "<group>"; };
 		B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpGroupView.swift; sourceTree = "<group>"; };
 		B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
@@ -423,6 +427,8 @@
 				B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */,
 				B3A47B492C36D3EC00CF9939 /* BubblePhotoView.swift */,
 				B32BFB9A2C396633007B725D /* BubbleAudioView.swift */,
+				B382B0F92C5D1DC400CC0D50 /* ChannelCreationTextView.swift */,
+				B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */,
 				B32BFB962C3964D0007B725D /* ViewComponents */,
 			);
 			path = View;
@@ -524,12 +530,14 @@
 				B3C2C3FB2C46EFEF004E7E9E /* ChannelTabViewModel.swift in Sources */,
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
 				B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */,
+				B382B0FC2C5D29BA00CC0D50 /* AdminTextView.swift in Sources */,
 				B38D80E02C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift in Sources */,
 				B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */,
 				B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */,
 				B3C2DA942C3571360032560F /* MessageItem.swift in Sources */,
 				B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */,
 				B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */,
+				B382B0FA2C5D1DC400CC0D50 /* ChannelCreationTextView.swift in Sources */,
 				B3BCCAE82C41837B00B19191 /* GroupPartnerPickerScreen.swift in Sources */,
 				B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */,
 				B3C5E4DB2C40320200C16537 /* RootModel.swift in Sources */,
