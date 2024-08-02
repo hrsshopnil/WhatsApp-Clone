@@ -11,7 +11,7 @@ struct TimeStampView: View {
     let item: MessageItem
     var body: some View {
         HStack {
-            Text("3:05 PM")
+            Text(item.timeStamp.formatToTime)
                 .font(.system(size: 13))
             
             if item.direction == .sent {

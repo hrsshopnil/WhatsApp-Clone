@@ -20,7 +20,7 @@ struct RecentChatItem: View {
                 .foregroundStyle(.gray)
             }
             Spacer()
-            Text("Yesterday")
+            Text(channel.lastMessageTimeStamp.dayOrTimeRepresentation)
                 .font(.caption)
                 .foregroundStyle(.gray)
         }
