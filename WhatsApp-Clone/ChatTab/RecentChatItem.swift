@@ -11,7 +11,7 @@ struct RecentChatItem: View {
     let channel: ChannelItem
     var body: some View {
         HStack(alignment: .top) {
-            Circle()
+            CircularProfileImageView(channel, size: .medium)
                 .frame(width: 55, height: 55)
             VStack(alignment: .leading) {
                 Text(channel.name ?? "Unknown")

@@ -18,7 +18,7 @@ struct ChannelItem: Identifiable {
     var adminUids: [String]
     var membersUids: [String]
     var members: [UserItem]
-    var thumbnailUrl: String?
+    private var thumbnailUrl: String?
     var createdBy: String
     
     // MARK: gives a name that is computed in local machine
@@ -32,6 +32,23 @@ struct ChannelItem: Identifiable {
     
     var creatorName: String {
         return members.first {$0.id == createdBy}?.username ?? "Someone"
+    }
+    
+    var coverImageUrl: String? {
+        if let thumbnailUrl {
+            return thumbnailUrl
+        }
+        
+        if !isGroupChat {
+            return membersExcludingMe.first?.profileImageUrl
+        }
+        
+        return nil
+    }
+    
+    private var membersExcludingMe: [UserItem] {
+        guard let currentId = K.currentUserId else { return [] }
+        return members.filter {$0.id != currentId}
     }
 //
 //    private var membersExcludingMe: [UserItem] {
