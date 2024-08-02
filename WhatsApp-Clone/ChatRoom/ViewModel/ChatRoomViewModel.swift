@@ -31,6 +31,7 @@ final class ChatRoomViewModel: ObservableObject {
             switch authstate {
             case .loggedin(let currenUser):
                 self?.currenUser = currenUser
+//                print(currenUser)
                 self?.getMessages()
             default:
                 break
@@ -38,7 +39,7 @@ final class ChatRoomViewModel: ObservableObject {
         }.store(in: &subscription)
     }
     
-    func messageSent() {
+    func sendMessage() {
         guard let currenUser else { return }
         MessageService.sendTextMessage(to: channel, from: currenUser, textMessage) {[weak self] in
             self?.textMessage = ""

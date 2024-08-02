@@ -16,6 +16,9 @@ struct MessageItem: Identifiable {
     let timeStamp: Date
     
     var direction: MessageDirection {
+        print(ownerId)
+        print(text)
+//        print(K.currentUserId)
         if ownerId == K.currentUserId {
             return .sent
         } else {
@@ -51,7 +54,7 @@ extension MessageItem {
         self.text = dict[.text] as? String ?? ""
         let type = dict[.type] as? String ?? "text"
         self.type = MessageType(type) ?? .text
-        self.ownerId = dict[.ownerID] as? String ?? ""
+        self.ownerId = dict[.ownerId] as? String ?? ""
         let timeInterval = dict[.timeStamp] as? TimeInterval ?? 0
         self.timeStamp = Date(timeIntervalSince1970: timeInterval)
     }
@@ -114,7 +117,7 @@ extension MessageType: Equatable {
 enum MessageDirection {
     case sent, received
     
-    //    static var random: MessageDirection {
-    //        return [MessageDirection.sent, .received].randomElement() ?? .sent
-    //    }
+        static var random: MessageDirection {
+            return [MessageDirection.sent, .received].randomElement() ?? .sent
+        }
 }

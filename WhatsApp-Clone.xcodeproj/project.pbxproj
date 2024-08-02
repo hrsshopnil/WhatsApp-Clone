@@ -241,7 +241,6 @@
 				B3D467942C41557000FE4263 /* Components */,
 				B3A47B462C36C02300CF9939 /* Helpers */,
 				B3D6E2022C40FB1F0086A14C /* Utilities */,
-				B382B0F72C5D070000CC0D50 /* Constants.swift */,
 				B345D5982C3AA37700346152 /* GoogleService-Info.plist */,
 				B380DE062C2EEDB10091BB7C /* Assets.xcassets */,
 				B380DE082C2EEDB10091BB7C /* Preview Content */,
@@ -362,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */,
+				B382B0F72C5D070000CC0D50 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

@@ -20,7 +20,7 @@ struct ChatRoomView: View {
         .toolbar(.hidden, for: .tabBar)
         .safeAreaInset(edge: .bottom) {
             TextInputArea(textMessage: $viewModel.textMessage) {
-                viewModel.messageSent()
+                viewModel.sendMessage()
             }
         }
         .navigationBarTitleDisplayMode(.inline)

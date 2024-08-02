@@ -24,11 +24,10 @@ extension String {
     static let members = "members"
     static let createdBy = "createdBy"
     static let timeStamp = "timeStamp"
-    static let ownerID = "ownerID"
+    static let ownerId = "ownerId"
     static let messageType = "messageType"
     static let text = "text"
     static let type = "type"
-    static let ownerId = "ownerId"
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
