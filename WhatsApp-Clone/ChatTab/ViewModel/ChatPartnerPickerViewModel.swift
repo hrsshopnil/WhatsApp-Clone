@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import Combine
 
 enum ChatCreationRoute {
     case addGroupChatMember, setUpGroup
@@ -25,12 +26,17 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     @Published private(set) var users = [UserItem]()
     @Published var errorState: (showError: Bool, errorMessage: String) = (false, "Uh oh")
 
-    
+    private var currentUser: UserItem?
+    private var subscription: AnyCancellable?
     private var lastCursor: String?
+    
     init() {
-        Task {
-            await fetchUsers()
-        }
+listenToAuthState()
+    }
+    
+    deinit {
+        subscription?.cancel()
+        subscription = nil
     }
     var showSelectedUser: Bool {
         return !selectedChatPartners.isEmpty
@@ -52,6 +58,19 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         }
     }
     
+    private func listenToAuthState() {
+        subscription = AuthManager.shared.authstate.receive(on: DispatchQueue.main).sink { [weak self] authState in
+            switch authState {
+            case .loggedin(let loggedInUser):
+                self?.currentUser = loggedInUser
+                Task {
+                    await self?.fetchUsers()
+                }
+            default:
+                break
+            }
+        }
+    }
     private var isDirectchannel: Bool {
         return selectedChatPartners.count == 1
     }
@@ -137,6 +156,9 @@ final class ChatPartnerPickerViewModel: ObservableObject {
                 let channelDict = snapshot.value as! [String: Any]
                 var directChannel = ChannelItem(dict: channelDict)
                 directChannel.members = selectedChatPartners
+                if let currentUser {
+                    directChannel.members.append(currentUser)
+                }
                 completion(directChannel)
             } else {
                 let channelCreation = createChannel(nil)

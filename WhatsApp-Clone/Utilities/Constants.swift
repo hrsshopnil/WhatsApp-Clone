@@ -9,5 +9,5 @@ import Foundation
 import Firebase
 
 class K {
-    static let currentUserId = Auth.auth().currentUser?.uid
+    static var currentUserId = Auth.auth().currentUser?.uid
 }

@@ -62,6 +62,7 @@ final class AuthManager: AuthProvidor {
     func login(email: String, password: String) async throws {
         do {
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
+            K.currentUserId = Auth.auth().currentUser?.uid
             fetchCurrentUser()
             if let userEmail = authResult.user.email {
                 print("Successfully logged in \(userEmail)")
@@ -77,6 +78,7 @@ final class AuthManager: AuthProvidor {
         do {
             let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
             let uid = authResult.user.uid
+            K.currentUserId = Auth.auth().currentUser?.uid
             let newUser = UserItem(email: email, id: uid, username: username)
             try await saveUserInfoDatabase(user: newUser)
             self.authstate.send(.loggedin(newUser))
@@ -112,7 +114,7 @@ extension AuthManager {
     }
     
     private func fetchCurrentUser() {
-        guard let currentUid = K.currentUserId else {return}
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}
         
         FirebaseConstants.UserRef.child(currentUid).observeSingleEvent(of: .value) {[weak self] snapshot in
             guard let userDictionary = snapshot.value as? [String: Any] else {return}
