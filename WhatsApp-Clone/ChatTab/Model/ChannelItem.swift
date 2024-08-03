@@ -36,7 +36,9 @@ struct ChannelItem: Identifiable, Hashable {
             return "Unknown"
         }
     }
-    
+    var allmemberFetched: Bool {
+        return members.count == membersCount
+    }
     var isCreatedByMe: Bool {
         return createdBy == K.currentUserId
     }
