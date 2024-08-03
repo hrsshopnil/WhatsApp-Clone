@@ -8,7 +8,13 @@
 import Foundation
 import Firebase
 
+enum ChannelTabRouts: Hashable {
+    case chatRoom(_ channel: ChannelItem)
+}
+
 final class ChannelTabViewModel: ObservableObject {
+    
+    @Published var navRouts = [ChannelTabRouts]()
     @Published var navigateToChatRoom = false
     @Published var newChannel: ChannelItem?
     @Published var showChatPartnerPickerView = false

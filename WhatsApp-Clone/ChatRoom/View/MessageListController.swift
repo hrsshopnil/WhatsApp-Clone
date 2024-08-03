@@ -101,8 +101,6 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
                     ChannelCreationTextView()
                     if viewModel.channel.isGroupChat {
                         AdminTextView(channel: viewModel.channel)
-                    } else {
-                        Text("Error validing Group chat")
                     }
                 default:
                     Text("ADMIN TEXT")

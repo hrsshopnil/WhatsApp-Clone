@@ -12,7 +12,7 @@ struct AdminTextView: View {
     var body: some View {
         VStack {
             if channel.isCreatedByMe {
-                textView("You created this group.Tap to add new\n members")
+                textView("You created this group. Tap to add new\n members")
             } else {
                 textView("\(channel.creatorName) created this channel")
                 textView("\(channel.creatorName) added you to this channel")

@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-struct ChannelItem: Identifiable {
+struct ChannelItem: Identifiable, Hashable {
     var id: String
     var name: String?
     var lastMessage: String
@@ -24,6 +24,17 @@ struct ChannelItem: Identifiable {
     // MARK: gives a name that is computed in local machine
     var isGroupChat: Bool {
         return membersUids.count > 2
+    }
+    
+    var title: String {
+        if let channelName = name {
+            let maxChar = 20
+            let trailingChars = channelName.count > maxChar ? " ..." : ""
+            let title = String(channelName.prefix(maxChar) + trailingChars)
+            return title
+        } else {
+            return "Unknown"
+        }
     }
     
     var isCreatedByMe: Bool {

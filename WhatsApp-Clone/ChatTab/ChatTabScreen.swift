@@ -12,15 +12,15 @@ struct ChatTabScreen: View {
     @StateObject private var viewModel = ChannelTabViewModel()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $viewModel.navRouts) {
             List {
                 Label("Archived", systemImage: "archivebox.fill")
                     .bold()
                     .foregroundStyle(.gray)
                 
                 ForEach(viewModel.channels) {channel in
-                    NavigationLink {
-                        ChatRoomView(channel: channel)
+                    Button {
+                        viewModel.navRouts.append(.chatRoom(channel))
                     } label: {
                         RecentChatItem(channel: channel)
                     }
@@ -51,6 +51,9 @@ struct ChatTabScreen: View {
             .listStyle(.plain)
             .navigationTitle("Chat")
             .searchable(text: $searchText)
+            .navigationDestination(for: ChannelTabRouts.self) { route in
+                destinationView(for: route)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Menu {
@@ -88,6 +91,15 @@ struct ChatTabScreen: View {
     }
 }
 
+extension ChatTabScreen {
+    @ViewBuilder
+    private func destinationView(for route: ChannelTabRouts) -> some View {
+        switch route {
+        case .chatRoom(let channel):
+            ChatRoomView(channel: channel)
+        }
+    }
+}
 #Preview {
     ChatTabScreen()
 }

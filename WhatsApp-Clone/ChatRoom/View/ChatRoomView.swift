@@ -24,12 +24,13 @@ struct ChatRoomView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 HStack {
-                    Circle()
+                    CircularProfileImageView(channel, size: .mini)
                         .frame(width: 35, height: 35)
-                    Text(channel.name ?? "Unknown")
+                    Text(channel.title)
                         .bold()
                 }
             }
