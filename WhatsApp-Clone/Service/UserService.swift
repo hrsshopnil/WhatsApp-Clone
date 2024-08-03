@@ -15,13 +15,18 @@ struct UserService {
         var users: [UserItem] = []
         for uid in uids {
             let query = FirebaseConstants.UserRef.child(uid)
+            print(uid)
             query.observeSingleEvent(of: .value) { snapshot in
-                guard let user = snapshot.value as? UserItem else { return }
+                print("snapshot found")
+                guard let user = try? snapshot.data(as: UserItem.self) else { return }
                 users.append(user)
                 if users.count == uids.count {
                     print("Users are equal")
                     completion(UserNode(users: users))
                 }
+            } withCancel: { error in
+                print(error)
+                completion(.emptyNode)
             }
         }
     }

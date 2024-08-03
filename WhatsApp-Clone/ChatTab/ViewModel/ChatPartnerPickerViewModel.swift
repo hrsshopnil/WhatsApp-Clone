@@ -243,6 +243,9 @@ listenToAuthState()
         
         var newChannelItem = ChannelItem(dict: channelDict)
         newChannelItem.members = selectedChatPartners
+        if let currentUser {
+            newChannelItem.members.append(currentUser)
+        }
         return .success(newChannelItem)
     }
 }

@@ -42,9 +42,9 @@ struct UserItem: Identifiable, Hashable, Codable {
 }
 extension UserItem {
     init(dictionary: [String: Any]) {
+        self.email = dictionary[.email] as? String ?? ""
         self.id = dictionary[.id] as? String ?? ""
         self.username = dictionary[.username] as? String ?? ""
-        self.email = dictionary[.email] as? String ?? ""
         self.bio = dictionary[.bio] as? String? ?? nil
         self.profileImageUrl = dictionary[.profileImageUrl] as? String? ?? nil
     }

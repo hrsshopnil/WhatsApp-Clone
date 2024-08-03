@@ -31,8 +31,7 @@ final class ChatRoomViewModel: ObservableObject {
             switch authstate {
             case .loggedin(let currenUser):
                 self?.currenUser = currenUser
-//                print(currenUser)
-                self?.getMessages()
+                self?.fetchAllChannelMembers()
             default:
                 break
             }
@@ -50,6 +49,19 @@ final class ChatRoomViewModel: ObservableObject {
         MessageService.getMessages(channel) {[weak self] messages in
             self?.messages = messages
             print(messages.map {$0.text})
+        }
+    }
+    
+    private func fetchAllChannelMembers() {
+        guard let currenUser else { return }
+        var membersUids = channel.membersUids.compactMap {$0}
+        membersUids = membersUids.filter {$0 != currenUser.id}
+        UserService.getUsers(with: membersUids) { [weak self] usernode in
+            print(usernode)
+            guard let self = self else { return }
+            self.channel.members.append(contentsOf: usernode.users)
+            self.getMessages()
+            print("GetChannelMembers: \(channel.members.map { $0.username })")
         }
     }
 }
