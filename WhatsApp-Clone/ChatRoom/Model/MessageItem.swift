@@ -15,6 +15,7 @@ struct MessageItem: Identifiable {
     let type: MessageType
     let ownerId: String
     let timeStamp: Date
+    var sender: UserItem?
     
     var direction: MessageDirection {
         return ownerId == K.currentUserId ? .sent : .received
@@ -33,6 +34,14 @@ struct MessageItem: Identifiable {
     }
     var showSenderProfile: Bool {
         return isGroupChat && direction == .received
+    }
+    
+    var leadingPadding: CGFloat {
+        return direction == .received ? 0 : 25
+    }
+    
+    var trailingPadding: CGFloat {
+        return direction == .received ? 25 : 0
     }
     
     static let sentPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date())

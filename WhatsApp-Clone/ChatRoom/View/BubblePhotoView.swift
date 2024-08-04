@@ -10,23 +10,23 @@ import SwiftUI
 struct BubblePhotoView: View {
     let item: MessageItem
     var body: some View {
-        HStack {
-            if item.direction == .sent {Spacer()}
-            
-            HStack {
-                if item.direction == .sent {shareButton()}
-                messagePhotoView()
-                    .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
-                    .overlay{
-                        if item.type == .video {
-                            PlayButton(item: item)
-                        }
-                    }
-                if item.direction == .received {shareButton()}
+        HStack(alignment: .bottom, spacing: 5) {
+            if item.direction == .sent { Spacer() }
+            if item.showSenderProfile {
+                CircularProfileImageView(size: .mini, profileImageUrl: item.sender?.profileImageUrl)
             }
-            
-            if item.direction == .received {Spacer()}
+            messagePhotoView()
+                .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
+                .overlay{
+                    if item.type == .video {
+                        PlayButton(item: item)
+                    }
+                }
+            if item.direction == .sent { Spacer() }
         }
+        .frame(maxWidth: .infinity, alignment: item.alignment)
+        .padding(.leading, item.leadingPadding)
+        .padding(.leading, item.trailingPadding)
     }
     
     private func messagePhotoView() -> some View {
@@ -45,10 +45,12 @@ struct BubblePhotoView: View {
                         .clipShape(Capsule())
                         .padding(10)
                 }
-            Text(item.text)
-                .padding([.horizontal, .bottom], 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(width: 220)
+            if !item.text.isEmptyOrWhiteSpaces {
+                Text(item.text)
+                    .padding([.horizontal, .bottom], 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(width: 220)
+            }
         }
         .background(item.bgColor)
         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -71,5 +73,8 @@ struct BubblePhotoView: View {
 }
 
 #Preview {
-    BubblePhotoView(item: .sentPlaceholder)
+    ScrollView {
+        BubblePhotoView(item: .sentPlaceholder)
+    }
+    .background(.gray.opacity(0.3))
 }

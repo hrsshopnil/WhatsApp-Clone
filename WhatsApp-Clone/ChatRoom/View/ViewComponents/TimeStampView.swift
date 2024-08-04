@@ -12,15 +12,8 @@ struct TimeStampView: View {
     var body: some View {
         HStack {
             Text(item.timeStamp.formatToTime)
-                .font(.system(size: 13))
-            
-            if item.direction == .sent {
-                Image(.seen)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 15, height: 15)
-                    .foregroundStyle(Color(.systemBlue))
-            }
+                .font(.footnote)
+                .foregroundStyle(.gray)
         }
     }
 }

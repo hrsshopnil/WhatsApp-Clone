@@ -12,7 +12,15 @@ struct BubbleAudioView: View {
     @State private var sliderValue = 0.0
     @State private var sliderRange = 0...20.0
     var body: some View {
-        VStack(alignment: item.horizontalAlignment, spacing: 3) {
+        HStack(alignment: .bottom, spacing: 5) {
+            if item.showSenderProfile {
+                CircularProfileImageView(size: .mini, profileImageUrl: item.sender?.profileImageUrl)
+            }
+            
+            if item.direction == .sent {
+                TimeStampView(item: item)
+            }
+            
             HStack {
                 Button {
                     
@@ -31,12 +39,14 @@ struct BubbleAudioView: View {
             .background(item.bgColor)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .applyTail(item.direction)
-            TimeStampView(item: item)
+            if item.direction == .received {
+                TimeStampView(item: item)
+            }
         }
         .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
         .frame(maxWidth: .infinity, alignment: item.alignment)
-        .padding(.leading, item.direction == .received ? 5 : 100)
-        .padding(.trailing, item.direction == .received ? 100 : 5)
+        .padding(.leading, item.leadingPadding)
+        .padding(.trailing, item.trailingPadding)
     }
 }
 
@@ -45,5 +55,4 @@ struct BubbleAudioView: View {
         BubbleAudioView(item: .sentPlaceholder)
         BubbleAudioView(item: .receivedPlaceholder)
     }
-    .padding()
-}
+    .background(.gray.opacity(0.3))}

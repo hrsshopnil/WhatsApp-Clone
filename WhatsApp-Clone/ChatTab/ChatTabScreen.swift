@@ -29,7 +29,7 @@ struct ChatTabScreen: View {
                     Image(systemName: "lock.fill")
                     
                     (
-                        Text("Your personal message are")
+                        Text("Your personal message are ")
                         +
                         Text("end-to-end encrypted")
                             .foregroundStyle(.blue)
