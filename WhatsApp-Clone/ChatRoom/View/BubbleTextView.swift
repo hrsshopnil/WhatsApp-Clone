@@ -10,7 +10,10 @@ import SwiftUI
 struct BubbleTextView: View {
     let item: MessageItem
     var body: some View {
-        VStack(alignment: item.horizontalAlignment, spacing: 3) {
+        HStack(alignment: .bottom, spacing: 3) {
+            if item.showSenderProfile {
+                CircularProfileImageView(size: .mini)
+            }
             Text(item.text)
                 .padding(10)
                 .background(item.bgColor)
