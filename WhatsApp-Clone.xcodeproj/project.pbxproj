@@ -73,6 +73,7 @@
 		B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60822C341AE500B3B2CE /* SettingsSectionHeader.swift */; };
 		B3ED60872C34208900B3B2CE /* ChatRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60862C34208900B3B2CE /* ChatRoomView.swift */; };
 		B3ED60892C3427B000B3B2CE /* TextInputArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60882C3427B000B3B2CE /* TextInputArea.swift */; };
+		B3F8D9F02C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F8D9EF2C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,7 @@
 		B3ED60822C341AE500B3B2CE /* SettingsSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeader.swift; sourceTree = "<group>"; };
 		B3ED60862C34208900B3B2CE /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
 		B3ED60882C3427B000B3B2CE /* TextInputArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputArea.swift; sourceTree = "<group>"; };
+		B3F8D9EF2C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAttachmentPreview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +436,7 @@
 				B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */,
 				B382B0F92C5D1DC400CC0D50 /* ChannelCreationTextView.swift */,
 				B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */,
+				B3F8D9EF2C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift */,
 				B32BFB962C3964D0007B725D /* ViewComponents */,
 			);
 			path = View;
@@ -562,6 +565,7 @@
 				B32BF3562C5279960037D6E4 /* StringExtension.swift in Sources */,
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
+				B3F8D9F02C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift in Sources */,
 				B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */,
 				B3D467962C41559200FE4263 /* IconWithTransparentBG.swift in Sources */,
 				B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */,

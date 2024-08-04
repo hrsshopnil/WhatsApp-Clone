@@ -19,9 +19,7 @@ struct ChatRoomView: View {
         MessageListView(viewModel)
         .toolbar(.hidden, for: .tabBar)
         .safeAreaInset(edge: .bottom) {
-            TextInputArea(textMessage: $viewModel.textMessage) {
-                viewModel.sendMessage()
-            }
+  bottomView()
         }
         .navigationBarTitleDisplayMode(.inline)
         
@@ -51,8 +49,19 @@ struct ChatRoomView: View {
             
         }
     }
+    
+    private func bottomView() -> some View {
+        VStack(spacing: 0) {
+            Divider()
+            MediaAttachmentPreview()
+                .padding(.horizontal, 8)
+            Divider()
+            TextInputArea(textMessage: $viewModel.textMessage) {
+                viewModel.sendMessage()
+            }
+        }
+    }
 }
-
 
 
 #Preview {
