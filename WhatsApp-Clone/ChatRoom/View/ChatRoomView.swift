@@ -57,7 +57,7 @@ struct ChatRoomView: View {
         VStack(spacing: 0) {
             Divider()
             if viewModel.showPhotoPickerPreview {
-                MediaAttachmentPreview(images: viewModel.selectedImages)
+                MediaAttachmentPreview(images: viewModel.mediaAttachments)
                     .padding(.horizontal, 8)
                 Divider()
             }

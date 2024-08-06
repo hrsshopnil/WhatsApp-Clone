@@ -15,7 +15,7 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var messages = [MessageItem]()
     @Published var showPhotoPicker = false
     @Published var photoPickerItems: [PhotosPickerItem] = []
-    @Published var selectedImages: [UIImage] = []
+    @Published var mediaAttachments: [MediaAttachment] = []
     
     private var currenUser: UserItem?
     private(set) var channel: ChannelItem
@@ -92,13 +92,17 @@ final class ChatRoomViewModel: ObservableObject {
             guard let self else { return }
             Task {
                 for photoItem in photoItems {
-                    if photoItem.isVideo{
+                    if photoItem.isVideo {
+                        if let movie = try? await photoItem.loadTransferable(type: VideoPickerTransferable.self) {
+                            
+                        }
                     }
                     else {
                         guard
                             let data = try? await photoItem.loadTransferable(type: Data.self),
                             let uiImage = UIImage(data: data) else { return }
-                        self.selectedImages.insert(uiImage, at: 0)
+                        let photosAttachment = MediaAttachment(id: UUID().uuidString, type: .photo(uiImage))
+                        self.mediaAttachments.insert(photosAttachment, at: 0)
                     }
                 }
             }

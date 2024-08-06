@@ -43,6 +43,7 @@
 		B38D81022C4415BE00A0CF82 /* SetUpGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */; };
 		B397DB692C5A56C100BA7770 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */; };
 		B397DB6B2C5A6B5300BA7770 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB6A2C5A6B5300BA7770 /* MessageService.swift */; };
+		B3A46FD32C624B0400E017BB /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A46FD22C624B0400E017BB /* MediaPickerItem+Types.swift */; };
 		B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */; };
 		B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */; };
 		B3A47B482C36C04800CF9939 /* BubbleTailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */; };
@@ -108,6 +109,7 @@
 		B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpGroupView.swift; sourceTree = "<group>"; };
 		B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
 		B397DB6A2C5A6B5300BA7770 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		B3A46FD22C624B0400E017BB /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
 		B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailView.swift; sourceTree = "<group>"; };
 		B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTextView.swift; sourceTree = "<group>"; };
 		B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailModifier.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			children = (
 				B3C2DA932C3571360032560F /* MessageItem.swift */,
 				B374AC8F2C54FB3D00D9C79B /* MessageItem+Types.swift */,
+				B3A46FD22C624B0400E017BB /* MediaPickerItem+Types.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
 				B3F8D9F02C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift in Sources */,
 				B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */,
+				B3A46FD32C624B0400E017BB /* MediaPickerItem+Types.swift in Sources */,
 				B3D467962C41559200FE4263 /* IconWithTransparentBG.swift in Sources */,
 				B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */,
 				B380DE032C2EEDB00091BB7C /* WhatsApp_CloneApp.swift in Sources */,
