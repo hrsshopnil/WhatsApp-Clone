@@ -7,17 +7,29 @@
 
 import Foundation
 import Combine
+import PhotosUI
+import SwiftUI
 
 final class ChatRoomViewModel: ObservableObject {
     @Published var textMessage = ""
     @Published var messages = [MessageItem]()
+    @Published var showPhotoPicker = false
+    @Published var photoPickerItems: [PhotosPickerItem] = []
+    @Published var selectedImages: [UIImage] = []
+    
     private var currenUser: UserItem?
     private(set) var channel: ChannelItem
     private var subscription = Set<AnyCancellable>()
     
+    var showPhotoPickerPreview: Bool {
+        return !photoPickerItems.isEmpty
+    }
+    
+    
     init(_ channel: ChannelItem) {
         self.channel = channel
         listenToAuthState()
+        onPhotosSelection()
     }
     
     deinit {
@@ -63,5 +75,29 @@ final class ChatRoomViewModel: ObservableObject {
             self.getMessages()
             print("GetChannelMembers: \(channel.members.map { $0.username })")
         }
+    }
+    
+    func handleAction(_ action: TextInputArea.UserAction) {
+        switch action {
+            
+        case .presentPhotoPicker:
+            showPhotoPicker = true
+        case .sendMessage:
+            sendMessage()
+        }
+    }
+    
+    private func onPhotosSelection() {
+        $photoPickerItems.sink { [weak self] photoItems in
+            guard let self else { return }
+            Task {
+                for photoItem in photoItems {
+                    guard
+                        let data = try? await photoItem.loadTransferable(type: Data.self),
+                        let uiImage = UIImage(data: data) else { return }
+                    self.selectedImages.insert(uiImage, at: 0)
+                }
+            }
+        }.store(in: &subscription)
     }
 }

@@ -17,47 +17,52 @@ struct ChatRoomView: View {
     }
     var body: some View {
         MessageListView(viewModel)
-        .toolbar(.hidden, for: .tabBar)
-        .safeAreaInset(edge: .bottom) {
-  bottomView()
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack {
-                    CircularProfileImageView(channel, size: .mini)
-                        .frame(width: 35, height: 35)
-                    Text(channel.title)
-                        .bold()
-                }
-            }
-            
-            ToolbarItemGroup {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "video")
+//            .toolbar(.hidden, for: .tabBar)
+ //           .safeAreaInset(edge: .bottom) {
+                bottomView()
+//            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack {
+                        CircularProfileImageView(channel, size: .mini)
+                            .frame(width: 35, height: 35)
+                        Text(channel.title)
+                            .bold()
+                    }
                 }
                 
-                Button {
+                ToolbarItemGroup {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "video")
+                    }
                     
-                } label: {
-                    Image(systemName: "phone")
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "phone")
+                    }
                 }
             }
-            
-        }
+            .photosPicker(
+                isPresented: $viewModel.showPhotoPicker,
+                selection: $viewModel.photoPickerItems,
+                maxSelectionCount: 6
+            )
     }
     
     private func bottomView() -> some View {
         VStack(spacing: 0) {
             Divider()
-            MediaAttachmentPreview()
-                .padding(.horizontal, 8)
-            Divider()
-            TextInputArea(textMessage: $viewModel.textMessage) {
-                viewModel.sendMessage()
+            if viewModel.showPhotoPickerPreview {
+                MediaAttachmentPreview(images: viewModel.selectedImages)
+                    .padding(.horizontal, 8)
+                Divider()
+            }
+            TextInputArea(textMessage: $viewModel.textMessage) { action in
+                viewModel.handleAction(action)
             }
         }
     }

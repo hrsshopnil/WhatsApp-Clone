@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct MediaAttachmentPreview: View {
+    let images: [UIImage]
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 audioAttachmentPreview()
-                ForEach(0..<12) {_ in
-                    thumbnailImage()
+                ForEach(images, id: \.self) {image in
+                    thumbnailImage(image: image)
                         .overlay {
                             playButton(image: "play.fill")
                         }
@@ -25,11 +26,11 @@ struct MediaAttachmentPreview: View {
         .background(.whatsAppWhite)
     }
     
-    private func thumbnailImage() -> some View {
+    private func thumbnailImage(image: UIImage) -> some View {
         Button {
             
         } label: {
-            Image(.stubImage0)
+            Image(uiImage: image)
                 .resizable()
                 .scaledToFill()
                 .frame(width: Constants.imageDimen, height: Constants.imageDimen)
@@ -104,5 +105,5 @@ extension MediaAttachmentPreview {
     }
 }
 #Preview {
-    MediaAttachmentPreview()
+    MediaAttachmentPreview(images: [UIImage(resource: .stubImage0), UIImage(resource: .stubImage1)])
 }

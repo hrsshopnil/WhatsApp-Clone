@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TextInputArea: View {
     @Binding var textMessage: String
-    let onSend: () -> Void
+    let actionHandler: (_ action: UserAction) -> Void
     
     private var disableButton: Bool {
         return textMessage.isEmptyOrWhiteSpaces
@@ -17,8 +17,13 @@ struct TextInputArea: View {
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 5) {
-            Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 20))
+            Button {
+                actionHandler(.presentPhotoPicker)
+            }
+        label: {
+                Image(systemName: "photo.on.rectangle")
+                    .font(.system(size: 20))
+            }
             buttonImage(image: "mic.fill")
             TextField("", text: $textMessage, axis: .vertical)
                 .padding(5)
@@ -31,7 +36,7 @@ struct TextInputArea: View {
                         .stroke(Color(.systemGray5), lineWidth: 1)
                 )
             Button {
-                onSend()
+                actionHandler(.sendMessage)
             }
         label: {
             buttonImage(image: "arrow.up")
@@ -53,8 +58,13 @@ struct TextInputArea: View {
     }
 }
 
+extension TextInputArea {
+    enum UserAction {
+        case presentPhotoPicker, sendMessage
+    }
+}
 #Preview {
-    TextInputArea(textMessage: .constant(""))  {
+    TextInputArea(textMessage: .constant(""))  { action in
         
     }
 }
