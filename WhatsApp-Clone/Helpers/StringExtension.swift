@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+import PhotosUI
 
 extension String {
     static let id = "id"
@@ -54,5 +56,22 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h: mm a"
         return dateFormatter.string(from: self)
+    }
+}
+
+extension PhotosPickerItem {
+    var isVideo: Bool {
+        let videoUTTypes: [UTType] = [
+            .avi,
+            .video,
+            .mpeg2Video,
+            .mpeg4Movie,
+            .movie,
+            .quickTimeMovie,
+            .audiovisualContent,
+            .mpeg,
+            .appleProtectedMPEG4Video
+        ]
+        return videoUTTypes.contains(where: supportedContentTypes.contains)
     }
 }

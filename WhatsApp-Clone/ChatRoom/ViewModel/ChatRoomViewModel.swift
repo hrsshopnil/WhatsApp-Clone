@@ -92,10 +92,14 @@ final class ChatRoomViewModel: ObservableObject {
             guard let self else { return }
             Task {
                 for photoItem in photoItems {
-                    guard
-                        let data = try? await photoItem.loadTransferable(type: Data.self),
-                        let uiImage = UIImage(data: data) else { return }
-                    self.selectedImages.insert(uiImage, at: 0)
+                    if photoItem.isVideo{
+                    }
+                    else {
+                        guard
+                            let data = try? await photoItem.loadTransferable(type: Data.self),
+                            let uiImage = UIImage(data: data) else { return }
+                        self.selectedImages.insert(uiImage, at: 0)
+                    }
                 }
             }
         }.store(in: &subscription)
