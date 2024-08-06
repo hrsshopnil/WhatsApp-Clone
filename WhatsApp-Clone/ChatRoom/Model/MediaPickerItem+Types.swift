@@ -52,4 +52,13 @@ struct MediaAttachment: Identifiable {
 
 enum MediaAttachmentType {
     case photo(_ thumbnail: UIImage), audio, video(_ thumbnail: UIImage, url: URL)
+    
+    static func == (lhs: MediaAttachmentType, rhs: MediaAttachmentType) -> Bool {
+        switch (lhs, rhs) {
+        case (.photo, .photo), (.video, .video), (.audio, .audio):
+            return true
+        default:
+            return false
+        }
+    }
 }

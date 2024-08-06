@@ -17,10 +17,9 @@ struct ChatRoomView: View {
     }
     var body: some View {
         MessageListView(viewModel)
-//            .toolbar(.hidden, for: .tabBar)
- //           .safeAreaInset(edge: .bottom) {
-                bottomView()
-//            }
+            .toolbar(.hidden, for: .tabBar)
+            .safeAreaInset(edge: .bottom) {
+                bottomView()            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -57,7 +56,7 @@ struct ChatRoomView: View {
         VStack(spacing: 0) {
             Divider()
             if viewModel.showPhotoPickerPreview {
-                MediaAttachmentPreview(images: viewModel.mediaAttachments)
+                MediaAttachmentPreview(mediaAttachment: viewModel.mediaAttachments)
                     .padding(.horizontal, 8)
                 Divider()
             }

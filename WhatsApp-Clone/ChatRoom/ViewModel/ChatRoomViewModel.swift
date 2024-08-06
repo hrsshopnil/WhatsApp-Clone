@@ -93,8 +93,9 @@ final class ChatRoomViewModel: ObservableObject {
             Task {
                 for photoItem in photoItems {
                     if photoItem.isVideo {
-                        if let movie = try? await photoItem.loadTransferable(type: VideoPickerTransferable.self) {
-                            
+                        if let movie = try? await photoItem.loadTransferable(type: VideoPickerTransferable.self), let thumbnailImage = try? await movie.url.generateVideoThumbnail() {
+                            let videoAttachment = MediaAttachment(id: UUID().uuidString, type: .video(thumbnailImage, url: movie.url))
+                            self.mediaAttachments.insert(videoAttachment, at: 0)
                         }
                     }
                     else {

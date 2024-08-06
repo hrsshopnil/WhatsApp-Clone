@@ -22,7 +22,7 @@ struct TextInputArea: View {
             }
         label: {
                 Image(systemName: "photo.on.rectangle")
-                    .font(.system(size: 20))
+                    .font(.system(size: 22))
             }
             buttonImage(image: "mic.fill")
             TextField("", text: $textMessage, axis: .vertical)

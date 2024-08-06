@@ -16,7 +16,9 @@ struct MediaAttachmentPreview: View {
                 ForEach(mediaAttachment) { attachment in
                     thumbnailImage(attachment: attachment.thumbnail)
                         .overlay {
-                            playButton(image: "play.fill")
+                            if attachment.type == .video(UIImage(), url: URL(string: "https://google.com")!) {
+                                playButton(image: "play.fill")
+                            }
                         }
                 }
             }
@@ -77,7 +79,7 @@ struct MediaAttachmentPreview: View {
     private func audioAttachmentPreview() -> some View {
         ZStack {
             LinearGradient(colors: [.green, .green.opacity(0.8), .teal], startPoint: .topLeading, endPoint: .bottom)
-                playButton(image: "mic.fill")
+            playButton(image: "mic.fill")
                 .padding(.bottom, 15)
         }
         .frame(width: Constants.imageDimen * 2, height: Constants.imageDimen)
