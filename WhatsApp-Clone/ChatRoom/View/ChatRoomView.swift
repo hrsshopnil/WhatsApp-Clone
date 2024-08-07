@@ -50,6 +50,13 @@ struct ChatRoomView: View {
                 selection: $viewModel.photoPickerItems,
                 maxSelectionCount: 6
             )
+            .fullScreenCover(isPresented: $viewModel.videoPlayerState.show) {
+                if let player = viewModel.videoPlayerState.player {
+                    MediaPlayerView(player: player) {
+                        viewModel.dismissVideoPlayer()
+                    }
+                }
+            }
     }
     
     private func bottomView() -> some View {

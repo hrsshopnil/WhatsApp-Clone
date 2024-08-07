@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import PhotosUI
 import SwiftUI
+import AVKit
 
 final class ChatRoomViewModel: ObservableObject {
     @Published var textMessage = ""
@@ -16,6 +17,7 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var showPhotoPicker = false
     @Published var photoPickerItems: [PhotosPickerItem] = []
     @Published var mediaAttachments: [MediaAttachment] = []
+    @Published var videoPlayerState: (show: Bool, player: AVPlayer?) = (false, nil)
     
     private var currenUser: UserItem?
     private(set) var channel: ChannelItem
@@ -108,5 +110,11 @@ final class ChatRoomViewModel: ObservableObject {
                 }
             }
         }.store(in: &subscription)
+    }
+    
+    func dismissVideoPlayer() {
+        videoPlayerState.player?.replaceCurrentItem(with: nil)
+        videoPlayerState.player = nil
+        videoPlayerState.show = false
     }
 }

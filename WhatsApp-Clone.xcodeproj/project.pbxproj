@@ -53,6 +53,7 @@
 		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
 		B3B512962C3D7BB700B7E81A /* AuthProvidor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512952C3D7BB700B7E81A /* AuthProvidor.swift */; };
 		B3B628DF2C42F7E600D226E8 /* SelectedPartnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B628DE2C42F7E600D226E8 /* SelectedPartnerView.swift */; };
+		B3B98A6B2C63FA510050DE5B /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B98A6A2C63FA500050DE5B /* MediaPlayerView.swift */; };
 		B3BCCAE62C417C9400B19191 /* ChatPartnerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BCCAE52C417C9400B19191 /* ChatPartnerPickerViewModel.swift */; };
 		B3BCCAE82C41837B00B19191 /* GroupPartnerPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BCCAE72C41837B00B19191 /* GroupPartnerPickerScreen.swift */; };
 		B3C2C3F92C46E449004E7E9E /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2C3F82C46E449004E7E9E /* ChannelItem.swift */; };
@@ -119,6 +120,7 @@
 		B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatItem.swift; sourceTree = "<group>"; };
 		B3B512952C3D7BB700B7E81A /* AuthProvidor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvidor.swift; sourceTree = "<group>"; };
 		B3B628DE2C42F7E600D226E8 /* SelectedPartnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPartnerView.swift; sourceTree = "<group>"; };
+		B3B98A6A2C63FA500050DE5B /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		B3BCCAE52C417C9400B19191 /* ChatPartnerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerViewModel.swift; sourceTree = "<group>"; };
 		B3BCCAE72C41837B00B19191 /* GroupPartnerPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPartnerPickerScreen.swift; sourceTree = "<group>"; };
 		B3C2C3F82C46E449004E7E9E /* ChannelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelItem.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 			children = (
 				B3D467952C41559200FE4263 /* IconWithTransparentBG.swift */,
 				B382B1002C5D369600CC0D50 /* CircularProfileImageView.swift */,
+				B3B98A6A2C63FA500050DE5B /* MediaPlayerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				B3C5E4DB2C40320200C16537 /* RootModel.swift in Sources */,
 				B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */,
 				B3D467982C41567200FE4263 /* ChatPartnerPickerScreen.swift in Sources */,
+				B3B98A6B2C63FA510050DE5B /* MediaPlayerView.swift in Sources */,
 				B3D9A7E82C4596DA00AA5FC9 /* UserService.swift in Sources */,
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
 				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
