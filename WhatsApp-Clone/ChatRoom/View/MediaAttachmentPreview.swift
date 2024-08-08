@@ -9,15 +9,16 @@ import SwiftUI
 
 struct MediaAttachmentPreview: View {
     let mediaAttachment: [MediaAttachment]
+    let actionHandler: (_ action: UserAction) -> Void
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                audioAttachmentPreview()
+//                audioAttachmentPreview()
                 ForEach(mediaAttachment) { attachment in
                     thumbnailImage(attachment: attachment.thumbnail)
                         .overlay {
                             if attachment.type == .video(UIImage(), url: URL(string: "https://google.com")!) {
-                                playButton(image: "play.fill")
+                                playButton(image: "play.fill", attachment: attachment)
                             }
                         }
                 }
@@ -60,9 +61,9 @@ struct MediaAttachmentPreview: View {
         }
     }
     
-    private func playButton(image: String) -> some View {
+    private func playButton(image: String, attachment: MediaAttachment) -> some View {
         Button {
-            
+            actionHandler(.play(attachment))
         } label: {
             Image(systemName: image)
                 .imageScale(.large)
@@ -76,10 +77,10 @@ struct MediaAttachmentPreview: View {
         }
     }
     
-    private func audioAttachmentPreview() -> some View {
+    private func audioAttachmentPreview(_ attachment: MediaAttachment) -> some View {
         ZStack {
             LinearGradient(colors: [.green, .green.opacity(0.8), .teal], startPoint: .topLeading, endPoint: .bottom)
-            playButton(image: "mic.fill")
+            playButton(image: "mic.fill", attachment: attachment)
                 .padding(.bottom, 15)
         }
         .frame(width: Constants.imageDimen * 2, height: Constants.imageDimen)
@@ -105,7 +106,13 @@ extension MediaAttachmentPreview {
         static let listHeight: CGFloat = 100
         static let imageDimen: CGFloat = 80
     }
+    
+    enum UserAction {
+        case play(_ attachment: MediaAttachment)
+    }
 }
 #Preview {
-    MediaAttachmentPreview(mediaAttachment: [])
+    MediaAttachmentPreview(mediaAttachment: []) { action in
+        
+    }
 }

@@ -92,6 +92,7 @@ final class ChatRoomViewModel: ObservableObject {
     private func onPhotosSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self else { return }
+            self.mediaAttachments.removeAll()
             Task {
                 for photoItem in photoItems {
                     if photoItem.isVideo {
@@ -112,9 +113,22 @@ final class ChatRoomViewModel: ObservableObject {
         }.store(in: &subscription)
     }
     
-    func dismissVideoPlayer() {
+    func dismissMediaPlayer() {
         videoPlayerState.player?.replaceCurrentItem(with: nil)
         videoPlayerState.player = nil
         videoPlayerState.show = false
+    }
+    
+    func showMediaPlayer(_ fileUrl: URL) {
+        videoPlayerState.show = true
+        videoPlayerState.player = AVPlayer(url: fileUrl)
+    }
+    
+    func handleMediaAttachmentPreview(_ action: MediaAttachmentPreview.UserAction) {
+        switch action {
+        case .play(let attachment):
+            guard let fileUrl = attachment.fileUrl else { return }
+            showMediaPlayer(fileUrl)
+        }
     }
 }

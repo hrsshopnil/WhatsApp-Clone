@@ -25,7 +25,7 @@ struct MediaPlayerView: View {
     
     private func cancelButton() -> some View {
         Button {
-            
+            dismissPlayer()
         } label: {
             Image(systemName: "xmark")
                 .scaledToFit()
