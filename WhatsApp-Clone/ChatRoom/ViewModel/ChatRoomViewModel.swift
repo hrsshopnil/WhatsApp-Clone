@@ -81,7 +81,6 @@ final class ChatRoomViewModel: ObservableObject {
     
     func handleAction(_ action: TextInputArea.UserAction) {
         switch action {
-            
         case .presentPhotoPicker:
             showPhotoPicker = true
         case .sendMessage:
@@ -92,7 +91,7 @@ final class ChatRoomViewModel: ObservableObject {
     private func onPhotosSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self else { return }
-            self.mediaAttachments.removeAll()
+            mediaAttachments.removeAll()
             Task {
                 for photoItem in photoItems {
                     if photoItem.isVideo {

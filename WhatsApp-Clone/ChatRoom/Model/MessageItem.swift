@@ -106,8 +106,10 @@ enum MessageType {
 }
 
 extension MessageType: Equatable {
-    static func ==(lhs: MessageType, rhs: MessageType) -> Bool {
+    
+    static func == (lhs: MessageType, rhs: MessageType) -> Bool {
         switch(lhs, rhs) {
+            
         case (.admin(let leftAdmin), .admin(let rightAdmin)):
             return leftAdmin == rightAdmin
             
@@ -122,6 +124,7 @@ extension MessageType: Equatable {
         }
     }
 }
+
 enum MessageDirection {
     case sent, received
     
