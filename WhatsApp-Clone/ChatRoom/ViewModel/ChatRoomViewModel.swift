@@ -24,7 +24,7 @@ final class ChatRoomViewModel: ObservableObject {
     private var subscription = Set<AnyCancellable>()
     
     var showPhotoPickerPreview: Bool {
-        return !photoPickerItems.isEmpty
+        return !photoPickerItems.isEmpty || !mediaAttachments.isEmpty
     }
     
     
@@ -95,16 +95,18 @@ final class ChatRoomViewModel: ObservableObject {
             Task {
                 for photoItem in photoItems {
                     if photoItem.isVideo {
-                        if let movie = try? await photoItem.loadTransferable(type: VideoPickerTransferable.self), let thumbnailImage = try? await movie.url.generateVideoThumbnail() {
-                            let videoAttachment = MediaAttachment(id: UUID().uuidString, type: .video(thumbnailImage, url: movie.url))
+                        if let movie = try? await photoItem.loadTransferable(type: VideoPickerTransferable.self), let thumbnailImage = try? await movie.url.generateVideoThumbnail(),
+                           let id = photoItem.itemIdentifier {
+                            let videoAttachment = MediaAttachment(id: id, type: .video(thumbnailImage, url: movie.url))
                             self.mediaAttachments.insert(videoAttachment, at: 0)
                         }
                     }
                     else {
                         guard
                             let data = try? await photoItem.loadTransferable(type: Data.self),
-                            let uiImage = UIImage(data: data) else { return }
-                        let photosAttachment = MediaAttachment(id: UUID().uuidString, type: .photo(uiImage))
+                            let uiImage = UIImage(data: data),
+                            let id = photoItem.itemIdentifier  else { return }
+                        let photosAttachment = MediaAttachment(id: id, type: .photo(uiImage))
                         self.mediaAttachments.insert(photosAttachment, at: 0)
                     }
                 }
@@ -128,6 +130,16 @@ final class ChatRoomViewModel: ObservableObject {
         case .play(let attachment):
             guard let fileUrl = attachment.fileUrl else { return }
             showMediaPlayer(fileUrl)
+        case .remove(let attachment):
+            remove(attachment)
         }
+    }
+    
+    private func remove(_ item: MediaAttachment) {
+        guard let attachmentIndex = mediaAttachments.firstIndex(where: { $0.id == item.id }) else { return }
+                mediaAttachments.remove(at: attachmentIndex)
+                
+        guard let photoIndex = photoPickerItems.firstIndex(where: { $0.itemIdentifier == item.id }) else { return}
+                        photoPickerItems.remove(at: photoIndex)
     }
 }

@@ -18,6 +18,7 @@ struct ChatRoomView: View {
     var body: some View {
         MessageListView(viewModel)
             .toolbar(.hidden, for: .tabBar)
+            .ignoresSafeArea(edges: .bottom)
             .safeAreaInset(edge: .bottom) {
                 bottomView()            }
             .navigationBarTitleDisplayMode(.inline)
@@ -45,10 +46,12 @@ struct ChatRoomView: View {
                     }
                 }
             }
+            .animation(.easeInOut, value: viewModel.showPhotoPickerPreview)
             .photosPicker(
                 isPresented: $viewModel.showPhotoPicker,
                 selection: $viewModel.photoPickerItems,
-                maxSelectionCount: 6
+                maxSelectionCount: 6,
+                photoLibrary: .shared()
             )
             .fullScreenCover(isPresented: $viewModel.videoPlayerState.show) {
                 if let player = viewModel.videoPlayerState.player {

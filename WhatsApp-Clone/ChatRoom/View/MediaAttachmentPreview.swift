@@ -15,7 +15,7 @@ struct MediaAttachmentPreview: View {
             HStack {
 //                audioAttachmentPreview()
                 ForEach(mediaAttachment) { attachment in
-                    thumbnailImage(attachment: attachment.thumbnail)
+                    thumbnailImage(attachment: attachment)
                         .overlay {
                             if attachment.type == .video(UIImage(), url: URL(string: "https://google.com")!) {
                                 playButton(image: "play.fill", attachment: attachment)
@@ -29,25 +29,25 @@ struct MediaAttachmentPreview: View {
         .background(.whatsAppWhite)
     }
     
-    private func thumbnailImage(attachment: UIImage) -> some View {
+    private func thumbnailImage(attachment: MediaAttachment) -> some View {
         Button {
             
         } label: {
-            Image(uiImage: attachment)
+            Image(uiImage: attachment.thumbnail)
                 .resizable()
                 .scaledToFill()
                 .frame(width: Constants.imageDimen, height: Constants.imageDimen)
                 .cornerRadius(5)
                 .clipped()
                 .overlay(alignment: .topTrailing) {
-                    cancelButton()
+                    cancelButton(attachment)
                 }
         }
     }
     
-    private func cancelButton() -> some View {
+    private func cancelButton(_ attachment: MediaAttachment) -> some View {
         Button {
-            
+            actionHandler(.remove(attachment))
         } label: {
             Image(systemName: "xmark")
                 .imageScale(.small)
@@ -87,7 +87,7 @@ struct MediaAttachmentPreview: View {
         .cornerRadius(5)
         .clipped()
         .overlay(alignment: .topTrailing) {
-            cancelButton()
+            cancelButton(attachment)
         }
         .overlay(alignment: .bottom) {
             Text("Test Mp3 file name here")
@@ -109,6 +109,7 @@ extension MediaAttachmentPreview {
     
     enum UserAction {
         case play(_ attachment: MediaAttachment)
+        case remove(_ attachment: MediaAttachment)
     }
 }
 #Preview {
