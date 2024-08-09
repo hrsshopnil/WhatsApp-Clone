@@ -80,8 +80,7 @@ extension PhotosPickerItem {
 
 extension URL {
     func generateVideoThumbnail() async throws -> UIImage? {
-        let asset = AVAsset(url: self)
-        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        let imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: self))
         imageGenerator.appliesPreferredTrackTransform = true
         let time = CMTime(seconds: 1, preferredTimescale: 60)
         
