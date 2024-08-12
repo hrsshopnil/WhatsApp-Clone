@@ -17,14 +17,19 @@ struct TextInputArea: View {
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 5) {
+            ///Gallery Button
             Button {
                 actionHandler(.presentPhotoPicker)
             }
         label: {
-                Image(systemName: "photo.on.rectangle")
-                    .font(.system(size: 22))
-            }
+            Image(systemName: "photo.on.rectangle")
+                .font(.system(size: 22))
+        }
+            
+            ///Audio Button
             buttonImage(image: "mic.fill")
+            
+            ///Textfield
             TextField("", text: $textMessage, axis: .vertical)
                 .padding(5)
                 .background(
@@ -35,17 +40,20 @@ struct TextInputArea: View {
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
                         .stroke(Color(.systemGray5), lineWidth: 1)
                 )
+            
+            ///Send Button
             Button {
                 actionHandler(.sendMessage)
             }
         label: {
-            buttonImage(image: "arrow.up")
+            Image(systemName: "paperplane.fill")
+                .font(.system(size: 24))
+                .padding(.bottom, 3)
         }
         .disabled(disableButton)
-        .grayscale(disableButton ? 0.8 : 0)
+        .foregroundStyle(disableButton ? .gray : .blue)
         }
         .padding()
-        .background(.whatsAppWhite)
     }
     
     private func buttonImage(image: String) -> some View {
