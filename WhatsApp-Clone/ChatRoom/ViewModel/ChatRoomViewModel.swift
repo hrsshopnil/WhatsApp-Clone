@@ -83,9 +83,14 @@ final class ChatRoomViewModel: ObservableObject {
             showPhotoPicker = true
         case .sendMessage:
             sendMessage()
+        case .recordingAudio:
+            toggleAudioRecorder()
         }
     }
     
+    private func toggleAudioRecorder() {
+        
+    }
     private func onPhotosSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self else { return }

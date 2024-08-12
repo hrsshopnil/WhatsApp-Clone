@@ -10,11 +10,12 @@ import SwiftUI
 struct TextInputArea: View {
     @Binding var textMessage: String
     @State private var isRecording = false
+    @State private var isPulsing = false
     
     let actionHandler: (_ action: UserAction) -> Void
     
     private var disableButton: Bool {
-        return textMessage.isEmptyOrWhiteSpaces
+        return textMessage.isEmptyOrWhiteSpaces || isRecording
     }
     
     var body: some View {
@@ -50,18 +51,23 @@ struct TextInputArea: View {
         .padding(.horizontal, 8)
         .padding(.top, 10)
         .background(.whatsAppWhite)
+        .animation(.spring, value: isRecording)
     }
     
     private func audioButton() -> some View {
         Button {
+            actionHandler(.recordingAudio)
             isRecording.toggle()
+            withAnimation(.easeIn(duration: 1.5).repeatForever()) {
+                isPulsing.toggle()
+            }
         }
     label: {
-        Image(systemName: "mic.fill")
+        Image(systemName: isRecording ? "square.fill" : "mic.fill")
             .bold()
-            .padding(5)
+            .padding(6)
             .foregroundStyle(.white)
-            .background(.blue)
+            .background(isRecording ? .red : .blue)
             .clipShape(Circle())
     }
     }
@@ -71,6 +77,7 @@ struct TextInputArea: View {
             Image(systemName: "circle.fill")
                 .font(.callout)
                 .foregroundStyle(.red)
+                .scaleEffect(isPulsing ? 1.5 : 1)
             
             Text("Recording Audio")
                 .font(.callout)
@@ -82,7 +89,7 @@ struct TextInputArea: View {
                 .fontWeight(.semibold)
         }
         .padding(.horizontal, 8)
-        .frame(height: 30)
+        .frame(height: 36)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -110,7 +117,7 @@ struct TextInputArea: View {
 
 extension TextInputArea {
     enum UserAction {
-        case presentPhotoPicker, sendMessage
+        case presentPhotoPicker, sendMessage, recordingAudio
     }
 }
 #Preview {
