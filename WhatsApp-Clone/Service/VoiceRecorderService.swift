@@ -25,6 +25,7 @@ final class VoiceRecorderService {
             try audioSession.setCategory(.playAndRecord, mode: .default)
             try audioSession.overrideOutputAudioPort(.speaker)
             try audioSession.setActive(true)
+            print("VoiceRecorderService: successfully to setUp AVAudioSession")
         } catch {
             print("VoiceRecorderService: Failed to setUp AVAudioSession")
         }
@@ -99,6 +100,7 @@ final class VoiceRecorderService {
         timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect().sink { [weak self] _ in
             guard let startTime = self?.startTime else {return}
             self?.elapsedTime = Date().timeIntervalSince(startTime)
+            print(self?.elapsedTime)
         }
     }
 }
