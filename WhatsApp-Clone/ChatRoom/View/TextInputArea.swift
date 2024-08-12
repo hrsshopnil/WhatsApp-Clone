@@ -77,7 +77,7 @@ struct TextInputArea: View {
             Image(systemName: "circle.fill")
                 .font(.callout)
                 .foregroundStyle(.red)
-                .scaleEffect(isPulsing ? 1.5 : 1)
+                .scaleEffect(isPulsing ? 1.5 : 0.8)
             
             Text("Recording Audio")
                 .font(.callout)

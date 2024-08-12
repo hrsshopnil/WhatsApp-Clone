@@ -17,6 +17,9 @@
 		B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D47092C317A8A00BD31A6 /* CallTabScreen.swift */; };
 		B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D470B2C31804600BD31A6 /* CallLinkSectionView.swift */; };
 		B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D470D2C31805E00BD31A6 /* RecentItemView.swift */; };
+		B34166082C6A258200076DF3 /* VoiceRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34166072C6A258200076DF3 /* VoiceRecorderService.swift */; };
+		B341660A2C6A261300076DF3 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34166092C6A261300076DF3 /* DateExtension.swift */; };
+		B341660C2C6A261E00076DF3 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B341660B2C6A261E00076DF3 /* URLExtension.swift */; };
 		B345D58F2C3A9DE000346152 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B345D58E2C3A9DE000346152 /* FirebaseAuth */; };
 		B345D5912C3A9DE000346152 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B345D5902C3A9DE000346152 /* FirebaseDatabase */; };
 		B345D5932C3A9DE000346152 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B345D5922C3A9DE000346152 /* FirebaseDatabaseSwift */; };
@@ -89,6 +92,9 @@
 		B33D47092C317A8A00BD31A6 /* CallTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallTabScreen.swift; sourceTree = "<group>"; };
 		B33D470B2C31804600BD31A6 /* CallLinkSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallLinkSectionView.swift; sourceTree = "<group>"; };
 		B33D470D2C31805E00BD31A6 /* RecentItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentItemView.swift; sourceTree = "<group>"; };
+		B34166072C6A258200076DF3 /* VoiceRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorderService.swift; sourceTree = "<group>"; };
+		B34166092C6A261300076DF3 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		B341660B2C6A261E00076DF3 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		B345D5982C3AA37700346152 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B345D59B2C3AAB0700346152 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B345D59D2C3AAB1100346152 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
@@ -282,6 +288,8 @@
 			isa = PBXGroup;
 			children = (
 				B32BF3552C5279960037D6E4 /* StringExtension.swift */,
+				B34166092C6A261300076DF3 /* DateExtension.swift */,
+				B341660B2C6A261E00076DF3 /* URLExtension.swift */,
 				B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */,
 			);
 			path = Helpers;
@@ -388,6 +396,7 @@
 			children = (
 				B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */,
 				B397DB6A2C5A6B5300BA7770 /* MessageService.swift */,
+				B34166072C6A258200076DF3 /* VoiceRecorderService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -566,6 +575,7 @@
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,
 				B3B628DF2C42F7E600D226E8 /* SelectedPartnerView.swift in Sources */,
 				B35606712C380D1F008FD937 /* TimeStampView.swift in Sources */,
+				B341660A2C6A261300076DF3 /* DateExtension.swift in Sources */,
 				B382B1012C5D369600CC0D50 /* CircularProfileImageView.swift in Sources */,
 				B397DB692C5A56C100BA7770 /* ChatRoomViewModel.swift in Sources */,
 				B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */,
@@ -579,6 +589,8 @@
 				B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */,
 				B380DE032C2EEDB00091BB7C /* WhatsApp_CloneApp.swift in Sources */,
 				B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */,
+				B34166082C6A258200076DF3 /* VoiceRecorderService.swift in Sources */,
+				B341660C2C6A261E00076DF3 /* URLExtension.swift in Sources */,
 				B3D4679A2C4159DA00FE4263 /* ChatPartnerRowView.swift in Sources */,
 				B345D5A22C3AC82D00346152 /* AuthButton.swift in Sources */,
 				B345D59C2C3AAB0700346152 /* LoginView.swift in Sources */,

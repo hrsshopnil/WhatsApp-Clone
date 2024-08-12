@@ -37,30 +37,6 @@ extension String {
     }
 }
 
-extension Date {
-    var dayOrTimeRepresentation: String {
-        let calender = Calendar.current
-        let dateFormatter = DateFormatter()
-        
-        if calender.isDateInToday(self){
-            dateFormatter.dateFormat = "h: mm a"
-            let formattedDate = dateFormatter.string(from: self)
-            return formattedDate
-        } else if calender.isDateInYesterday(self) {
-            return "Yesterday"
-        } else {
-            dateFormatter.dateFormat = "MM/dd/yy"
-            return dateFormatter.string(from: self)
-        }
-    }
-    
-    var formatToTime: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h: mm a"
-        return dateFormatter.string(from: self)
-    }
-}
-
 extension PhotosPickerItem {
     var isVideo: Bool {
         let videoUTTypes: [UTType] = [
@@ -78,21 +54,4 @@ extension PhotosPickerItem {
     }
 }
 
-extension URL {
-    func generateVideoThumbnail() async throws -> UIImage? {
-        let imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: self))
-        imageGenerator.appliesPreferredTrackTransform = true
-        let time = CMTime(seconds: 1, preferredTimescale: 60)
-        
-        return try await withCheckedThrowingContinuation { continuation in
-            imageGenerator.generateCGImageAsynchronously(for: time) { cgImage, _, error in
-                if let cgImage = cgImage {
-                    let thumbnailImage = UIImage(cgImage: cgImage)
-                    continuation.resume(returning: thumbnailImage)
-                } else {
-                    continuation.resume(throwing: error ?? NSError(domain: "", code: 0, userInfo: nil))
-                }
-            }
-        }
-    }
-}
+
