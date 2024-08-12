@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TextInputArea: View {
     @Binding var textMessage: String
+    @State private var isRecording = false
+    
     let actionHandler: (_ action: UserAction) -> Void
     
     private var disableButton: Bool {
@@ -23,24 +25,15 @@ struct TextInputArea: View {
             }
         label: {
             Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 22))
+                .font(.system(size: 24))
         }
+            audioButton()
             
-            ///Audio Button
-            buttonImage(image: "mic.fill")
-            
-            ///Textfield
-            TextField("", text: $textMessage, axis: .vertical)
-                .padding(5)
-                .background(
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                        .fill(.thinMaterial)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .stroke(Color(.systemGray5), lineWidth: 1)
-                )
-            
+            if isRecording {
+                audioRecordingIndicator()
+            } else {
+                textFielldView()
+            }
             ///Send Button
             Button {
                 actionHandler(.sendMessage)
@@ -53,16 +46,65 @@ struct TextInputArea: View {
         .disabled(disableButton)
         .foregroundStyle(disableButton ? .gray : .blue)
         }
-        .padding()
+        .padding(.bottom)
+        .padding(.horizontal, 8)
+        .padding(.top, 10)
+        .background(.whatsAppWhite)
     }
     
-    private func buttonImage(image: String) -> some View {
-        Image(systemName: image)
+    private func audioButton() -> some View {
+        Button {
+            isRecording.toggle()
+        }
+    label: {
+        Image(systemName: "mic.fill")
             .bold()
             .padding(5)
             .foregroundStyle(.white)
             .background(.blue)
             .clipShape(Circle())
+    }
+    }
+    
+    private func audioRecordingIndicator() -> some View {
+        HStack {
+            Image(systemName: "circle.fill")
+                .font(.callout)
+                .foregroundStyle(.red)
+            
+            Text("Recording Audio")
+                .font(.callout)
+                .lineLimit(1)
+            Spacer()
+            
+            Text("00:02")
+                .font(.callout)
+                .fontWeight(.semibold)
+        }
+        .padding(.horizontal, 8)
+        .frame(height: 30)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(.blue.opacity(0.1))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(Color(.systemGray5), lineWidth: 1)
+        )
+    }
+    
+    private func textFielldView() -> some View {
+        TextField("", text: $textMessage, axis: .vertical)
+            .padding(5)
+            .background(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(.thinMaterial)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(Color(.systemGray5), lineWidth: 1)
+            )
     }
 }
 
