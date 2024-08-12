@@ -13,7 +13,7 @@ import Combine
 /// Storing Message URL
 final class VoiceRecorderService {
     private var audioRecorder: AVAudioRecorder?
-    private var isRecording = false
+    private(set) var isRecording = false
     private var elapsedTime: TimeInterval = 0
     private var startTime: Date?
     private var timer: AnyCancellable?
@@ -47,6 +47,7 @@ final class VoiceRecorderService {
             isRecording = true
             startTime = Date()
             startTimer()
+            print("elapsed time \(elapsedTime)")
         } catch {
             print("VoiceRecorderService: Failed to setUp AVAudioRecorder")
         }
@@ -73,6 +74,27 @@ final class VoiceRecorderService {
         }
     }
     
+    func tearDown() {
+        let fileManager = FileManager.default
+        let folder = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let folderContents = try! fileManager.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)
+        deleteRecordings(folderContents)
+        print("VoiceRecorderService: Successfully Teared Down")
+    }
+    private func deleteRecordings(_ urls: [URL]) {
+        for url in urls {
+            deleteRecording(at: url)
+        }
+    }
+    
+    private func deleteRecording(at fileUrl: URL) {
+        do {
+            try FileManager.default.removeItem(at: fileUrl)
+            print("Successfully Removed the audio")
+        } catch {
+            print("Failed to remove the audio")
+        }
+    }
     private func startTimer() {
         timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect().sink { [weak self] _ in
             guard let startTime = self?.startTime else {return}

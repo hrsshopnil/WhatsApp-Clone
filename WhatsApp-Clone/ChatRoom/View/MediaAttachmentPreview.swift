@@ -13,14 +13,12 @@ struct MediaAttachmentPreview: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-//                audioAttachmentPreview()
                 ForEach(mediaAttachment) { attachment in
-                    thumbnailImage(attachment: attachment)
-                        .overlay {
-                            if attachment.type == .video(UIImage(), url: URL(string: "https://google.com")!) {
-                                playButton(image: "play.fill", attachment: attachment)
-                            }
-                        }
+                    if attachment.type == .audio {
+                        audioAttachmentPreview(attachment)
+                    } else {
+                        thumbnailImageView(attachment)
+                    }
                 }
             }
         }
@@ -29,7 +27,7 @@ struct MediaAttachmentPreview: View {
         .background(.whatsAppWhite)
     }
     
-    private func thumbnailImage(attachment: MediaAttachment) -> some View {
+    private func thumbnailImageView(_ attachment: MediaAttachment) -> some View {
         Button {
             
         } label: {
@@ -41,6 +39,10 @@ struct MediaAttachmentPreview: View {
                 .clipped()
                 .overlay(alignment: .topTrailing) {
                     cancelButton(attachment)
+                    if attachment.type == .video(UIImage(), url: URL(string: "https://google.com")!) {
+                        playButton(image: "play.fill", attachment: attachment)
+                    }
+                    
                 }
         }
     }

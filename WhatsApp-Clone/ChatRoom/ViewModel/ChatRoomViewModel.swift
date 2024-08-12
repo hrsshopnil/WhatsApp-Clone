@@ -22,6 +22,7 @@ final class ChatRoomViewModel: ObservableObject {
     private var currenUser: UserItem?
     private(set) var channel: ChannelItem
     private var subscription = Set<AnyCancellable>()
+    private var voiceRecorderService = VoiceRecorderService()
     
     var showPhotoPickerPreview: Bool {
         return !photoPickerItems.isEmpty || !mediaAttachments.isEmpty
@@ -89,8 +90,22 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     private func toggleAudioRecorder() {
-        
+        if voiceRecorderService.isRecording {
+            voiceRecorderService.stopRecording {[weak self] audioUrl, audioDuration in
+                self?.createAudioAttachment(from: audioUrl, audioDuration)
+            }
+        } else {
+            voiceRecorderService.startRecording()
+        }
     }
+    
+    private func createAudioAttachment(from audioUrl: URL? , _ audioDuration: TimeInterval) {
+        guard let audioUrl = audioUrl else { return }
+        let id = UUID().uuidString
+        let audioAttachment = MediaAttachment(id: id, type: .audio)
+        mediaAttachments.insert(audioAttachment, at: 0)
+    }
+    
     private func onPhotosSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self else { return }
