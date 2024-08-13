@@ -72,7 +72,9 @@ struct ChatRoomView: View {
                     .padding(.horizontal, 8)
                 Divider()
             }
-            TextInputArea(textMessage: $viewModel.textMessage) { action in
+            TextInputArea(textMessage: $viewModel.textMessage,
+                          isRecording: $viewModel.isRecording,
+                          timeInterval: $viewModel.timeInterval) { action in
                 viewModel.handleAction(action)
             }
         }

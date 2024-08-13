@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TextInputArea: View {
     @Binding var textMessage: String
-    @State private var isRecording = false
+    @Binding var isRecording: Bool
+    @Binding var timeInterval: TimeInterval
     @State private var isPulsing = false
     
     let actionHandler: (_ action: UserAction) -> Void
@@ -121,7 +122,7 @@ extension TextInputArea {
     }
 }
 #Preview {
-    TextInputArea(textMessage: .constant(""))  { action in
+    TextInputArea(textMessage: .constant(""), isRecording: .constant(false), timeInterval: .constant(0))  { action in
         
     }
 }

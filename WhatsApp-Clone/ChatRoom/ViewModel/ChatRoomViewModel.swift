@@ -18,6 +18,8 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var photoPickerItems: [PhotosPickerItem] = []
     @Published var mediaAttachments: [MediaAttachment] = []
     @Published var videoPlayerState: (show: Bool, player: AVPlayer?) = (false, nil)
+    @Published var isRecording = false
+    @Published var timeInterval: TimeInterval = 0
     
     private var currenUser: UserItem?
     private(set) var channel: ChannelItem
@@ -89,6 +91,7 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
     
+    /// Decides whether to start recording audio or stop recording audio
     private func toggleAudioRecorder() {
         if voiceRecorderService.isRecording {
             voiceRecorderService.stopRecording {[weak self] audioUrl, audioDuration in
@@ -100,9 +103,9 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     private func createAudioAttachment(from audioUrl: URL? , _ audioDuration: TimeInterval) {
-        guard let audioUrl = audioUrl else { return }
+        guard let audioUrl else { return }
         let id = UUID().uuidString
-        let audioAttachment = MediaAttachment(id: id, type: .audio)
+        let audioAttachment = MediaAttachment(id: id, type: .audio(audioUrl, audioDuration))
         mediaAttachments.insert(audioAttachment, at: 0)
     }
     
@@ -150,6 +153,10 @@ final class ChatRoomViewModel: ObservableObject {
             showMediaPlayer(fileUrl)
         case .remove(let attachment):
             remove(attachment)
+            guard let fileUrl = attachment.fileUrl else { return }
+            if attachment.type == .audio(URL(fileURLWithPath: ""), 0) {
+                voiceRecorderService.deleteRecording(at: fileUrl)
+            }
         }
     }
     

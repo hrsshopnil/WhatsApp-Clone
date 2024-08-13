@@ -18,6 +18,7 @@ final class VoiceRecorderService {
     private var startTime: Date?
     private var timer: AnyCancellable?
 
+    /// Starts Recording the audio
     func startRecording() {
         /// SetUp AudioSession
         let audioSession = AVAudioSession.sharedInstance()
@@ -25,7 +26,7 @@ final class VoiceRecorderService {
             try audioSession.setCategory(.playAndRecord, mode: .default)
             try audioSession.overrideOutputAudioPort(.speaker)
             try audioSession.setActive(true)
-            print("VoiceRecorderService: successfully to setUp AVAudioSession")
+            print("VoiceRecorderService: Successfully setUp AVAudioSession")
         } catch {
             print("VoiceRecorderService: Failed to setUp AVAudioSession")
         }
@@ -48,14 +49,14 @@ final class VoiceRecorderService {
             isRecording = true
             startTime = Date()
             startTimer()
-            print("elapsed time \(elapsedTime)")
         } catch {
             print("VoiceRecorderService: Failed to setUp AVAudioRecorder")
         }
     }
     
+    ///Stops the recording and saves it to the defined file path
     func stopRecording(completion: ((_ audioUrl: URL?, _ audioDuration: TimeInterval) -> Void)? = nil) {
-        guard isRecording else {return}
+        guard isRecording else { return }
         
         let audioDuration = elapsedTime
         
@@ -65,6 +66,7 @@ final class VoiceRecorderService {
         elapsedTime = 0
         
         let audioSession = AVAudioSession.sharedInstance()
+        
         do {
             try audioSession.setActive(false)
             guard let audioUrl = audioRecorder?.url else { return }
@@ -75,6 +77,7 @@ final class VoiceRecorderService {
         }
     }
     
+    /// Tear down the audio when user leaves the screen without sending it
     func tearDown() {
         let fileManager = FileManager.default
         let folder = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -82,13 +85,14 @@ final class VoiceRecorderService {
         deleteRecordings(folderContents)
         print("VoiceRecorderService: Successfully Teared Down")
     }
+    
     private func deleteRecordings(_ urls: [URL]) {
         for url in urls {
             deleteRecording(at: url)
         }
     }
     
-    private func deleteRecording(at fileUrl: URL) {
+    func deleteRecording(at fileUrl: URL) {
         do {
             try FileManager.default.removeItem(at: fileUrl)
             print("Successfully Removed the audio")
@@ -96,11 +100,12 @@ final class VoiceRecorderService {
             print("Failed to remove the audio")
         }
     }
+    
+    /// Timer that shows the duration of the audio
     private func startTimer() {
         timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect().sink { [weak self] _ in
             guard let startTime = self?.startTime else {return}
             self?.elapsedTime = Date().timeIntervalSince(startTime)
-            print(self?.elapsedTime)
         }
     }
 }
