@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C02C3BFBD700FC584D /* RegisterView.swift */; };
 		B30059C52C3C007200FC584D /* AuthScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30059C42C3C007200FC584D /* AuthScreenModel.swift */; };
+		B31DCD772C6B73F10062A731 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31DCD762C6B73F10062A731 /* TimeIntervalExtension.swift */; };
 		B32BF3562C5279960037D6E4 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BF3552C5279960037D6E4 /* StringExtension.swift */; };
 		B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB972C3964E7007B725D /* PlayButton.swift */; };
 		B32BFB9B2C396633007B725D /* BubbleAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32BFB9A2C396633007B725D /* BubbleAudioView.swift */; };
@@ -84,6 +85,7 @@
 /* Begin PBXFileReference section */
 		B30059C02C3BFBD700FC584D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B30059C42C3C007200FC584D /* AuthScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreenModel.swift; sourceTree = "<group>"; };
+		B31DCD762C6B73F10062A731 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
 		B32BF3552C5279960037D6E4 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		B32BFB972C3964E7007B725D /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		B32BFB9A2C396633007B725D /* BubbleAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAudioView.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				B34166092C6A261300076DF3 /* DateExtension.swift */,
 				B341660B2C6A261E00076DF3 /* URLExtension.swift */,
 				B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */,
+				B31DCD762C6B73F10062A731 /* TimeIntervalExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				B3C2C3F92C46E449004E7E9E /* ChannelItem.swift in Sources */,
 				B3A47B4A2C36D3EC00CF9939 /* BubblePhotoView.swift in Sources */,
 				B3C5E4D92C4031FB00C16537 /* RootView.swift in Sources */,
+				B31DCD772C6B73F10062A731 /* TimeIntervalExtension.swift in Sources */,
 				B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */,
 				B3BCCAE62C417C9400B19191 /* ChatPartnerPickerViewModel.swift in Sources */,
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,

@@ -35,12 +35,14 @@ final class ChatRoomViewModel: ObservableObject {
         self.channel = channel
         listenToAuthState()
         onPhotosSelection()
+        setupVoiceRecorderListener()
     }
     
     deinit {
         subscription.forEach {$0.cancel()}
         subscription.removeAll()
         currenUser = nil
+        voiceRecorderService.tearDown()
     }
     
     private func listenToAuthState() {
@@ -52,6 +54,16 @@ final class ChatRoomViewModel: ObservableObject {
             default:
                 break
             }
+        }.store(in: &subscription)
+    }
+    
+    private func setupVoiceRecorderListener() {
+        voiceRecorderService.$isRecording.receive(on: DispatchQueue.main).sink { [weak self] isRecording in
+            self?.isRecording = isRecording
+        }.store(in: &subscription)
+        
+        voiceRecorderService.$elapsedTime.receive(on: DispatchQueue.main).sink { [weak self] elapsedTime in
+            self?.timeInterval = elapsedTime
         }.store(in: &subscription)
     }
     
@@ -112,7 +124,8 @@ final class ChatRoomViewModel: ObservableObject {
     private func onPhotosSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self else { return }
-            mediaAttachments.removeAll()
+            let recording = mediaAttachments.filter { $0.type == .audio(.stubUrl, .stubTimeInterval) }
+            self.mediaAttachments = recording
             Task {
                 for photoItem in photoItems {
                     if photoItem.isVideo {
@@ -154,7 +167,7 @@ final class ChatRoomViewModel: ObservableObject {
         case .remove(let attachment):
             remove(attachment)
             guard let fileUrl = attachment.fileUrl else { return }
-            if attachment.type == .audio(URL(fileURLWithPath: ""), 0) {
+            if attachment.type == .audio(.stubUrl, .stubTimeInterval) {
                 voiceRecorderService.deleteRecording(at: fileUrl)
             }
         }

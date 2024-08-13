@@ -26,4 +26,8 @@ extension URL {
             }
         }
     }
+    
+    static var stubUrl: URL {
+        return URL(fileURLWithPath: "")
+    }
 }

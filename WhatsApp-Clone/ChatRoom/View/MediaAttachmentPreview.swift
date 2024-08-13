@@ -14,7 +14,7 @@ struct MediaAttachmentPreview: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(mediaAttachment) { attachment in
-                    if attachment.type == .audio(URL(fileURLWithPath: ""), 0) {
+                    if attachment.type == .audio(.stubUrl, .stubTimeInterval) {
                         audioAttachmentPreview(attachment)
                     } else {
                         thumbnailImageView(attachment)
@@ -39,10 +39,11 @@ struct MediaAttachmentPreview: View {
                 .clipped()
                 .overlay(alignment: .topTrailing) {
                     cancelButton(attachment)
+                }
+                .overlay(alignment: .center){
                     if attachment.type == .video(UIImage(), url: URL(string: "https://google.com")!) {
                         playButton(image: "play.fill", attachment: attachment)
                     }
-                    
                 }
         }
     }

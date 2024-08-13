@@ -29,6 +29,8 @@ struct TextInputArea: View {
             Image(systemName: "photo.on.rectangle")
                 .font(.system(size: 24))
         }
+        .disabled(isRecording)
+        .grayscale(isRecording ? 0.8: 1)
             audioButton()
             
             if isRecording {
@@ -53,15 +55,20 @@ struct TextInputArea: View {
         .padding(.top, 10)
         .background(.whatsAppWhite)
         .animation(.spring, value: isRecording)
+        .onChange(of: isRecording) { oldValue, isRecording in
+            if isRecording {
+                withAnimation(.easeIn(duration: 1.5).repeatForever()) {
+                    isPulsing = true
+                }
+            } else {
+                isPulsing = false
+            }
+        }
     }
     
     private func audioButton() -> some View {
         Button {
             actionHandler(.recordingAudio)
-            isRecording.toggle()
-            withAnimation(.easeIn(duration: 1.5).repeatForever()) {
-                isPulsing.toggle()
-            }
         }
     label: {
         Image(systemName: isRecording ? "square.fill" : "mic.fill")
@@ -85,7 +92,7 @@ struct TextInputArea: View {
                 .lineLimit(1)
             Spacer()
             
-            Text("00:02")
+            Text(timeInterval.formattedElapsedTime)
                 .font(.callout)
                 .fontWeight(.semibold)
         }
