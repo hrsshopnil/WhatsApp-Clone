@@ -20,7 +20,6 @@ final class VoiceRecorderService {
 
     deinit {
         tearDown()
-        print("VoiceRecorder has been deinitialized")
     }
     /// Starts Recording the audio
     func startRecording() {
@@ -88,7 +87,6 @@ final class VoiceRecorderService {
         let folder = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let folderContents = try! fileManager.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)
         deleteRecordings(folderContents)
-        print("VoiceRecorderService: Successfully Teared Down")
     }
     
     private func deleteRecordings(_ urls: [URL]) {
@@ -100,7 +98,6 @@ final class VoiceRecorderService {
     func deleteRecording(at fileUrl: URL) {
         do {
             try FileManager.default.removeItem(at: fileUrl)
-            print("Successfully Removed the audio")
         } catch {
             print("Failed to remove the audio")
         }

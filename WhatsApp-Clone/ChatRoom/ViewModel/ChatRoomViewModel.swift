@@ -159,6 +159,9 @@ final class ChatRoomViewModel: ObservableObject {
         videoPlayerState.player = AVPlayer(url: fileUrl)
     }
     
+    // Works for play and the cancel button of the selected media item
+    ///.play: Plays the Video or shows the photo
+    ///.remove: Removes the media from the picker and filemanager
     func handleMediaAttachmentPreview(_ action: MediaAttachmentPreview.UserAction) {
         switch action {
         case .play(let attachment):
@@ -173,6 +176,7 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
     
+    /// Removes a media from the file manager of the phone
     private func remove(_ item: MediaAttachment) {
         guard let attachmentIndex = mediaAttachments.firstIndex(where: { $0.id == item.id }) else { return }
                 mediaAttachments.remove(at: attachmentIndex)

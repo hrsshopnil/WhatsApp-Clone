@@ -10,6 +10,8 @@ import AVFoundation
 import UIKit
 
 extension URL {
+    
+    ///Generates a thumbnail from a video
     func generateVideoThumbnail() async throws -> UIImage? {
         let imageGenerator = AVAssetImageGenerator(asset: AVAsset(url: self))
         imageGenerator.appliesPreferredTrackTransform = true

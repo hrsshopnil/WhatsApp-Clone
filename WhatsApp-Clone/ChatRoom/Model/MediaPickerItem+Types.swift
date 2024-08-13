@@ -7,13 +7,21 @@
 
 import SwiftUI
 
+/// A structure that conforms to the `Transferable` protocol, allowing video files to be imported and exported.
+///
+/// The `VideoPickerTransferable` struct is designed to handle the transfer of video files (with a `.mov` extension) between different parts of an app or between apps. It manages the import and export processes, including copying the file to a specific location in the app's documents directory.
 struct VideoPickerTransferable: Transferable {
+    
+    /// The URL of the video file.
     let url: URL
-
+    
+    /// Defines the transfer representation for the video file.
     static var transferRepresentation: some TransferRepresentation {
         FileRepresentation(contentType: .movie) { exportingFile in
+            // Export the video file by returning its URL.
             return .init(exportingFile.url)
         } importing: { receivedFile in
+            // Import the video file by copying it to the app's documents directory with a unique name.
             let originalFile = receivedFile.file
             let uniqueFileName = "\(UUID().uuidString).mov"
             let copiedFile = URL.documentsDirectory.appendingPathComponent(uniqueFileName)
@@ -22,6 +30,7 @@ struct VideoPickerTransferable: Transferable {
         }
     }
 }
+
 
 struct MediaAttachment: Identifiable {
     let id: String
@@ -54,7 +63,10 @@ struct MediaAttachment: Identifiable {
 
 enum MediaAttachmentType {
     
-    case photo(_ thumbnail: UIImage), audio(_ url: URL, _ duration: TimeInterval), video(_ thumbnail: UIImage, url: URL)
+    case photo(_ thumbnail: UIImage)
+    case audio(_ url: URL, _ duration: TimeInterval)
+    case video(_ thumbnail: UIImage, url: URL)
+    
     static func == (lhs: MediaAttachmentType, rhs: MediaAttachmentType) -> Bool {
         switch (lhs, rhs) {
         case (.photo, .photo), (.video, .video), (.audio, .audio):
