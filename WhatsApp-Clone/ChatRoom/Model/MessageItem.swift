@@ -16,7 +16,12 @@ struct MessageItem: Identifiable {
     let ownerId: String
     let timeStamp: Date
     var sender: UserItem?
+    let thumbnailUrl: String?
     
+    var imageUrl: String {
+        guard let thumbnailUrl else { return ""}
+        return thumbnailUrl
+    }
     var direction: MessageDirection {
         return ownerId == K.currentUserId ? .sent : .received
     }
@@ -44,14 +49,14 @@ struct MessageItem: Identifiable {
         return direction == .received ? 25 : 0
     }
     
-    static let sentPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date())
-    static let receivedPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "2", timeStamp: Date())
+    static let sentPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date(), thumbnailUrl: nil)
+    static let receivedPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "2", timeStamp: Date(), thumbnailUrl: nil)
     
     static let stubMessages: [MessageItem] = [
-        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "3", timeStamp: Date()),
-        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .photo, ownerId: "4", timeStamp: Date()),
-        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .video, ownerId: "5", timeStamp: Date()),
-        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .audio, ownerId: "6", timeStamp: Date())
+        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "3", timeStamp: Date(), thumbnailUrl: nil),
+        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .photo, ownerId: "4", timeStamp: Date(), thumbnailUrl: nil),
+        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .video, ownerId: "5", timeStamp: Date(), thumbnailUrl: nil),
+        MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .audio, ownerId: "6", timeStamp: Date(), thumbnailUrl: nil)
     ]
 }
 
@@ -65,6 +70,7 @@ extension MessageItem {
         self.ownerId = dict[.ownerId] as? String ?? ""
         let timeInterval = dict[.timeStamp] as? TimeInterval ?? 0
         self.timeStamp = Date(timeIntervalSince1970: timeInterval)
+        self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
     }
 }
 enum MessageType {

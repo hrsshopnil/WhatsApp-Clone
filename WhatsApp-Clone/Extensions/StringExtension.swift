@@ -32,6 +32,10 @@ extension String {
     static let messageType = "messageType"
     static let text = "text"
     static let type = "type"
+    static let lastMessageType = "lastMessageType"
+    static let thumbnailWidth = "thumbnailWidth"
+    static let thumbnailHeight = "thumbnailHeight"
+    
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
