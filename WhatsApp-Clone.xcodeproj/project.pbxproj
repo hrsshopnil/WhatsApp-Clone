@@ -264,6 +264,7 @@
 				B33D47082C317A2F00BD31A6 /* CallTab */,
 				B33D46FF2C316D5D00BD31A6 /* UpdateTab */,
 				B3D467942C41557000FE4263 /* Components */,
+				B3D06B142C6C76420050A31F /* Extensions */,
 				B3D6E2022C40FB1F0086A14C /* Utilities */,
 				B345D5982C3AA37700346152 /* GoogleService-Info.plist */,
 				B380DE062C2EEDB10091BB7C /* Assets.xcassets */,
@@ -291,11 +292,6 @@
 		B3A47B462C36C02300CF9939 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				B32BF3552C5279960037D6E4 /* StringExtension.swift */,
-				B34166092C6A261300076DF3 /* DateExtension.swift */,
-				B341660B2C6A261E00076DF3 /* URLExtension.swift */,
-				B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */,
-				B31DCD762C6B73F10062A731 /* TimeIntervalExtension.swift */,
 				B3593DA62C6BE0480099AF02 /* FirebaseHelper.swift */,
 			);
 			path = Helpers;
@@ -370,12 +366,24 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		B3D06B142C6C76420050A31F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B32BF3552C5279960037D6E4 /* StringExtension.swift */,
+				B34166092C6A261300076DF3 /* DateExtension.swift */,
+				B341660B2C6A261E00076DF3 /* URLExtension.swift */,
+				B31DCD762C6B73F10062A731 /* TimeIntervalExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B3D467942C41557000FE4263 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				B3D467952C41559200FE4263 /* IconWithTransparentBG.swift */,
 				B382B1002C5D369600CC0D50 /* CircularProfileImageView.swift */,
 				B3B98A6A2C63FA500050DE5B /* MediaPlayerView.swift */,
+				B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

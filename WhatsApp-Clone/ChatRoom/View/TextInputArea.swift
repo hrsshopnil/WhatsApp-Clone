@@ -12,11 +12,12 @@ struct TextInputArea: View {
     @Binding var isRecording: Bool
     @Binding var timeInterval: TimeInterval
     @State private var isPulsing = false
+    var disableButton: Bool
     
     let actionHandler: (_ action: UserAction) -> Void
     
-    private var disableButton: Bool {
-        return textMessage.isEmptyOrWhiteSpaces || isRecording
+    private var sendButtonDisabled: Bool {
+        return disableButton || isRecording
     }
     
     var body: some View {
@@ -47,8 +48,8 @@ struct TextInputArea: View {
                 .font(.system(size: 24))
                 .padding(.bottom, 3)
         }
-        .disabled(disableButton)
-        .foregroundStyle(disableButton ? .gray : .blue)
+        .disabled(sendButtonDisabled)
+        .foregroundStyle(sendButtonDisabled ? .gray : .blue)
         }
         .padding(.bottom)
         .padding(.horizontal, 8)
@@ -129,7 +130,7 @@ extension TextInputArea {
     }
 }
 #Preview {
-    TextInputArea(textMessage: .constant(""), isRecording: .constant(false), timeInterval: .constant(0))  { action in
+    TextInputArea(textMessage: .constant(""), isRecording: .constant(false), timeInterval: .constant(0), disableButton: false)  { action in
         
     }
 }

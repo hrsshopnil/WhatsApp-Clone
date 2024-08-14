@@ -74,7 +74,8 @@ struct ChatRoomView: View {
             }
             TextInputArea(textMessage: $viewModel.textMessage,
                           isRecording: $viewModel.isRecording,
-                          timeInterval: $viewModel.timeInterval) { action in
+                          timeInterval: $viewModel.timeInterval,
+                          disableButton: viewModel.disableButton) { action in
                 viewModel.handleAction(action)
             }
         }

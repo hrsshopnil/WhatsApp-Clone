@@ -30,6 +30,9 @@ final class ChatRoomViewModel: ObservableObject {
         return !photoPickerItems.isEmpty || !mediaAttachments.isEmpty
     }
     
+    var disableButton: Bool {
+        return mediaAttachments.isEmpty && textMessage.isEmptyOrWhiteSpaces
+    }
     
     init(_ channel: ChannelItem) {
         self.channel = channel
