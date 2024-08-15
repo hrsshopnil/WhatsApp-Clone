@@ -17,11 +17,14 @@ struct MessageItem: Identifiable {
     let timeStamp: Date
     var sender: UserItem?
     let thumbnailUrl: String?
+    var thumbnailWidth: CGFloat?
+    var thumbnailHeight: CGFloat?
     
     var imageUrl: String {
         guard let thumbnailUrl else { return ""}
         return thumbnailUrl
     }
+    
     var direction: MessageDirection {
         return ownerId == K.currentUserId ? .sent : .received
     }
@@ -49,6 +52,18 @@ struct MessageItem: Identifiable {
         return direction == .received ? 25 : 0
     }
     
+    var imageSize: CGSize {
+        let photoWidth = thumbnailWidth ?? 0
+        let photoHeight = thumbnailHeight ?? 0
+        let imageHeight = CGFloat(photoHeight / photoWidth * imageWidth)
+        return CGSize(width: imageWidth, height: imageHeight)
+    }
+    
+    var imageWidth: CGFloat {
+        let photoWidth = (UIWindowScene.current?.screenWidth ?? 0) / 1.5
+        return photoWidth
+    }
+    
     static let sentPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date(), thumbnailUrl: nil)
     
     static let receivedPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "2", timeStamp: Date(), thumbnailUrl: nil)
@@ -72,6 +87,8 @@ extension MessageItem {
         let timeInterval = dict[.timeStamp] as? TimeInterval ?? 0
         self.timeStamp = Date(timeIntervalSince1970: timeInterval)
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
+        self.thumbnailWidth = dict[.thumbnailWidth] as? CGFloat ?? 0
+        self.thumbnailHeight = dict[.thumbnailHeight] as? CGFloat ?? 0
     }
 }
 /// Cases: admin, text, photo, video, audio

@@ -12,6 +12,7 @@ import SwiftUI
 import AVKit
 
 final class ChatRoomViewModel: ObservableObject {
+    
     @Published var textMessage = ""
     @Published var messages = [MessageItem]()
     @Published var showPhotoPicker = false

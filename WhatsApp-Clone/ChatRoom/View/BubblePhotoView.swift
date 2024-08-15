@@ -40,7 +40,7 @@ struct BubblePhotoView: View {
                 .resizable()
                 .placeholder{ ProgressView() }
                 .scaledToFill()
-                .frame(width: 220, height: 180)
+                .frame(width: item.imageSize.width, height: item.imageSize.height)
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .padding(5)
                 .overlay(alignment: .bottomTrailing) {
@@ -55,7 +55,7 @@ struct BubblePhotoView: View {
                 Text(item.text)
                     .padding([.horizontal, .bottom], 8)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(width: 220)
+                    .frame(width: item.imageSize.width)
             }
         }
         .background(item.bgColor)
