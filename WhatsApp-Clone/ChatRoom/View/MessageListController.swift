@@ -45,6 +45,9 @@ final class MessageListController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.gray.withAlphaComponent(0.2)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 60, right: 0)
+        tableView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 60, right: 0)
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     
