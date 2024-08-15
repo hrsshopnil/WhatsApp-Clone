@@ -13,10 +13,10 @@ extension UIWindowScene {
     }
     
     var screenWidth: CGFloat {
-        return UIScreen.main.bounds.width
+        return UIWindowScene.current?.screen.bounds.width ?? 0
     }
     
     var screenHeight: CGFloat {
-        return UIScreen.main.bounds.height
+        return UIWindowScene.current?.screen.bounds.height ?? 0
     }
 }

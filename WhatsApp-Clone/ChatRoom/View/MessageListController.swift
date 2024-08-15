@@ -78,8 +78,16 @@ final class MessageListController: UIViewController {
         viewModel.$messages
             .debounce(for: .milliseconds(delay), scheduler: DispatchQueue.main)
             .sink {[weak self] _ in
-            self?.tableView.reloadData()
-        }.store(in: &subscriptions)
+                self?.tableView.reloadData()
+            }.store(in: &subscriptions)
+        
+        viewModel.$scrollToBottom
+            .debounce(for: .milliseconds(delay), scheduler: DispatchQueue.main)
+            .sink {[weak self] scrollRequest in
+                if scrollRequest.scroll {
+                    self?.tableView.scrollToLastRow(at: .bottom, animated: scrollRequest.isAnimated)
+                }
+            }.store(in: &subscriptions)
     }
 }
 
@@ -89,22 +97,32 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        
         let message = viewModel.messages[indexPath.row]
+        
         cell.contentConfiguration = UIHostingConfiguration {
+            
             switch message.type {
+                
             case .admin(let messageType):
+                
                 switch messageType {
+                    
                 case .channelCreation:
                     ChannelCreationTextView()
                     if viewModel.channel.isGroupChat {
                         AdminTextView(channel: viewModel.channel)
                     }
+                    
                 default:
                     Text("ADMIN TEXT")
                 }
+                
             case .text:
                 BubbleTextView(item: message)
             case .photo, .video:
@@ -118,5 +136,16 @@ extension MessageListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+private extension UITableView {
+    func scrollToLastRow(at scrollPosition: UITableView.ScrollPosition, animated: Bool) {
+        guard numberOfRows(inSection: numberOfSections - 1) > 0 else { return }
+
+        let lastSectionIndex = numberOfSections - 1
+        let lastRowIndex = numberOfRows(inSection: lastSectionIndex) - 1
+        let lastRowIndexPath = IndexPath(row: lastRowIndex, section: lastSectionIndex)
+        scrollToRow(at: lastRowIndexPath, at: scrollPosition, animated: animated)
     }
 }
