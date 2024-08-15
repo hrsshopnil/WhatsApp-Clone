@@ -50,6 +50,7 @@ struct MessageItem: Identifiable {
     }
     
     static let sentPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date(), thumbnailUrl: nil)
+    
     static let receivedPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "2", timeStamp: Date(), thumbnailUrl: nil)
     
     static let stubMessages: [MessageItem] = [

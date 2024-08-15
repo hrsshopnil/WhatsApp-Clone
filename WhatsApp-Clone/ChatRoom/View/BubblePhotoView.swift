@@ -12,10 +12,13 @@ struct BubblePhotoView: View {
     let item: MessageItem
     var body: some View {
         HStack(alignment: .bottom, spacing: 5) {
+            
             if item.direction == .sent { Spacer() }
+            
             if item.showSenderProfile {
                 CircularProfileImageView(size: .mini, profileImageUrl: item.sender?.profileImageUrl)
             }
+            
             messagePhotoView()
                 .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
                 .overlay{
@@ -23,18 +26,19 @@ struct BubblePhotoView: View {
                         PlayButton(item: item)
                     }
                 }
-            if item.direction == .sent { Spacer() }
+            
+            if item.direction == .received { Spacer() }
         }
         .frame(maxWidth: .infinity, alignment: item.alignment)
         .padding(.leading, item.leadingPadding)
-        .padding(.leading, item.trailingPadding)
+        .padding(.trailing, item.trailingPadding)
     }
     
     private func messagePhotoView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             KFImage(URL(string: item.imageUrl))
                 .resizable()
-                .placeholder{ ProgressView() }
+                .placeholder{ }
                 .scaledToFill()
                 .frame(width: 220, height: 180)
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -76,7 +80,7 @@ struct BubblePhotoView: View {
 
 #Preview {
     ScrollView {
-        BubblePhotoView(item: .sentPlaceholder)
+        BubblePhotoView(item: .receivedPlaceholder)
     }
     .background(.gray.opacity(0.3))
 }
