@@ -12,9 +12,11 @@ import Combine
 /// Recording Voice Message
 /// Storing Message URL
 final class VoiceRecorderService {
-    private var audioRecorder: AVAudioRecorder?
+    
     @Published private(set) var isRecording = false
     @Published private(set) var elapsedTime: TimeInterval = 0
+    
+    private var audioRecorder: AVAudioRecorder?
     private var startTime: Date?
     private var timer: AnyCancellable?
 
@@ -39,6 +41,7 @@ final class VoiceRecorderService {
         let audioFileName = Date().toString(format: "dd-MM-YY 'at' HH:mm:ss") + ".m4a"
         let audioFileURL = documentPath.appendingPathComponent(audioFileName)
 
+        ///Configures the audio's Settings
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -89,6 +92,7 @@ final class VoiceRecorderService {
         deleteRecordings(folderContents)
     }
     
+    ///Deletes the audio file from the device's local file manager for each url
     private func deleteRecordings(_ urls: [URL]) {
         for url in urls {
             deleteRecording(at: url)

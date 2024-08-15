@@ -26,7 +26,8 @@ enum UploadError: Error {
 }
 
 struct FirebaseHelper {
-    ///Responsible for uploading Image like Profile image and Photo message to the firebase Storage
+    
+    // MARK:  Responsible for uploading Image like Profile image and Photo message to the firebase Storage
     static func uploadImage(_ image: UIImage,
                             for type: UploadType,
                             completion: @escaping UploadCompletion,
@@ -57,7 +58,7 @@ struct FirebaseHelper {
         }
     }
     
-    ///Responsible for uploading File like Video and Audio messages
+    // MARK: Responsible for uploading File like Video and Audio messages
     static func uploadFile(_ fileUrl: URL,
                             for type: UploadType,
                             completion: @escaping UploadCompletion,

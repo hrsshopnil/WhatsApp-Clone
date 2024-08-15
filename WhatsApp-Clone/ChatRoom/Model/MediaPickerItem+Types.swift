@@ -37,6 +37,7 @@ struct MediaAttachment: Identifiable {
     
     let type: MediaAttachmentType
     
+    ///Returns a Thumbnail for the video or photo
     var thumbnail: UIImage {
         switch type {
         case .photo(let thumbnail):
@@ -47,7 +48,7 @@ struct MediaAttachment: Identifiable {
             return thumbnail
         }
     }
-    
+    ///Returns a URL for the video or audio file
     var fileUrl: URL? {
         switch type {
         case .photo:

@@ -73,6 +73,7 @@ extension MessageItem {
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
     }
 }
+/// Cases: admin, text, photo, video, audio
 enum MessageType {
     case admin(_ type: AdminMessageType), text, photo, video, audio
     

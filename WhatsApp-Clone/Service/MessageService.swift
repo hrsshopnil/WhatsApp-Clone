@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 class MessageService {
     
+    /// Sends a text message to the Realtime Database
     static func sendTextMessage(to channel: ChannelItem, from  currentUser: UserItem, _ textMessage: String, completion: () -> Void) {
         let timeStamp = Date().timeIntervalSince1970
         guard let messageId = FirebaseConstants.MessageRef.childByAutoId().key else {return}
@@ -28,13 +29,14 @@ class MessageService {
         completion()
     }
     
+    ///Gets Messages for the selected channel
     static func getMessages(_ channel: ChannelItem, completion: @escaping ([MessageItem]) -> Void) {
         FirebaseConstants.MessageRef.child(channel.id).observe(.value) { snapshot in
             guard let dict = snapshot.value as? [String: Any] else { return }
             var messages: [MessageItem] = []
             dict.forEach { key, value in
                 let messageDict = value as? [String: Any] ?? [:]
-                let message = MessageItem(id: key,isGroupChat: channel.isGroupChat, dict: messageDict)
+                let message = MessageItem(id: key, isGroupChat: channel.isGroupChat, dict: messageDict)
                 messages.append(message)
                 if messages.count == snapshot.childrenCount {
                     messages.sort { $0.timeStamp < $1.timeStamp }
@@ -46,6 +48,8 @@ class MessageService {
         }
     }
     
+    
+    ///Sends messages that include Photo, Vedio or audio
     static func sendMediaMessage(to channel: ChannelItem, params: MessageUploadParams, completion: @escaping () -> Void) {
         guard let messageId = FirebaseConstants.MessageRef.childByAutoId().key else { return }
         let timeStamp = Date().timeIntervalSince1970
@@ -64,16 +68,17 @@ class MessageService {
         ]
         
         messageDict[.thumbnailUrl] = params.thumbnailUrl ?? nil
-        messageDict[.thumbnailUrl] = params.thumbnailUrl ?? nil
-        messageDict[.thumbnailUrl] = params.thumbnailUrl ?? nil
+        messageDict[.thumbnailWidth] = params.thumbnailWidth ?? nil
+        messageDict[.thumbnailHeight] = params.thumbnailHeight ?? nil
         
         FirebaseConstants.ChannelsRef.child(channel.id).updateChildValues(channelDict)
-        FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageId)
+        FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageDict)
         completion()
     }
 
 }
 
+///Media Message Item Model
 struct MessageUploadParams {
     let channel: ChannelItem
     let text: String
