@@ -74,6 +74,7 @@
 		B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6E1FF2C40FAB70086A14C /* UserItem.swift */; };
 		B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */; };
 		B3D9A7E82C4596DA00AA5FC9 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */; };
+		B3DD11E82C6E587A0087A96F /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DD11E72C6E587A0087A96F /* UIApplicationExtension.swift */; };
 		B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */; };
 		B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */; };
 		B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */; };
@@ -146,6 +147,7 @@
 		B3D6E1FF2C40FAB70086A14C /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		B3DD11E72C6E587A0087A96F /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabScreen.swift; sourceTree = "<group>"; };
 		B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				B34166092C6A261300076DF3 /* DateExtension.swift */,
 				B341660B2C6A261E00076DF3 /* URLExtension.swift */,
 				B31DCD762C6B73F10062A731 /* TimeIntervalExtension.swift */,
+				B3DD11E72C6E587A0087A96F /* UIApplicationExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				B3B512962C3D7BB700B7E81A /* AuthProvidor.swift in Sources */,
 				B3C2C3F92C46E449004E7E9E /* ChannelItem.swift in Sources */,
 				B3A47B4A2C36D3EC00CF9939 /* BubblePhotoView.swift in Sources */,
+				B3DD11E82C6E587A0087A96F /* UIApplicationExtension.swift in Sources */,
 				B3C5E4D92C4031FB00C16537 /* RootView.swift in Sources */,
 				B31DCD772C6B73F10062A731 /* TimeIntervalExtension.swift in Sources */,
 				B3ED60832C341AE500B3B2CE /* SettingsSectionHeader.swift in Sources */,

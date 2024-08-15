@@ -38,7 +38,7 @@ struct BubblePhotoView: View {
         VStack(alignment: .leading, spacing: 0) {
             KFImage(URL(string: item.imageUrl))
                 .resizable()
-                .placeholder{ }
+                .placeholder{ ProgressView() }
                 .scaledToFill()
                 .frame(width: 220, height: 180)
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
