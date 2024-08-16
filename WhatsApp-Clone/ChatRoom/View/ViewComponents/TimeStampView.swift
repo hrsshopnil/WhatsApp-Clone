@@ -13,7 +13,7 @@ struct TimeStampView: View {
         HStack {
             Text(item.timeStamp.formatToTime)
                 .font(.footnote)
-                .foregroundStyle(.gray)
+                .foregroundStyle(.white)
         }
     }
 }

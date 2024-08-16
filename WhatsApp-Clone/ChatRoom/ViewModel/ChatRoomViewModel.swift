@@ -23,7 +23,7 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var timeInterval: TimeInterval = 0
     @Published var scrollToBottom: (scroll: Bool, isAnimated: Bool) = (false, false)
     
-    private var currenUser: UserItem?
+    private var currentUser: UserItem?
     private(set) var channel: ChannelItem
     private var subscription = Set<AnyCancellable>()
     private var voiceRecorderService = VoiceRecorderService()
@@ -46,7 +46,7 @@ final class ChatRoomViewModel: ObservableObject {
     deinit {
         subscription.forEach {$0.cancel()}
         subscription.removeAll()
-        currenUser = nil
+        currentUser = nil
         voiceRecorderService.tearDown()
     }
     
@@ -54,7 +54,7 @@ final class ChatRoomViewModel: ObservableObject {
         AuthManager.shared.authstate.receive(on: DispatchQueue.main).sink {[weak self] authstate in
             switch authstate {
             case .loggedin(let currenUser):
-                self?.currenUser = currenUser
+                self?.currentUser = currenUser
                 self?.fetchAllChannelMembers()
             default:
                 break
@@ -73,9 +73,9 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     func sendMessage() {
-        guard let currenUser else { return }
+        guard let currentUser else { return }
         if mediaAttachments.isEmpty {
-            MessageService.sendTextMessage(to: channel, from: currenUser, textMessage) {[weak self] in
+            MessageService.sendTextMessage(to: channel, from: currentUser, textMessage) {[weak self] in
                 self?.textMessage = ""
             }
         } else {
@@ -100,21 +100,68 @@ final class ChatRoomViewModel: ObservableObject {
             case .audio:
                 break
             case .video:
-                break
+                sendVideoMessage(text: text, attachment)
             }
         }
     }
     
+    private func sendVideoMessage(text: String, _ attachment: MediaAttachment) {
+        /// Uploads the video file to the storage bucket
+        uploadFileToStorage(for: .videoMessage, attachment) { [weak self] videoURL in
+
+            /// Upload the video thumbnail
+            self?.uploadImageToStorage(attachment) { [weak self] thumbnailURL in
+                guard let self = self, let currentUser else { return }
+
+                let uploadParams = MessageUploadParams(
+                    channel: self.channel,
+                    text: text,
+                    type: .video,
+                    attachment: attachment,
+                    thumbnailUrl: thumbnailURL.absoluteString,
+                    videoUrl: videoURL.absoluteString,
+                    sender: currentUser
+                )
+
+                /// Saves the metadata to the realtime database
+                MessageService.sendMediaMessage(to: self.channel, params: uploadParams) { [weak self] in
+                    self?.scrollToBottom(isAnimated: true)
+                }
+            }
+        }
+    }
+
+    
+    private func uploadFileToStorage(
+        for uploadType: FirebaseHelper.UploadType,
+        _ attachment: MediaAttachment,
+        completion: @escaping (_ imageURL: URL) -> Void) {
+
+        guard let fileToUpload = attachment.fileUrl else { return }
+
+        FirebaseHelper.uploadFile(fileToUpload, for: uploadType) { result in
+            switch result {
+            case .success(let videoURL):
+                completion(videoURL)
+
+            case .failure(let error):
+                print("Failed to upload file to Storage: \(error.localizedDescription)")
+            }
+        } progressHandler: { progress in
+            print("UPLOAD FILE PROGRESS: \(progress)")
+        }
+    }
+
     private func sendPhotoMessage(_ text: String, attachment: MediaAttachment) {
         uploadImageToStorage(attachment) {[weak self] imageUrl in
-            guard let self, let currenUser else { return }
+            guard let self, let currentUser else { return }
             
             let uploadParams = MessageUploadParams(channel: channel,
                                                    text: text,
                                                    type: .photo,
                                                    attachment: attachment,
                                                    thumbnailUrl: imageUrl.absoluteString,
-                                                   sender: currenUser)
+                                                   sender: currentUser)
             
             MessageService.sendMediaMessage(to: channel, params: uploadParams) {
                 self.scrollToBottom(isAnimated: true)
@@ -148,13 +195,13 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     private func fetchAllChannelMembers() {
-        guard let currenUser else { return }
+        guard let currentUser else { return }
         var membersUids = channel.membersUids.compactMap {$0}
-        membersUids = membersUids.filter {$0 != currenUser.id}
+        membersUids = membersUids.filter {$0 != currentUser.id}
         UserService.getUsers(with: membersUids) { [weak self] usernode in
             guard let self = self else { return }
             self.channel.members.append(contentsOf: usernode.users)
-            self.channel.members.append(currenUser)
+            self.channel.members.append(currentUser)
             self.getMessages()
         }
     }

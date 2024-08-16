@@ -12,6 +12,7 @@ import AVFoundation
 import UIKit
 
 extension String {
+    
     static let id = "id"
     static let username = "username"
     static let email = "email"
@@ -35,6 +36,7 @@ extension String {
     static let lastMessageType = "lastMessageType"
     static let thumbnailWidth = "thumbnailWidth"
     static let thumbnailHeight = "thumbnailHeight"
+    static let videoUrl = "videoUrl"
     
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty

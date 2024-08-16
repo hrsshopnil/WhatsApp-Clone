@@ -19,6 +19,7 @@ struct MessageItem: Identifiable {
     let thumbnailUrl: String?
     var thumbnailWidth: CGFloat?
     var thumbnailHeight: CGFloat?
+    var videoUrl: String?
     
     var imageUrl: String {
         guard let thumbnailUrl else { return ""}
@@ -89,6 +90,7 @@ extension MessageItem {
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
         self.thumbnailWidth = dict[.thumbnailWidth] as? CGFloat ?? 0
         self.thumbnailHeight = dict[.thumbnailHeight] as? CGFloat ?? 0
+        self.videoUrl = dict[.videoUrl] as? String ?? nil
     }
 }
 /// Cases: admin, text, photo, video, audio
