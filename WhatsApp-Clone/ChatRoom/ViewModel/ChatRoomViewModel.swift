@@ -96,9 +96,9 @@ final class ChatRoomViewModel: ObservableObject {
             switch attachment.type {
                 
             case .photo:
-                sendPhotoMessage(text, attachment: attachment)
+                sendPhotoMessage(text: text, attachment)
             case .audio:
-                break
+                sendVoiceMessage(text: text, attachment)
             case .video:
                 sendVideoMessage(text: text, attachment)
             }
@@ -131,7 +131,29 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
 
-    
+    private func sendVoiceMessage(text: String, _ attachment: MediaAttachment) {
+        
+        guard let audioDuration = attachment.audioDuration, let currentUser else { return }
+        
+        uploadFileToStorage(for: .voiceMessage, attachment) {[weak self] fileUrl in
+            guard let self else { return }
+            
+            let uploadParams = MessageUploadParams(
+                channel: self.channel,
+                text: text,
+                type: .audio,
+                attachment: attachment,
+                sender: currentUser,
+                audioUrl: fileUrl.absoluteString,
+                audioDuration: audioDuration
+            )
+            
+            ///Saves the metadata and url to the realtime database
+            MessageService.sendMediaMessage(to: self.channel, params: uploadParams) {[weak self] in
+                self?.scrollToBottom(isAnimated: true)
+            }
+        }
+    }
     private func uploadFileToStorage(
         for uploadType: FirebaseHelper.UploadType,
         _ attachment: MediaAttachment,
@@ -152,7 +174,7 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
 
-    private func sendPhotoMessage(_ text: String, attachment: MediaAttachment) {
+    private func sendPhotoMessage(text: String, _ attachment: MediaAttachment) {
         uploadImageToStorage(attachment) {[weak self] imageUrl in
             guard let self, let currentUser else { return }
             

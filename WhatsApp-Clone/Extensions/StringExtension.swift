@@ -37,6 +37,9 @@ extension String {
     static let thumbnailWidth = "thumbnailWidth"
     static let thumbnailHeight = "thumbnailHeight"
     static let videoUrl = "videoUrl"
+    static let audioUrl = "audioUrl"
+    static let audioDuration = "audioDuration"
+
     
     var isEmptyOrWhiteSpaces: Bool {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty

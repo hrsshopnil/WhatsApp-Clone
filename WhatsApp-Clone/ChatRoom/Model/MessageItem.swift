@@ -20,6 +20,8 @@ struct MessageItem: Identifiable {
     var thumbnailWidth: CGFloat?
     var thumbnailHeight: CGFloat?
     var videoUrl: String?
+    var audioUrl: String?
+    var audioDuration: TimeInterval?
     
     var imageUrl: String {
         guard let thumbnailUrl else { return ""}
@@ -88,9 +90,11 @@ extension MessageItem {
         let timeInterval = dict[.timeStamp] as? TimeInterval ?? 0
         self.timeStamp = Date(timeIntervalSince1970: timeInterval)
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
-        self.thumbnailWidth = dict[.thumbnailWidth] as? CGFloat ?? 0
-        self.thumbnailHeight = dict[.thumbnailHeight] as? CGFloat ?? 0
+        self.thumbnailWidth = dict[.thumbnailWidth] as? CGFloat ?? nil
+        self.thumbnailHeight = dict[.thumbnailHeight] as? CGFloat ?? nil
         self.videoUrl = dict[.videoUrl] as? String ?? nil
+        self.audioUrl = dict[.audioUrl] as? String ?? nil
+        self.audioDuration = dict[.audioDuration] as? TimeInterval ?? nil
     }
 }
 /// Cases: admin, text, photo, video, audio

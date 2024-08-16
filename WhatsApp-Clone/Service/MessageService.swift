@@ -67,10 +67,15 @@ class MessageService {
             .ownerId: params.ownerId,
         ]
         
+        ///Photo or Video Messages
         messageDict[.thumbnailUrl] = params.thumbnailUrl ?? nil
         messageDict[.thumbnailWidth] = params.thumbnailWidth ?? nil
         messageDict[.thumbnailHeight] = params.thumbnailHeight ?? nil
         messageDict[.videoUrl] = params.videoUrl ?? nil
+        
+        /// Audio Messages
+        messageDict[.audioUrl] = params.audioUrl ?? nil
+        messageDict[.audioDuration] = params.audioDuration ?? nil
         
         FirebaseConstants.ChannelsRef.child(channel.id).updateChildValues(channelDict)
         FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageDict)

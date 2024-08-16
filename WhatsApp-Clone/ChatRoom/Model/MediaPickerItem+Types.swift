@@ -59,6 +59,15 @@ struct MediaAttachment: Identifiable {
             return fileUrl
         }
     }
+    
+    var audioDuration: TimeInterval? {
+        switch type {
+        case .audio(_, let duration):
+            return duration
+        default:
+            return nil
+        }
+    }
 }
 
 
