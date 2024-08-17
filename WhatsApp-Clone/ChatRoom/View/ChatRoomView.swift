@@ -8,20 +8,27 @@
 import SwiftUI
 
 struct ChatRoomView: View {
+    
     let channel: ChannelItem
+    
     @StateObject private var viewModel: ChatRoomViewModel
+    @StateObject private var voiceMessagePlayer = VoiceMessagePlayer()
     
     init(channel: ChannelItem) {
         self.channel = channel
         _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel))
     }
     var body: some View {
+        
         MessageListView(viewModel)
+        
             .toolbar(.hidden, for: .tabBar)
             .ignoresSafeArea(edges: .bottom)
             .safeAreaInset(edge: .bottom) {
-                bottomView()            }
+                bottomView()
+            }
             .navigationBarTitleDisplayMode(.inline)
+        
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack {
@@ -47,12 +54,14 @@ struct ChatRoomView: View {
                 }
             }
             .animation(.easeInOut, value: viewModel.showPhotoPickerPreview)
+        
             .photosPicker(
                 isPresented: $viewModel.showPhotoPicker,
                 selection: $viewModel.photoPickerItems,
                 maxSelectionCount: 6,
                 photoLibrary: .shared()
             )
+        
             .fullScreenCover(isPresented: $viewModel.videoPlayerState.show) {
                 if let player = viewModel.videoPlayerState.player {
                     MediaPlayerView(player: player) {
@@ -60,6 +69,7 @@ struct ChatRoomView: View {
                     }
                 }
             }
+            .environmentObject(voiceMessagePlayer)
     }
     
     private func bottomView() -> some View {

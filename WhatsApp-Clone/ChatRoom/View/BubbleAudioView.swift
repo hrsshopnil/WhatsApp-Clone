@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct BubbleAudioView: View {
+    
+    @EnvironmentObject var voiceMessagePlayer: VoiceMessagePlayer
     let item: MessageItem
+    
     @State private var sliderValue = 0.0
     @State private var sliderRange = 0...20.0
+    
     var body: some View {
         HStack(alignment: .bottom, spacing: 5) {
             if item.showSenderProfile {
@@ -23,7 +27,8 @@ struct BubbleAudioView: View {
             
             HStack {
                 Button {
-                    
+                    guard let audioUrlString = item.audioUrl, let voiceMessageUrl = URL(string: audioUrlString) else { return }
+                    voiceMessagePlayer.playAudio(from: voiceMessageUrl)
                 } label: {
                     PlayButton(item: item)
                 }

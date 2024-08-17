@@ -23,7 +23,7 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var timeInterval: TimeInterval = 0
     @Published var scrollToBottom: (scroll: Bool, isAnimated: Bool) = (false, false)
     
-    private var currentUser: UserItem?
+    var currentUser: UserItem?
     private(set) var channel: ChannelItem
     private var subscription = Set<AnyCancellable>()
     private var voiceRecorderService = VoiceRecorderService()
@@ -94,126 +94,9 @@ final class ChatRoomViewModel: ObservableObject {
         textMessage = ""
         UIApplication.dismissKeyboard()
     }
-    
-    private func sendMultipleMediaMessages(_ text: String, attachments: [MediaAttachment]) {
-        attachments.forEach { attachment in
-            switch attachment.type {
-                
-            case .photo:
-                sendPhotoMessage(text: text, attachment)
-            case .audio:
-                sendVoiceMessage(text: text, attachment)
-            case .video:
-                sendVideoMessage(text: text, attachment)
-            }
-        }
-    }
-    
-    private func sendVideoMessage(text: String, _ attachment: MediaAttachment) {
-        /// Uploads the video file to the storage bucket
-        uploadFileToStorage(for: .videoMessage, attachment) { [weak self] videoURL in
 
-            /// Upload the video thumbnail
-            self?.uploadImageToStorage(attachment) { [weak self] thumbnailURL in
-                guard let self = self, let currentUser else { return }
-
-                let uploadParams = MessageUploadParams(
-                    channel: self.channel,
-                    text: text,
-                    type: .video,
-                    attachment: attachment,
-                    thumbnailUrl: thumbnailURL.absoluteString,
-                    videoUrl: videoURL.absoluteString,
-                    sender: currentUser
-                )
-
-                /// Saves the metadata to the realtime database
-                MessageService.sendMediaMessage(to: self.channel, params: uploadParams) { [weak self] in
-                    self?.scrollToBottom(isAnimated: true)
-                }
-            }
-        }
-    }
-
-    private func sendVoiceMessage(text: String, _ attachment: MediaAttachment) {
-        
-        guard let audioDuration = attachment.audioDuration, let currentUser else { return }
-        
-        uploadFileToStorage(for: .voiceMessage, attachment) {[weak self] fileUrl in
-            guard let self else { return }
-            
-            let uploadParams = MessageUploadParams(
-                channel: self.channel,
-                text: text,
-                type: .audio,
-                attachment: attachment,
-                sender: currentUser,
-                audioUrl: fileUrl.absoluteString,
-                audioDuration: audioDuration
-            )
-            
-            ///Saves the metadata and url to the realtime database
-            MessageService.sendMediaMessage(to: self.channel, params: uploadParams) {[weak self] in
-                self?.scrollToBottom(isAnimated: true)
-            }
-        }
-    }
-    
-    ///Uploads file URL(video, audio) to the Firebase Storage
-    private func uploadFileToStorage(
-        for uploadType: FirebaseHelper.UploadType,
-        _ attachment: MediaAttachment,
-        completion: @escaping (_ imageURL: URL) -> Void) {
-
-        guard let fileToUpload = attachment.fileUrl else { return }
-
-        FirebaseHelper.uploadFile(fileToUpload, for: uploadType) { result in
-            switch result {
-            case .success(let videoURL):
-                completion(videoURL)
-
-            case .failure(let error):
-                print("Failed to upload file to Storage: \(error.localizedDescription)")
-            }
-        } progressHandler: { progress in
-            print("UPLOAD FILE PROGRESS: \(progress)")
-        }
-    }
-
-    
-    private func sendPhotoMessage(text: String, _ attachment: MediaAttachment) {
-        uploadImageToStorage(attachment) {[weak self] imageUrl in
-            guard let self, let currentUser else { return }
-            
-            let uploadParams = MessageUploadParams(channel: channel,
-                                                   text: text,
-                                                   type: .photo,
-                                                   attachment: attachment,
-                                                   thumbnailUrl: imageUrl.absoluteString,
-                                                   sender: currentUser)
-            
-            MessageService.sendMediaMessage(to: channel, params: uploadParams) {
-                self.scrollToBottom(isAnimated: true)
-            }
-        }
-    }
-    
-    private func uploadImageToStorage(_ attachment: MediaAttachment, completion: @escaping(_ imageUrl: URL) -> Void) {
-        FirebaseHelper.uploadImage(attachment.thumbnail, for: .photoMessage) { result in
-            switch result {
-            case .success(let imageUrl):
-                completion(imageUrl)
-            case .failure(let error):
-                print("Failed to upload image: \(error.localizedDescription)")
-            }
-        } progressHandler: { progress in
-            print("Image Uploading Progress: \(progress)")
-        }
-
-    }
-    
     ///Scroll the the bottom of a chatroom after a message is sent
-    private func scrollToBottom(isAnimated: Bool) {
+    func scrollToBottom(isAnimated: Bool) {
         scrollToBottom.scroll = true
         scrollToBottom.isAnimated = isAnimated
     }
