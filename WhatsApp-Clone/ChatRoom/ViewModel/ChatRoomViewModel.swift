@@ -44,12 +44,13 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     deinit {
-        subscription.forEach {$0.cancel()}
+        subscription.forEach { $0.cancel() }
         subscription.removeAll()
         currentUser = nil
         voiceRecorderService.tearDown()
     }
     
+    ///Continuously listens to Current User's email and stores it in the Subscription variable
     private func listenToAuthState() {
         AuthManager.shared.authstate.receive(on: DispatchQueue.main).sink {[weak self] authstate in
             switch authstate {
@@ -62,6 +63,7 @@ final class ChatRoomViewModel: ObservableObject {
         }.store(in: &subscription)
     }
     
+    ///Continuously listens whether voice recorder is active or not and timelapse and stores the value in the Subscription variable
     private func setupVoiceRecorderListener() {
         voiceRecorderService.$isRecording.receive(on: DispatchQueue.main).sink { [weak self] isRecording in
             self?.isRecording = isRecording
@@ -72,6 +74,7 @@ final class ChatRoomViewModel: ObservableObject {
         }.store(in: &subscription)
     }
     
+    ///Final Function to send a message
     func sendMessage() {
         guard let currentUser else { return }
         if mediaAttachments.isEmpty {
@@ -84,6 +87,7 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
     
+    ///Clears the text input area and dismisses the keyboard after a message is being sent
     private func clearTextInputArea() {
         mediaAttachments.removeAll()
         photoPickerItems.removeAll()
@@ -154,6 +158,8 @@ final class ChatRoomViewModel: ObservableObject {
             }
         }
     }
+    
+    ///Uploads file URL(video, audio) to the Firebase Storage
     private func uploadFileToStorage(
         for uploadType: FirebaseHelper.UploadType,
         _ attachment: MediaAttachment,
@@ -174,6 +180,7 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
 
+    
     private func sendPhotoMessage(text: String, _ attachment: MediaAttachment) {
         uploadImageToStorage(attachment) {[weak self] imageUrl in
             guard let self, let currentUser else { return }
@@ -191,11 +198,6 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
     
-    private func scrollToBottom(isAnimated: Bool) {
-        scrollToBottom.scroll = true
-        scrollToBottom.isAnimated = isAnimated
-    }
-    
     private func uploadImageToStorage(_ attachment: MediaAttachment, completion: @escaping(_ imageUrl: URL) -> Void) {
         FirebaseHelper.uploadImage(attachment.thumbnail, for: .photoMessage) { result in
             switch result {
@@ -210,12 +212,20 @@ final class ChatRoomViewModel: ObservableObject {
 
     }
     
+    ///Scroll the the bottom of a chatroom after a message is sent
+    private func scrollToBottom(isAnimated: Bool) {
+        scrollToBottom.scroll = true
+        scrollToBottom.isAnimated = isAnimated
+    }
+    
+    
     private func getMessages() {
         MessageService.getMessages(channel) {[weak self] messages in
             self?.messages = messages
         }
     }
     
+    ///Fetches all the members of a channel
     private func fetchAllChannelMembers() {
         guard let currentUser else { return }
         var membersUids = channel.membersUids.compactMap {$0}
@@ -250,6 +260,7 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
     
+    ///Creates th audio Url and inserts it to the mediaAttachment
     private func createAudioAttachment(from audioUrl: URL? , _ audioDuration: TimeInterval) {
         guard let audioUrl else { return }
         let id = UUID().uuidString

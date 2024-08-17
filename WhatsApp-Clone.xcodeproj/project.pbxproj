@@ -76,6 +76,7 @@
 		B3D9A7E82C4596DA00AA5FC9 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */; };
 		B3DD11E82C6E587A0087A96F /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DD11E72C6E587A0087A96F /* UIApplicationExtension.swift */; };
 		B3DD11EA2C6E6E180087A96F /* UIWindowSceneExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DD11E92C6E6E180087A96F /* UIWindowSceneExtension.swift */; };
+		B3E69D482C70957600B87AD6 /* VoiceMessagePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E69D472C70957600B87AD6 /* VoiceMessagePlayer.swift */; };
 		B3ED607B2C3416B500B3B2CE /* SettingsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */; };
 		B3ED607F2C3416E300B3B2CE /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */; };
 		B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */; };
@@ -150,6 +151,7 @@
 		B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		B3DD11E72C6E587A0087A96F /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		B3DD11E92C6E6E180087A96F /* UIWindowSceneExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowSceneExtension.swift; sourceTree = "<group>"; };
+		B3E69D472C70957600B87AD6 /* VoiceMessagePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMessagePlayer.swift; sourceTree = "<group>"; };
 		B3ED607A2C3416B500B3B2CE /* SettingsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabScreen.swift; sourceTree = "<group>"; };
 		B3ED607E2C3416E300B3B2CE /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		B3ED60802C3418E000B3B2CE /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */,
+				B3E69D472C70957600B87AD6 /* VoiceMessagePlayer.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				B3C2DA8F2C3568DC0032560F /* MessageListController.swift in Sources */,
 				B3C5E4DB2C40320200C16537 /* RootModel.swift in Sources */,
 				B30059C12C3BFBD700FC584D /* RegisterView.swift in Sources */,
+				B3E69D482C70957600B87AD6 /* VoiceMessagePlayer.swift in Sources */,
 				B3D467982C41567200FE4263 /* ChatPartnerPickerScreen.swift in Sources */,
 				B3B98A6B2C63FA510050DE5B /* MediaPlayerView.swift in Sources */,
 				B3D9A7E82C4596DA00AA5FC9 /* UserService.swift in Sources */,

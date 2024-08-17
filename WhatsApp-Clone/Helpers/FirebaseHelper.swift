@@ -58,7 +58,7 @@ struct FirebaseHelper {
         }
     }
     
-    // MARK: Responsible for uploading File like Video and Audio messages
+    // MARK: Responsible for uploading File like Video and Audio messages to the Firebase Storage
     static func uploadFile(_ fileUrl: URL,
                             for type: UploadType,
                             completion: @escaping UploadCompletion,

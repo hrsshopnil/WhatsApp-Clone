@@ -49,7 +49,7 @@ class MessageService {
     }
     
     
-    ///Sends messages that include Photo, Vedio or audio
+    ///Sends messages that include Photo, Video or audio
     static func sendMediaMessage(to channel: ChannelItem, params: MessageUploadParams, completion: @escaping () -> Void) {
         guard let messageId = FirebaseConstants.MessageRef.childByAutoId().key else { return }
         let timeStamp = Date().timeIntervalSince1970
