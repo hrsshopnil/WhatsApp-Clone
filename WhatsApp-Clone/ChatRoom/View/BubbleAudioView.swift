@@ -12,6 +12,7 @@ struct BubbleAudioView: View {
     @EnvironmentObject var voiceMessagePlayer: VoiceMessagePlayer
     let item: MessageItem
     
+    @State private var playbackState: VoiceMessagePlayer.PlaybackState = .stopped
     @State private var sliderValue = 0.0
     @State private var sliderRange = 0...20.0
     
@@ -27,8 +28,7 @@ struct BubbleAudioView: View {
             
             HStack {
                 Button {
-                    guard let audioUrlString = item.audioUrl, let voiceMessageUrl = URL(string: audioUrlString) else { return }
-                    voiceMessagePlayer.playAudio(from: voiceMessageUrl)
+                    handleAudioPlayer()
                 } label: {
                     PlayButton(item: item)
                 }
@@ -52,6 +52,28 @@ struct BubbleAudioView: View {
         .frame(maxWidth: .infinity, alignment: item.alignment)
         .padding(.leading, item.leadingPadding)
         .padding(.trailing, item.trailingPadding)
+        .onReceive(voiceMessagePlayer.$playbackState) { state in
+            
+        }
+    }
+}
+
+extension BubbleAudioView {
+    
+    private func handleAudioPlayer() {
+        if playbackState == .stopped || playbackState == .paused {
+            guard let audioUrlString = item.audioUrl, let voiceMessageUrl = URL(string: audioUrlString) else { return }
+            voiceMessagePlayer.playAudio(from: voiceMessageUrl)
+        }
+    }
+    
+    private func observePlaybackState(_ state: VoiceMessagePlayer.PlaybackState) {
+        if state == .stopped {
+            playbackState = .stopped
+            sliderValue = 0
+        } else {
+            playbackState = state
+        }
     }
 }
 
