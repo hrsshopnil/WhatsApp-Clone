@@ -9,9 +9,10 @@ import SwiftUI
 
 struct PlayButton: View {
     let item: MessageItem
+    let icon: String
     var body: some View {
         
-        Image(systemName: "play.fill")
+        Image(systemName: icon)
             .padding(10)
             .background(item.direction == .received ? .green : .white)
             .clipShape(Circle())
@@ -20,5 +21,5 @@ struct PlayButton: View {
 }
 
 #Preview {
-    PlayButton(item: .receivedPlaceholder)
+    PlayButton(item: .receivedPlaceholder, icon: "play.fill")
 }

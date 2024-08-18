@@ -23,7 +23,7 @@ struct BubblePhotoView: View {
                 .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
                 .overlay{
                     if item.type == .video {
-                        PlayButton(item: item)
+                        PlayButton(item: item, icon: "play.fill")
                     }
                 }
             

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct BubbleAudioView: View {
     
@@ -14,7 +15,8 @@ struct BubbleAudioView: View {
     
     @State private var playbackState: VoiceMessagePlayer.PlaybackState = .stopped
     @State private var sliderValue = 0.0
-    @State private var sliderRange = 0...20.0
+    @State private var sliderRange: ClosedRange<Double> = 0...20
+    @State private var playbackTime = "00:00"
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 5) {
@@ -30,11 +32,11 @@ struct BubbleAudioView: View {
                 Button {
                     handleAudioPlayer()
                 } label: {
-                    PlayButton(item: item)
+                    PlayButton(item: item, icon: playbackState.icon)
                 }
                 Slider(value: $sliderValue, in: sliderRange)
                     .tint(.gray)
-                Text("05:00")
+                Text(playbackTime)
                     .foregroundStyle(.gray)
             }
             .padding(10)
@@ -52,8 +54,19 @@ struct BubbleAudioView: View {
         .frame(maxWidth: .infinity, alignment: item.alignment)
         .padding(.leading, item.leadingPadding)
         .padding(.trailing, item.trailingPadding)
+        
         .onReceive(voiceMessagePlayer.$playbackState) { state in
-            
+           observePlaybackState(state)
+        }
+        
+        .onReceive(voiceMessagePlayer.$currentTime) { currentTime in
+        listens(to: currentTime)
+        }
+        
+        .onReceive(voiceMessagePlayer.$playerItem) { playerItem in
+            guard voiceMessagePlayer.currentUrl?.absoluteString == item.audioUrl else { return }
+            guard let audioDuration = item.audioDuration else { return }
+            sliderRange = 0...audioDuration
         }
     }
 }
@@ -64,6 +77,8 @@ extension BubbleAudioView {
         if playbackState == .stopped || playbackState == .paused {
             guard let audioUrlString = item.audioUrl, let voiceMessageUrl = URL(string: audioUrlString) else { return }
             voiceMessagePlayer.playAudio(from: voiceMessageUrl)
+        } else {
+            voiceMessagePlayer.pauseAudio()
         }
     }
     
@@ -74,6 +89,11 @@ extension BubbleAudioView {
         } else {
             playbackState = state
         }
+    }
+    
+    private func listens(to currentValue: CMTime) {
+        playbackTime = currentValue.seconds.formattedElapsedTime
+        sliderValue = currentValue.seconds
     }
 }
 
