@@ -295,9 +295,9 @@
 			isa = PBXGroup;
 			children = (
 				B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */,
-				B3E69D472C70957600B87AD6 /* VoiceMessagePlayer.swift */,
 				B378762C2C711DA000B10394 /* SendingMessage.swift */,
 				B378762E2C711E2200B10394 /* UploadingFileUrl.swift */,
+				B3E69D472C70957600B87AD6 /* VoiceMessagePlayer.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

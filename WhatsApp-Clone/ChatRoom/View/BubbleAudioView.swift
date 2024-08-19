@@ -31,10 +31,13 @@ struct BubbleAudioView: View {
             HStack {
                 Button {
                     handleAudioPlayer()
-                } label: {
+                }
+                 label: {
                     PlayButton(item: item, icon: playbackState.icon)
                 }
-                Slider(value: $sliderValue, in: sliderRange)
+                Slider(value: $sliderValue, in: sliderRange) { editing in
+                print("editing")
+                }
                     .tint(.gray)
                 Text(playbackTime)
                     .foregroundStyle(.gray)
@@ -46,6 +49,7 @@ struct BubbleAudioView: View {
             .background(item.bgColor)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .applyTail(item.direction)
+            
             if item.direction == .received {
                 TimeStampView(item: item)
             }
@@ -56,16 +60,20 @@ struct BubbleAudioView: View {
         .padding(.trailing, item.trailingPadding)
         
         .onReceive(voiceMessagePlayer.$playbackState) { state in
-           observePlaybackState(state)
+            observePlaybackState(state)
         }
         
         .onReceive(voiceMessagePlayer.$currentTime) { currentTime in
-        listens(to: currentTime)
+            guard voiceMessagePlayer.currentUrl?.absoluteString == item.audioUrl else {
+                return }
+            listens(to: currentTime)
         }
         
         .onReceive(voiceMessagePlayer.$playerItem) { playerItem in
-            guard voiceMessagePlayer.currentUrl?.absoluteString == item.audioUrl else { return }
+            guard voiceMessagePlayer.currentUrl?.absoluteString == item.audioUrl else {
+                return }
             guard let audioDuration = item.audioDuration else { return }
+            print(audioDuration)
             sliderRange = 0...audioDuration
         }
     }
@@ -75,8 +83,8 @@ extension BubbleAudioView {
     
     private func handleAudioPlayer() {
         if playbackState == .stopped || playbackState == .paused {
-            guard let audioUrlString = item.audioUrl, let voiceMessageUrl = URL(string: audioUrlString) else { return }
-            voiceMessagePlayer.playAudio(from: voiceMessageUrl)
+            guard let audioUrl = URL(string: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3") else { return }
+            voiceMessagePlayer.playAudio(from: audioUrl)
         } else {
             voiceMessagePlayer.pauseAudio()
         }
@@ -87,12 +95,14 @@ extension BubbleAudioView {
             playbackState = .stopped
             sliderValue = 0
         } else {
+            guard voiceMessagePlayer.currentUrl?.absoluteString == item.audioUrl else { return }
             playbackState = state
         }
     }
     
     private func listens(to currentValue: CMTime) {
         playbackTime = currentValue.seconds.formattedElapsedTime
+        print("Listens: \(currentValue.seconds)")
         sliderValue = currentValue.seconds
     }
 }
@@ -102,4 +112,5 @@ extension BubbleAudioView {
         BubbleAudioView(item: .sentPlaceholder)
         BubbleAudioView(item: .receivedPlaceholder)
     }
+    .environmentObject(VoiceMessagePlayer())
     .background(.gray.opacity(0.3))}

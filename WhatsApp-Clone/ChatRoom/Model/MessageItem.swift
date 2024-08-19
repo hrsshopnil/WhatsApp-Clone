@@ -43,6 +43,8 @@ struct MessageItem: Identifiable {
     var bgColor: Color {
         return direction == .sent ? .bubbleGreen : .bubbleWhite
     }
+    
+    /// Returns True if the channel is a Group chat and the message is received
     var showSenderProfile: Bool {
         return isGroupChat && direction == .received
     }
