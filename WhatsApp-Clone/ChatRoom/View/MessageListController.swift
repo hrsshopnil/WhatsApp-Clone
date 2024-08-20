@@ -52,7 +52,7 @@ final class MessageListController: UIViewController {
         section.contentInsets.leading = 0
         section.contentInsets.trailing = 0
         // this is going to reduce inter item spacing
-        section.interGroupSpacing = 0
+        section.interGroupSpacing = -10
         return section
     }
 
@@ -130,28 +130,9 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         
         cell.backgroundColor = .clear
         cell.contentConfiguration = UIHostingConfiguration {
-            switch message.type {
-            case .admin(let messageType):
-                switch messageType {
-                    
-                case .channelCreation:
-                    ChannelCreationTextView()
-                    if viewModel.channel.isGroupChat {
-                        AdminTextView(channel: viewModel.channel)
-                    }
-                    
-                default:
-                    Text("ADMIN TEXT")
-                }
-                
-            case .text:
-                BubbleTextView(item: message)
-            case .photo, .video:
-                BubblePhotoView(item: message)
-            case .audio:
-                BubbleAudioView(item: message)
-            }
+            BubbleView(message: message, channel: viewModel.channel)
         }
+        
         return cell
     }
     

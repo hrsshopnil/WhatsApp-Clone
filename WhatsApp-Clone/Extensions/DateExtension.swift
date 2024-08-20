@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    
     var dayOrTimeRepresentation: String {
         let calender = Calendar.current
         let dateFormatter = DateFormatter()
@@ -34,5 +35,28 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
+    }
+    
+    var relativeDateString: String {
+        let calender = Calendar.current
+        if calender.isDateInToday(self) {
+            return "Today"
+        } else if calender.isDateInYesterday(self) {
+            return "Yesterday"
+        } else if isCurrentWeek {
+            return toString(format: "EEEE") //Monday
+        } else if isCurrentYear {
+            return toString(format: "E, MMM d") //Mon, Feb 18
+        } else {
+            return toString(format: "MMM dd, yyyy") // Mon, Feb 18, 2023
+        }
+    }
+    
+    private var isCurrentWeek: Bool {
+        return Calendar.current.isDate(self, equalTo: Date(), toGranularity: .weekday)
+    }
+    
+    private var isCurrentYear: Bool {
+        return Calendar.current.isDate(self, equalTo: Date(), toGranularity: .year)
     }
 }
