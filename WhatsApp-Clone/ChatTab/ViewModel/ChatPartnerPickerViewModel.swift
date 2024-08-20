@@ -217,6 +217,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             .name: name,
             .id: channelID,
             .lastMessage: newChannelBroadCast,
+            .lastMessageType: newChannelBroadCast,
             .creationDate: timeStamp,
             .lastMessageTimeStamp: timeStamp,
             .membersUids: memberUids,

@@ -100,7 +100,7 @@ extension MessageItem {
     }
 }
 /// Cases: admin, text, photo, video, audio
-enum MessageType {
+enum MessageType: Hashable {
     case admin(_ type: AdminMessageType), text, photo, video, audio
     
     var title: String {

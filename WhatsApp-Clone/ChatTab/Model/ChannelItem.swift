@@ -20,6 +20,7 @@ struct ChannelItem: Identifiable, Hashable {
     var members: [UserItem]
     private var thumbnailUrl: String?
     var createdBy: String
+    let lastMessageType: MessageType
     
     // MARK: gives a name that is computed in local machine
     var isGroupChat: Bool {
@@ -94,7 +95,37 @@ struct ChannelItem: Identifiable, Hashable {
 //        return "Unknown"
 //    }
     
-    static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [], createdBy: "")
+    var previewMessage: String {
+        switch lastMessageType {
+        case .admin:
+            return "New Created Chat!"
+        case .text:
+            return lastMessage
+        case .photo:
+            return "Photo Message"
+        case .video:
+            return "Video Message"
+        case .audio:
+            return "Voice Message"
+        }
+    }
+    
+    var previewIcon: String {
+        switch lastMessageType {
+        case .admin:
+            return "megaphone.fill"
+        case .text:
+            return ""
+        case .photo:
+            return "photo.fill"
+        case .video:
+            return "video.fill"
+        case .audio:
+            return "mic.fill"
+        }
+    }
+    
+    static let placeholder = ChannelItem.init(id: "1", lastMessage: "hemlo", creationDate: Date(), lastMessageTimeStamp: Date(), membersCount: 2, adminUids: [], membersUids: [], members: [], createdBy: "", lastMessageType: .text)
 }
 
 extension ChannelItem {
@@ -115,5 +146,7 @@ extension ChannelItem {
         self.membersUids = dict[.membersUids] as? [String] ?? []
         self.members = dict[.members] as? [UserItem] ?? []
         self.createdBy = dict[.createdBy] as? String ?? ""
+        let messageTypeValue = dict[.lastMessageType] as? String ?? "text"
+        self.lastMessageType = MessageType(messageTypeValue) ?? .text
     }
 }

@@ -12,10 +12,11 @@ class MessageService {
     /// Sends a text message to the Realtime Database
     static func sendTextMessage(to channel: ChannelItem, from  currentUser: UserItem, _ textMessage: String, completion: () -> Void) {
         let timeStamp = Date().timeIntervalSince1970
-        guard let messageId = FirebaseConstants.MessageRef.childByAutoId().key else {return}
+        guard let messageId = FirebaseConstants.MessageRef.childByAutoId().key else { return }
         let channelDict: [String: Any] = [
             .lastMessage: textMessage,
-            .lastMessageTimeStamp: timeStamp
+            .lastMessageTimeStamp: timeStamp,
+            .lastMessageType: MessageType.text.title
         ]
         
         let messageDict: [String: Any] = [

@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct RecentChatItem: View {
+    
     let channel: ChannelItem
+    
     var body: some View {
         HStack(alignment: .top) {
             CircularProfileImageView(channel, size: .medium)
                 .frame(width: 55, height: 55)
             VStack(alignment: .leading) {
                 Text(channel.name ?? "Unknown")
-                Text(channel.lastMessage)
+                HStack(spacing: 4) {
+                    Image(systemName: channel.previewIcon)
+                        .imageScale(.small)
+                    Text(channel.previewMessage)
+                }
                 .font(.caption)
                 .foregroundStyle(.gray)
             }

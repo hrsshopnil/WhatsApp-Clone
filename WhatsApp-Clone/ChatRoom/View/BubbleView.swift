@@ -19,6 +19,7 @@ struct BubbleView: View {
                 newDayTimeStampTextView()
                     .padding()
             }
+            senderNameView()
             composeDynamicBubbleView()
         }
     }
@@ -59,6 +60,16 @@ struct BubbleView: View {
             .background(.whatsAppGray)
             .clipShape(Capsule())
             .frame(maxWidth: .infinity)
+    }
+    
+    private func senderNameView() -> some View {
+        Text(message.sender?.username ?? "Unknown")
+            .lineLimit(1)
+            .foregroundStyle(.gray)
+            .font(.footnote)
+            .padding(.bottom, 2)
+            .padding(.horizontal)
+            .padding(.leading, 20)
     }
 }
 
