@@ -11,10 +11,14 @@ struct BubbleView: View {
     
     let message: MessageItem
     let channel: ChannelItem
+    let isNewDay: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            newDayTimeStampTextView()
+            if isNewDay {
+                newDayTimeStampTextView()
+                    .padding()
+            }
             composeDynamicBubbleView()
         }
     }
@@ -26,7 +30,9 @@ struct BubbleView: View {
             switch messageType {
                 
             case .channelCreation:
+                newDayTimeStampTextView()
                 ChannelCreationTextView()
+                    .padding()
                 if channel.isGroupChat {
                     AdminTextView(channel: channel)
                 }
@@ -57,5 +63,5 @@ struct BubbleView: View {
 }
 
 #Preview {
-    BubbleView(message: .sentPlaceholder, channel: .placeholder)
+    BubbleView(message: .sentPlaceholder, channel: .placeholder, isNewDay: false)
 }

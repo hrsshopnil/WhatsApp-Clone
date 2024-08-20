@@ -8,6 +8,7 @@
 import Foundation
 
 extension ChatRoomViewModel {
+    
     ///Uploads file URL(video, audio) to the Firebase Storage
     func uploadFileToStorage(
         for uploadType: FirebaseHelper.UploadType,

@@ -214,4 +214,6 @@ final class ChatRoomViewModel: ObservableObject {
         guard let photoIndex = photoPickerItems.firstIndex(where: { $0.itemIdentifier == item.id }) else { return}
                         photoPickerItems.remove(at: photoIndex)
     }
+    
+    
 }

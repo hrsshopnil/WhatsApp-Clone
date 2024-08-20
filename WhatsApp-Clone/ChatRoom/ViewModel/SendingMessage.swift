@@ -88,4 +88,10 @@ extension ChatRoomViewModel {
             }
         }
     }
+    
+    func isNewDay(for message: MessageItem, at index: Int) -> Bool {
+        let priorIndex = max(0, (index - 1))
+        let priorMessage = messages[priorIndex]
+        return !message.timeStamp.isSameDay(as: priorMessage.timeStamp)
+    }
 }

@@ -18,6 +18,7 @@ struct AdminTextView: View {
                 textView("\(channel.creatorName) added you to this channel")
             }
         }
+        .frame(maxWidth: .infinity)
     }
     
     private func textView(_ text: String) -> some View {
