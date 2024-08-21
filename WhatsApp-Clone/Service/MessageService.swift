@@ -7,6 +7,8 @@
 
 import Foundation
 import Firebase
+import FirebaseDatabase
+
 class MessageService {
     
     /// Sends a text message to the Realtime Database
@@ -89,7 +91,51 @@ class MessageService {
         FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageDict)
         completion()
     }
+    
+    ///Paginating Messages for a Channel
+    static func getHistoricalMessages(for channel: ChannelItem, lastCursor: String?, pageSize: UInt, completion: @escaping (MessageNode) -> Void) {
+        
+        let query: DatabaseQuery
+        
+        if lastCursor == nil {
+            query = FirebaseConstants.MessageRef.child(channel.id).queryLimited(toLast: pageSize)
+        } else {
+            query = FirebaseConstants.MessageRef.child(channel.id)
+                .queryOrderedByKey()
+                .queryEnding(atValue: lastCursor)
+                .queryLimited(toLast: pageSize)
+        }
+        
+        query.observeSingleEvent(of: .value) { mainSnapshot in
+            guard let first = mainSnapshot.children.allObjects.first as? DataSnapshot,
+                  let allObjects = mainSnapshot.children.allObjects as? [DataSnapshot] else { return }
+            
+            var messages: [MessageItem] = allObjects.compactMap { messageSnapshot in
+                let messageDict = messageSnapshot.value as? [String: Any] ?? [:]
+                var message = MessageItem(id: messageSnapshot.key, isGroupChat: channel.isGroupChat, dict: messageDict)
+                let messageSender = channel.members.first(where: { $0.id == message.ownerId })
+                message.sender = messageSender
+                return message
+            }
+            
+            messages.sort { $0.timeStamp < $1.timeStamp }
+            
+            if messages.count == mainSnapshot.childrenCount {
+                let messageNode = MessageNode(messages: messages, currentCursor: first.key)
+                completion(messageNode)
+            }
+            
+        } withCancel: { error in
+            print("Failed to paginate Messages \(error)")
+        }
+    }
 
+}
+
+struct MessageNode {
+    var messages: [MessageItem]
+    var currentCursor: String?
+    static let emptyNode = MessageNode(messages: [], currentCursor: nil)
 }
 
 ///Media Message Item Model
