@@ -25,8 +25,10 @@ class MessageService {
             .timeStamp: timeStamp,
             .ownerId: currentUser.id
         ]
+        
         FirebaseConstants.ChannelsRef.child(channel.id).updateChildValues(channelDict)
         FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageDict)
+        
         completion()
     }
     
@@ -36,9 +38,14 @@ class MessageService {
             guard let dict = snapshot.value as? [String: Any] else { return }
             var messages: [MessageItem] = []
             dict.forEach { key, value in
+                
                 let messageDict = value as? [String: Any] ?? [:]
-                let message = MessageItem(id: key, isGroupChat: channel.isGroupChat, dict: messageDict)
+                var message = MessageItem(id: key, isGroupChat: channel.isGroupChat, dict: messageDict)
+                let messageSender = channel.members.first(where: { $0.id == message.ownerId })
+                
+                message.sender = messageSender
                 messages.append(message)
+                
                 if messages.count == snapshot.childrenCount {
                     messages.sort { $0.timeStamp < $1.timeStamp }
                     completion(messages)

@@ -128,10 +128,11 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
         let message = viewModel.messages[indexPath.row]
         let isNewDay = viewModel.isNewDay(for: message, at: indexPath.item)
+        let showSenderName = viewModel.showSenderName(for: message, at: indexPath.item)
         
         cell.backgroundColor = .clear
         cell.contentConfiguration = UIHostingConfiguration {
-            BubbleView(message: message, channel: viewModel.channel, isNewDay: isNewDay)
+            BubbleView(message: message, channel: viewModel.channel, isNewDay: isNewDay, showSenderName: showSenderName)
         }
         
         return cell

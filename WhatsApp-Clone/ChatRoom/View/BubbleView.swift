@@ -12,6 +12,7 @@ struct BubbleView: View {
     let message: MessageItem
     let channel: ChannelItem
     let isNewDay: Bool
+    let showSenderName: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -19,7 +20,9 @@ struct BubbleView: View {
                 newDayTimeStampTextView()
                     .padding()
             }
-            senderNameView()
+            if showSenderName {
+                senderNameView()
+            }
             composeDynamicBubbleView()
         }
     }
@@ -74,5 +77,5 @@ struct BubbleView: View {
 }
 
 #Preview {
-    BubbleView(message: .sentPlaceholder, channel: .placeholder, isNewDay: false)
+    BubbleView(message: .sentPlaceholder, channel: .placeholder, isNewDay: false, showSenderName: false)
 }

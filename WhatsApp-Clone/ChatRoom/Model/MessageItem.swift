@@ -53,6 +53,10 @@ struct MessageItem: Identifiable {
         return direction == .received ? 0 : 25
     }
     
+    var isSentByMe: Bool {
+        return ownerId == K.currentUserId
+    }
+    
     var trailingPadding: CGFloat {
         return direction == .received ? 25 : 0
     }
@@ -67,6 +71,14 @@ struct MessageItem: Identifiable {
     var imageWidth: CGFloat {
         let photoWidth = (UIWindowScene.current?.screenWidth ?? 0) / 1.5
         return photoWidth
+    }
+    
+    func containsSameOwner(as message: MessageItem) -> Bool {
+        if let userA = message.sender, let userB = self.sender {
+            return userA == userB
+        } else {
+            return false
+        }
     }
     
     static let sentPlaceholder = MessageItem(id: UUID().uuidString, isGroupChat: true, text: "Hoo lee Sheet", type: .text, ownerId: "1", timeStamp: Date(), thumbnailUrl: nil)
