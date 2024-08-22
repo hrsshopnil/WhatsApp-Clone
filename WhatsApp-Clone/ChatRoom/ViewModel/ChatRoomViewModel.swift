@@ -27,6 +27,7 @@ final class ChatRoomViewModel: ObservableObject {
     private(set) var channel: ChannelItem
     private var subscription = Set<AnyCancellable>()
     private var voiceRecorderService = VoiceRecorderService()
+    private var currentPage: String?
     
     var showPhotoPickerPreview: Bool {
         return !photoPickerItems.isEmpty || !mediaAttachments.isEmpty
@@ -102,10 +103,11 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     
-    private func getMessages() {
-        MessageService.getHistoricalMessages(for: channel, lastCursor: nil, pageSize: 10) {[weak self] messageNode in
+    func getMessages() {
+        MessageService.getHistoricalMessages(for: channel, lastCursor: currentPage, pageSize: 10) {[weak self] messageNode in
             self?.messages.append(contentsOf: messageNode.messages)
-            self?.scrollToBottom(isAnimated: true)
+            self?.currentPage = messageNode.currentCursor
+//            self?.scrollToBottom(isAnimated: true)
         }
     }
     

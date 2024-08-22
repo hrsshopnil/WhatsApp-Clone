@@ -40,7 +40,7 @@ final class MessageListController: UIViewController {
     
     private let pullToRefresh: UIRefreshControl = {
         let pullToRefresh = UIRefreshControl()
-        pullToRefresh.addTarget(MessageListController.self, action: #selector(refreshData), for: .valueChanged)
+        pullToRefresh.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         return pullToRefresh
     }()
     
@@ -114,6 +114,7 @@ final class MessageListController: UIViewController {
     
    @objc private func refreshData() {
        messagesCollectionView.refreshControl?.endRefreshing()
+       viewModel.getMessages()
     }
 }
 

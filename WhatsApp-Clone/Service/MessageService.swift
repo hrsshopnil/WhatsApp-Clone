@@ -111,9 +111,11 @@ class MessageService {
                   let allObjects = mainSnapshot.children.allObjects as? [DataSnapshot] else { return }
             
             var messages: [MessageItem] = allObjects.compactMap { messageSnapshot in
+                
                 let messageDict = messageSnapshot.value as? [String: Any] ?? [:]
                 var message = MessageItem(id: messageSnapshot.key, isGroupChat: channel.isGroupChat, dict: messageDict)
                 let messageSender = channel.members.first(where: { $0.id == message.ownerId })
+                
                 message.sender = messageSender
                 return message
             }
@@ -121,7 +123,10 @@ class MessageService {
             messages.sort { $0.timeStamp < $1.timeStamp }
             
             if messages.count == mainSnapshot.childrenCount {
-                let messageNode = MessageNode(messages: messages, currentCursor: first.key)
+                
+                let filteredMessages = lastCursor == nil ? messages : messages.filter { $0.id != lastCursor }
+                let messageNode = MessageNode(messages: filteredMessages, currentCursor: first.key)
+                
                 completion(messageNode)
             }
             
