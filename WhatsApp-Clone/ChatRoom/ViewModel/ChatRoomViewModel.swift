@@ -22,6 +22,7 @@ final class ChatRoomViewModel: ObservableObject {
     @Published var isRecording = false
     @Published var timeInterval: TimeInterval = 0
     @Published var scrollToBottom: (scroll: Bool, isAnimated: Bool) = (false, false)
+    @Published var isPaginating = false
     
     var currentUser: UserItem?
     private(set) var channel: ChannelItem
@@ -104,10 +105,12 @@ final class ChatRoomViewModel: ObservableObject {
     
     
     func getMessages() {
+        isPaginating = currentPage != nil
         MessageService.getHistoricalMessages(for: channel, lastCursor: currentPage, pageSize: 10) {[weak self] messageNode in
-            self?.messages.append(contentsOf: messageNode.messages)
+            self?.messages.insert(contentsOf: messageNode.messages, at: 0)
             self?.currentPage = messageNode.currentCursor
-//            self?.scrollToBottom(isAnimated: true)
+            self?.scrollToBottom(isAnimated: true)
+            self?.isPaginating = false
         }
     }
     
