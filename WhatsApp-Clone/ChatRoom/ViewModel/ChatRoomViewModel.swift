@@ -103,8 +103,9 @@ final class ChatRoomViewModel: ObservableObject {
     
     
     private func getMessages() {
-        MessageService.getMessages(channel) {[weak self] messages in
-            self?.messages = messages
+        MessageService.getHistoricalMessages(for: channel, lastCursor: nil, pageSize: 10) {[weak self] messageNode in
+            self?.messages.append(contentsOf: messageNode.messages)
+            self?.scrollToBottom(isAnimated: true)
         }
     }
     
