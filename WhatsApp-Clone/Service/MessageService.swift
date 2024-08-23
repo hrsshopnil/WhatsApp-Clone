@@ -122,7 +122,7 @@ class MessageService {
             
             messages.sort { $0.timeStamp < $1.timeStamp }
             if messages.count == mainSnapshot.childrenCount {
-                
+                if lastCursor == nil { messages.removeLast() }
                 let filteredMessages = lastCursor == nil ? messages : messages.filter { $0.id != lastCursor }
                 let messageNode = MessageNode(messages: filteredMessages, currentCursor: first.key)
                 
@@ -148,7 +148,7 @@ class MessageService {
     }
     
     static func listenForNewMessages(for channel: ChannelItem, completion: @escaping (MessageItem) -> Void) {
-        FirebaseConstants.MessageRef.child(channel.id).observe(.childAdded) { snapshot in
+        FirebaseConstants.MessageRef.child(channel.id).queryLimited(toLast: 1).observe(.childAdded) { snapshot in
             guard let messageDict = snapshot.value as? [String: Any] else { return }
             var newMessage = MessageItem(id: snapshot.key, isGroupChat: channel.isGroupChat, dict: messageDict)
             let messageSender = channel.members.first(where: { $0.id == newMessage.ownerId })

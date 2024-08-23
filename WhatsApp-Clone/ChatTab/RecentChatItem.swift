@@ -18,8 +18,10 @@ struct RecentChatItem: View {
             VStack(alignment: .leading) {
                 Text(channel.name ?? "Unknown")
                 HStack(spacing: 4) {
-                    Image(systemName: channel.previewIcon)
-                        .imageScale(.small)
+                    if channel.lastMessageType != .text {
+                        Image(systemName: channel.previewIcon)
+                            .imageScale(.small)
+                    }
                     Text(channel.previewMessage)
                 }
                 .font(.caption)

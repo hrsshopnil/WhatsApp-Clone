@@ -9,15 +9,16 @@ import Foundation
 
 extension ChatRoomViewModel {
     func sendMultipleMediaMessages(_ text: String, attachments: [MediaAttachment]) {
-        attachments.forEach { attachment in
+        for (index, attachment) in attachments.enumerated() {
+            let textMessge = index == 0 ? text : ""
             switch attachment.type {
                 
             case .photo:
-                sendPhotoMessage(text: text, attachment)
+                sendPhotoMessage(text: textMessge, attachment)
             case .audio:
-                sendVoiceMessage(text: text, attachment)
+                sendVoiceMessage(text: textMessge, attachment)
             case .video:
-                sendVideoMessage(text: text, attachment)
+                sendVideoMessage(text: textMessge, attachment)
             }
         }
     }
@@ -68,6 +69,10 @@ extension ChatRoomViewModel {
             ///Saves the metadata and url to the realtime database
             MessageService.sendMediaMessage(to: self.channel, params: uploadParams) {[weak self] in
                 self?.scrollToBottom(isAnimated: true)
+            }
+            
+            if !text.isEmptyOrWhiteSpaces {
+                self.sendTextMessages(text)
             }
         }
     }

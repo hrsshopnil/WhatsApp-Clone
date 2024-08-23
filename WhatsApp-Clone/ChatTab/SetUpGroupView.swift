@@ -44,7 +44,12 @@ struct SetUpGroupView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Create") {
-                        viewModel.createGroupChannel(groupName, completion: onCreate)
+                        if viewModel.isDirectchannel {
+                            guard let chatPartner = viewModel.selectedChatPartners.first else { return }
+                            viewModel.createDirectChannel(chatPartner, completion: onCreate)
+                        } else {
+                            viewModel.createGroupChannel(groupName, completion: onCreate)
+                        }
                     }
                     .disabled(viewModel.disableButton)
                 }

@@ -83,17 +83,20 @@ final class ChatRoomViewModel: ObservableObject {
     
     ///Final Function to send a message
     func sendMessage() {
-        guard let currentUser else { return }
         if mediaAttachments.isEmpty {
-            MessageService.sendTextMessage(to: channel, from: currentUser, textMessage) {[weak self] in
-                self?.textMessage = ""
-            }
+            sendTextMessages(textMessage)
         } else {
             sendMultipleMediaMessages(textMessage, attachments: mediaAttachments)
             clearTextInputArea()
         }
     }
     
+    func sendTextMessages(_ text: String) {
+        guard let currentUser else { return }
+        MessageService.sendTextMessage(to: channel, from: currentUser, text) {[weak self] in
+            self?.textMessage = ""
+        }
+    }
     ///Clears the text input area and dismisses the keyboard after a message is being sent
     private func clearTextInputArea() {
         mediaAttachments.removeAll()
