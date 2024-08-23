@@ -29,6 +29,7 @@ final class ChatRoomViewModel: ObservableObject {
     private var subscription = Set<AnyCancellable>()
     private var voiceRecorderService = VoiceRecorderService()
     private var currentPage: String?
+    private var firstMessage: MessageItem?
     
     var showPhotoPickerPreview: Bool {
         return !photoPickerItems.isEmpty || !mediaAttachments.isEmpty
@@ -36,6 +37,10 @@ final class ChatRoomViewModel: ObservableObject {
     
     var disableButton: Bool {
         return mediaAttachments.isEmpty && textMessage.isEmptyOrWhiteSpaces
+    }
+    
+    var isPaginatable: Bool {
+        return currentPage != firstMessage?.id
     }
     
     init(_ channel: ChannelItem) {
@@ -104,9 +109,13 @@ final class ChatRoomViewModel: ObservableObject {
     }
     
     
-    func getMessages() {
+    private func getHistoricalMessages() {
         isPaginating = currentPage != nil
         MessageService.getHistoricalMessages(for: channel, lastCursor: currentPage, pageSize: 10) {[weak self] messageNode in
+            if self?.currentPage == nil {
+                self?.getFirstMessage()
+                self?.listensForNewMessage()
+            }
             self?.messages.insert(contentsOf: messageNode.messages, at: 0)
             self?.currentPage = messageNode.currentCursor
             self?.scrollToBottom(isAnimated: true)
@@ -114,6 +123,26 @@ final class ChatRoomViewModel: ObservableObject {
         }
     }
     
+    func paginateMoreMessages() {
+        guard isPaginatable else {
+            isPaginating = false
+            return
+        }
+        getHistoricalMessages()
+    }
+    private func getFirstMessage() {
+        MessageService.getFirstMessages(for: channel) { [weak self] firstMessage in
+            self?.firstMessage = firstMessage
+            print(firstMessage)
+        }
+    }
+    
+    private func listensForNewMessage() {
+        MessageService.listenForNewMessages(for: channel) {[weak self] newMessage in
+            self?.messages.append(newMessage)
+            self?.scrollToBottom(isAnimated: false)
+        }
+    }
     ///Fetches all the members of a channel
     private func fetchAllChannelMembers() {
         guard let currentUser else { return }
@@ -123,7 +152,7 @@ final class ChatRoomViewModel: ObservableObject {
             guard let self = self else { return }
             self.channel.members.append(contentsOf: usernode.users)
             self.channel.members.append(currentUser)
-            self.getMessages()
+            self.getHistoricalMessages()
         }
     }
     

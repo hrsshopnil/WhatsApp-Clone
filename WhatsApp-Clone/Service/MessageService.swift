@@ -121,8 +121,6 @@ class MessageService {
             }
             
             messages.sort { $0.timeStamp < $1.timeStamp }
-            print(messages.count)
-            print(mainSnapshot.childrenCount)
             if messages.count == mainSnapshot.childrenCount {
                 
                 let filteredMessages = lastCursor == nil ? messages : messages.filter { $0.id != lastCursor }
@@ -133,6 +131,29 @@ class MessageService {
             
         } withCancel: { error in
             print("Failed to paginate Messages \(error)")
+        }
+    }
+    
+    static func getFirstMessages(for channel: ChannelItem, completion: @escaping (MessageItem) -> Void) {
+        FirebaseConstants.MessageRef.child(channel.id).queryLimited(toFirst: 1).observeSingleEvent(of: .value) { snapshot in
+            guard let dictionary = snapshot.value as? [String: Any] else { return }
+            dictionary.forEach { key, value in
+                guard let messageDict = snapshot.value as? [String: Any] else { return }
+                var firstMessage = MessageItem(id: key, isGroupChat: channel.isGroupChat, dict: messageDict)
+                let messageSender = channel.members.first(where: { $0.id == firstMessage.ownerId })
+                firstMessage.sender = messageSender
+                completion(firstMessage)
+            }
+        }
+    }
+    
+    static func listenForNewMessages(for channel: ChannelItem, completion: @escaping (MessageItem) -> Void) {
+        FirebaseConstants.MessageRef.child(channel.id).observe(.childAdded) { snapshot in
+            guard let messageDict = snapshot.value as? [String: Any] else { return }
+            var newMessage = MessageItem(id: snapshot.key, isGroupChat: channel.isGroupChat, dict: messageDict)
+            let messageSender = channel.members.first(where: { $0.id == newMessage.ownerId })
+            newMessage.sender = messageSender
+            completion(newMessage)
         }
     }
 
