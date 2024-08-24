@@ -56,6 +56,7 @@
 		B3A47B482C36C04800CF9939 /* BubbleTailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */; };
 		B3A47B4A2C36D3EC00CF9939 /* BubblePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B492C36D3EC00CF9939 /* BubblePhotoView.swift */; };
 		B3A7ADF62C7A2369001CF687 /* SettingsTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7ADF52C7A2369001CF687 /* SettingsTabViewModel.swift */; };
+		B3A7ADF92C7A516E001CF687 /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = B3A7ADF82C7A516E001CF687 /* AlertKit */; };
 		B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */; };
 		B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */; };
 		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
@@ -176,6 +177,7 @@
 			files = (
 				B382B0FF2C5D361700CC0D50 /* Kingfisher in Frameworks */,
 				B345D5952C3A9DE000346152 /* FirebaseMessaging in Frameworks */,
+				B3A7ADF92C7A516E001CF687 /* AlertKit in Frameworks */,
 				B345D5932C3A9DE000346152 /* FirebaseDatabaseSwift in Frameworks */,
 				B345D5912C3A9DE000346152 /* FirebaseDatabase in Frameworks */,
 				B345D5972C3A9DE000346152 /* FirebaseStorage in Frameworks */,
@@ -523,6 +525,7 @@
 				B345D5942C3A9DE000346152 /* FirebaseMessaging */,
 				B345D5962C3A9DE000346152 /* FirebaseStorage */,
 				B382B0FE2C5D361700CC0D50 /* Kingfisher */,
+				B3A7ADF82C7A516E001CF687 /* AlertKit */,
 			);
 			productName = "WhatsApp-Clone";
 			productReference = B380DDFF2C2EEDB00091BB7C /* WhatsApp-Clone.app */;
@@ -555,6 +558,7 @@
 			packageReferences = (
 				B345D58D2C3A9DE000346152 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B382B0FD2C5D361700CC0D50 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B3A7ADF72C7A516E001CF687 /* XCRemoteSwiftPackageReference "AlertKit" */,
 			);
 			productRefGroup = B380DE002C2EEDB00091BB7C /* Products */;
 			projectDirPath = "";
@@ -880,6 +884,14 @@
 				minimumVersion = 7.12.0;
 			};
 		};
+		B3A7ADF72C7A516E001CF687 /* XCRemoteSwiftPackageReference "AlertKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/AlertKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -912,6 +924,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B382B0FD2C5D361700CC0D50 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		B3A7ADF82C7A516E001CF687 /* AlertKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3A7ADF72C7A516E001CF687 /* XCRemoteSwiftPackageReference "AlertKit" */;
+			productName = AlertKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

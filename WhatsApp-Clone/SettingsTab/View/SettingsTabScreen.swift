@@ -9,10 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct SettingsTabScreen: View {
-    
+    let currentUser: UserItem
     @State private var searchText = ""
     @StateObject private var viewModel = SettingsTabViewModel()
-    let currentUser: UserItem
     
     var body: some View {
         NavigationStack {
@@ -54,10 +53,29 @@ struct SettingsTabScreen: View {
             }
             .navigationTitle("Settings")
             .searchable(text: $searchText)
+            .toolbar {
+               saveButton()
+            }
+            .alert(isPresent: $viewModel.showProgressHUD, view: viewModel.progressHUDView)
+            .alert(isPresent: $viewModel.showSuccessHUD, view: viewModel.successHUDView)
+
         }
     }
 }
 
+extension SettingsTabScreen {
+    @ToolbarContentBuilder
+    private func saveButton() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button("Save") {
+                viewModel.uploadProfilePhoto()
+                print(currentUser.profileImageUrl)
+            }
+            .bold()
+            .disabled(viewModel.disableSaveButton)
+        }
+    }
+}
 #Preview {
     SettingsTabScreen(currentUser: .placeHolder)
 }

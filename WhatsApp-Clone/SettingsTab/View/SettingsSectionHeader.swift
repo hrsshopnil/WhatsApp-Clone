@@ -23,7 +23,7 @@ struct SettingsSectionHeader: View {
                     .frame(width: 55, height: 55)
                     .clipShape(Circle())
             } else {
-                CircularProfileImageView(size: .custom(55))
+                CircularProfileImageView(size: .custom(55), profileImageUrl: currentUser.profileImageUrl)
             }
             
             VStack(alignment: .leading, spacing: 0) {

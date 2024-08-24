@@ -80,7 +80,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     }
     
     private var membersExcludingMe: [UserItem] {
-        guard let currentId = K.currentUserId else { return [] }
+        guard let currentId = Auth.auth().currentUser?.uid else { return [] }
         return selectedChatPartners.filter {$0.id != currentId}
     }
     
@@ -109,7 +109,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         do {
             let userNode = try await UserService.paginateUsers(lastCursor: lastCursor, pageSize: 5)
             var fetchedUsers = userNode.users
-            guard let currentId = K.currentUserId else {return}
+            guard let currentId = Auth.auth().currentUser?.uid else {return}
             fetchedUsers = fetchedUsers.filter {$0.id != currentId}
             self.users.append(contentsOf: fetchedUsers)
             self.lastCursor = userNode.currentCursor
@@ -188,7 +188,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
     }
     
     private func verifyDirectChannelExist(with chatPartnerID: String) async -> String? {
-        guard let currentId = K.currentUserId,
+        guard let currentId = Auth.auth().currentUser?.uid,
               let snapshot = try? await FirebaseConstants.UserDirectChannels.child(currentId).child(chatPartnerID).getData(),
               snapshot.exists()
         else {return nil}
@@ -205,7 +205,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         
         guard
             let channelID = FirebaseConstants.ChannelsRef.childByAutoId().key,
-            let currentId = K.currentUserId,
+            let currentId = Auth.auth().currentUser?.uid,
             let messageID = FirebaseConstants.MessageRef.childByAutoId().key
         else { return .failure(ChannelCreationError.failedToCreateUniqueID) }
         

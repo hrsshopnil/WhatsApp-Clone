@@ -41,7 +41,7 @@ struct ChannelItem: Identifiable, Hashable {
         return members.count == membersCount
     }
     var isCreatedByMe: Bool {
-        return createdBy == K.currentUserId
+        return createdBy == Auth.auth().currentUser?.uid
     }
     
     var creatorName: String {
@@ -61,7 +61,7 @@ struct ChannelItem: Identifiable, Hashable {
     }
     
     private var membersExcludingMe: [UserItem] {
-        guard let currentId = K.currentUserId else { return [] }
+        guard let currentId = Auth.auth().currentUser?.uid else { return [] }
         return members.filter {$0.id != currentId}
     }
 //

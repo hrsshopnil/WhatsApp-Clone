@@ -29,7 +29,7 @@ struct MessageItem: Identifiable {
     }
     
     var direction: MessageDirection {
-        return ownerId == K.currentUserId ? .sent : .received
+        return ownerId == Auth.auth().currentUser?.uid ? .sent : .received
     }
     
     var alignment: Alignment {
@@ -54,7 +54,7 @@ struct MessageItem: Identifiable {
     }
     
     var isSentByMe: Bool {
-        return ownerId == K.currentUserId
+        return ownerId == Auth.auth().currentUser?.uid
     }
     
     var trailingPadding: CGFloat {
