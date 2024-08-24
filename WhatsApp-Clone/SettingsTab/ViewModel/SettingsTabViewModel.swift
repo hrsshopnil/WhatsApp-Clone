@@ -21,7 +21,7 @@ final class SettingsTabViewModel: ObservableObject {
     @Published var showSuccessHUD = false
     
     private(set) var progressHUDView = AlertAppleMusic17View(title: "Uploading Profile Photo", icon: .spinnerSmall)
-    private(set) var successHUDView = AlertAppleMusic17View(title: "Uploading Profile Photo", icon: .spinnerSmall)
+    private(set) var successHUDView = AlertAppleMusic17View(title: "Profile Info Updated!", icon: .done)
 
     private var subscription: AnyCancellable?
 
@@ -30,7 +30,7 @@ final class SettingsTabViewModel: ObservableObject {
     }
     
     var disableSaveButton: Bool {
-        return profilePhoto == nil
+        return selectedPhotoItem == nil
     }
     
     private func onPhotoSelection() {
@@ -79,7 +79,6 @@ final class SettingsTabViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.showSuccessHUD = true
             self.selectedPhotoItem = nil
-            self.profilePhoto = nil
         }
     }
 }
