@@ -6,16 +6,29 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct SettingsSectionHeader: View {
+    
+    @ObservedObject var viewModel: SettingsTabViewModel
+    let currentUser: UserItem
+    
     var body: some View {
         HStack {
-            Circle()
-                .frame(width: 55, height: 55)
+            
+            if let profilePhoto = viewModel.profilePhoto {
+                Image(uiImage: profilePhoto.thumbnail)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 55, height: 55)
+                    .clipShape(Circle())
+            } else {
+                CircularProfileImageView(size: .custom(55))
+            }
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text("User Name")
+                    Text(currentUser.username)
                         .font(.title3)
                     Spacer()
                     
@@ -26,7 +39,7 @@ struct SettingsSectionHeader: View {
                         .background(.black.opacity(0.1))
                         .clipShape(Circle())
                 }
-                Text("Hey there! I am using whatsapp")
+                Text(currentUser.bioUnwrapped)
                     .font(.callout)
                     .foregroundStyle(.gray)
                     .lineLimit(1)
@@ -36,5 +49,5 @@ struct SettingsSectionHeader: View {
 }
 
 #Preview {
-    SettingsSectionHeader()
+    SettingsSectionHeader(viewModel: SettingsTabViewModel(), currentUser: .placeHolder)
 }

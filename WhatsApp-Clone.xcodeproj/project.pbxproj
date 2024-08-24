@@ -55,6 +55,7 @@
 		B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */; };
 		B3A47B482C36C04800CF9939 /* BubbleTailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */; };
 		B3A47B4A2C36D3EC00CF9939 /* BubblePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B492C36D3EC00CF9939 /* BubblePhotoView.swift */; };
+		B3A7ADF62C7A2369001CF687 /* SettingsTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7ADF52C7A2369001CF687 /* SettingsTabViewModel.swift */; };
 		B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */; };
 		B3AA26E92C32C2E100CA8F9D /* ChatTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */; };
 		B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */; };
@@ -133,6 +134,7 @@
 		B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTextView.swift; sourceTree = "<group>"; };
 		B3A47B472C36C04800CF9939 /* BubbleTailModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailModifier.swift; sourceTree = "<group>"; };
 		B3A47B492C36D3EC00CF9939 /* BubblePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePhotoView.swift; sourceTree = "<group>"; };
+		B3A7ADF52C7A2369001CF687 /* SettingsTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabViewModel.swift; sourceTree = "<group>"; };
 		B3AA26E52C32BA7400CA8F9D /* CommunitiesTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesTabScreen.swift; sourceTree = "<group>"; };
 		B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTabScreen.swift; sourceTree = "<group>"; };
 		B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatItem.swift; sourceTree = "<group>"; };
@@ -312,6 +314,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		B3A7ADF42C7A2353001CF687 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B3A7ADF52C7A2369001CF687 /* SettingsTabViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B3AA26E42C32BA5A00CA8F9D /* CommunitiesTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +445,7 @@
 		B3ED60792C34169C00B3B2CE /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
+				B3A7ADF42C7A2353001CF687 /* ViewModel */,
 				B3ED607C2C3416BC00B3B2CE /* Model */,
 				B3ED607D2C3416C400B3B2CE /* View */,
 			);
@@ -621,6 +632,7 @@
 				B33D470A2C317A8A00BD31A6 /* CallTabScreen.swift in Sources */,
 				B33D47032C316EC300BD31A6 /* ChannelListView.swift in Sources */,
 				B3F8D9F02C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift in Sources */,
+				B3A7ADF62C7A2369001CF687 /* SettingsTabViewModel.swift in Sources */,
 				B32BFB982C3964E7007B725D /* PlayButton.swift in Sources */,
 				B3A46FD32C624B0400E017BB /* MediaPickerItem+Types.swift in Sources */,
 				B3D467962C41559200FE4263 /* IconWithTransparentBG.swift in Sources */,

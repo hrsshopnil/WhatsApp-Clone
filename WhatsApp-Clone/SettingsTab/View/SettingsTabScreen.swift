@@ -6,15 +6,22 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct SettingsTabScreen: View {
+    
     @State private var searchText = ""
+    @StateObject private var viewModel = SettingsTabViewModel()
+    let currentUser: UserItem
+    
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    SettingsSectionHeader()
-                    SettingsItemView(item: .avatar)
+                    SettingsSectionHeader(viewModel: viewModel, currentUser: currentUser)
+                    PhotosPicker(selection: $viewModel.selectedPhotoItem, matching: .not(.videos)) {
+                        SettingsItemView(item: .avatar)
+                    }
                 }
                 
                 Section {
@@ -52,5 +59,5 @@ struct SettingsTabScreen: View {
 }
 
 #Preview {
-    SettingsTabScreen()
+    SettingsTabScreen(currentUser: .placeHolder)
 }

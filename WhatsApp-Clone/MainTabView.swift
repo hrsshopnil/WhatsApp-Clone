@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct MainTabView: View {
+    
     private let loggedInUser: UserItem
+    
     init(_ user: UserItem) {
+        
         self.loggedInUser = user
         makeTabBarOpaque()
+        
         let thumbImage = UIImage(systemName: "circle.fill")
         UISlider.appearance().setThumbImage(thumbImage, for: .normal)
     }
+    
     var body: some View {
         TabView {
             ChatTabScreen()
@@ -37,7 +42,7 @@ struct MainTabView: View {
                     Image(systemName: Tab.communities.icon)
                     Text(Tab.communities.title)
                 }
-            SettingsTabScreen()
+            SettingsTabScreen(currentUser: loggedInUser)
                 .tabItem {
                     Image(systemName: Tab.settings.icon)
                     Text(Tab.settings.title)
