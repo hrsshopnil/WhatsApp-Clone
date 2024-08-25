@@ -119,6 +119,7 @@ extension AuthManager {
             let loggedInUser = UserItem(dictionary: userDictionary)
             self?.authstate.send(.loggedin(loggedInUser))
             print("🔐\(loggedInUser.username) is logged in")
+            
         } withCancel: { error in
             print("Failed to get current user info")
         }

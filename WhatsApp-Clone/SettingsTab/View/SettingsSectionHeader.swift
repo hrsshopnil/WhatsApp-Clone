@@ -52,5 +52,5 @@ struct SettingsSectionHeader: View {
 }
 
 #Preview {
-    SettingsSectionHeader(viewModel: SettingsTabViewModel(), currentUser: .placeHolder)
+    SettingsSectionHeader(viewModel: SettingsTabViewModel(.placeHolder), currentUser: .placeHolder)
 }

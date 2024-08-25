@@ -11,8 +11,12 @@ import PhotosUI
 struct SettingsTabScreen: View {
     let currentUser: UserItem
     @State private var searchText = ""
-    @StateObject private var viewModel = SettingsTabViewModel()
+    @StateObject private var viewModel: SettingsTabViewModel
     
+    init(_ currentUser: UserItem) {
+        self.currentUser = currentUser
+        self._viewModel = StateObject(wrappedValue: SettingsTabViewModel(currentUser))
+    }
     var body: some View {
         NavigationStack {
             List {
@@ -59,9 +63,9 @@ struct SettingsTabScreen: View {
             .alert(isPresent: $viewModel.showProgressHUD, view: viewModel.progressHUDView)
             .alert(isPresent: $viewModel.showSuccessHUD, view: viewModel.successHUDView)
             .alert("Update Your Profile", isPresented: $viewModel.showUserInfoEditor) {
-                TextField("Username", text: .constant(""))
-                TextField("Bio", text: .constant(""))
-                Button("Update") { }
+                TextField("Username", text: $viewModel.userName)
+                TextField("Bio", text: $viewModel.bio)
+                Button("Update") { viewModel.updateUserNameBio() }
                 Button("Cancel", role: .cancel) { }
             }
         }
@@ -74,7 +78,6 @@ extension SettingsTabScreen {
         ToolbarItem(placement: .topBarTrailing) {
             Button("Save") {
                 viewModel.uploadProfilePhoto()
-                print(currentUser.profileImageUrl)
             }
             .bold()
             .disabled(viewModel.disableSaveButton)
@@ -82,5 +85,5 @@ extension SettingsTabScreen {
     }
 }
 #Preview {
-    SettingsTabScreen(currentUser: .placeHolder)
+    SettingsTabScreen(.placeHolder)
 }

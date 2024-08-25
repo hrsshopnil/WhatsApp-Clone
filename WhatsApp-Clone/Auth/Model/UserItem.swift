@@ -10,7 +10,7 @@ import Foundation
 struct UserItem: Identifiable, Hashable, Codable {
     let email: String
     let id: String
-    let username: String
+    var username: String
     var bio: String?
     var profileImageUrl: String? = nil
     
