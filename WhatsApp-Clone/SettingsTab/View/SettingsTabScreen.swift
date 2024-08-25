@@ -58,7 +58,12 @@ struct SettingsTabScreen: View {
             }
             .alert(isPresent: $viewModel.showProgressHUD, view: viewModel.progressHUDView)
             .alert(isPresent: $viewModel.showSuccessHUD, view: viewModel.successHUDView)
-
+            .alert("Update Your Profile", isPresented: $viewModel.showUserInfoEditor) {
+                TextField("Username", text: .constant(""))
+                TextField("Bio", text: .constant(""))
+                Button("Update") { }
+                Button("Cancel", role: .cancel) { }
+            }
         }
     }
 }

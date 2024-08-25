@@ -19,6 +19,7 @@ final class SettingsTabViewModel: ObservableObject {
     @Published var profilePhoto: MediaAttachment?
     @Published var showProgressHUD = false
     @Published var showSuccessHUD = false
+    @Published var showUserInfoEditor = false
     
     private(set) var progressHUDView = AlertAppleMusic17View(title: "Uploading Profile Photo", icon: .spinnerSmall)
     private(set) var successHUDView = AlertAppleMusic17View(title: "Profile Info Updated!", icon: .done)

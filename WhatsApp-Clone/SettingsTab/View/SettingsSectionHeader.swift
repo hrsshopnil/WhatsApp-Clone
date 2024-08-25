@@ -45,6 +45,9 @@ struct SettingsSectionHeader: View {
                     .lineLimit(1)
             }
         }
+        .onTapGesture {
+            viewModel.showUserInfoEditor = true
+        }
     }
 }
 
