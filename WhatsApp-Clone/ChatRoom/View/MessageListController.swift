@@ -208,9 +208,14 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         
         keyWindow.addSubview(blurView)
         keyWindow.addSubview(focusedView)
-        
-        blurView.frame = keyWindow.frame
-        focusedView.center.y = keyWindow.center.y
+        focusedView.addSubview(snapshotView)
+         
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
+            blurView.frame = keyWindow.frame
+            focusedView.center.y = keyWindow.center.y   
+            snapshotView.frame = focusedView.bounds
+        }
+
 
 //        UIApplication.dismissKeyboard()
 //        let messageItem = viewModel.messages[indexPath.row]

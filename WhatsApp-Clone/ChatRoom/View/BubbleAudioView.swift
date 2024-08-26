@@ -102,7 +102,6 @@ extension BubbleAudioView {
     
     private func listens(to currentValue: CMTime) {
         playbackTime = currentValue.seconds.formattedElapsedTime
-        print("Listens: \(currentValue.seconds)")
         sliderValue = currentValue.seconds
     }
 }
