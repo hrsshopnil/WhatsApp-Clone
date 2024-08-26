@@ -12,6 +12,7 @@ import Combine
 
 final class MessageListController: UIViewController {
     
+    // MARK: Views Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         messagesCollectionView.backgroundColor = .clear
@@ -34,10 +35,14 @@ final class MessageListController: UIViewController {
         fatalError("init(coder: ) hasn't been implemented")
     }
     
+    // MARK: Properties
     private let viewModel: ChatRoomViewModel
     private let cellIdentifier = "messageListControllerCells"
     private var subscriptions = Set<AnyCancellable>()
     private var lastScrollPosition: String?
+    
+    // MARK: Custom Reaction Property
+    private var startingFrame: CGRect?
     
     private let pullToRefresh: UIRefreshControl = {
         let pullToRefresh = UIRefreshControl()
@@ -59,6 +64,7 @@ final class MessageListController: UIViewController {
 
     private lazy var messagesCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -69,6 +75,7 @@ final class MessageListController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.refreshControl = pullToRefresh
+        
         return collectionView
     }()
 
@@ -84,17 +91,21 @@ final class MessageListController: UIViewController {
         var imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .black)
 
         let image = UIImage(systemName: "arrow.up.circle.fill", withConfiguration: imageConfig)
+        let font = UIFont.systemFont(ofSize: 12, weight: .black)
+        
         buttonConfig.image = image
         buttonConfig.baseBackgroundColor = .bubbleGreen
         buttonConfig.baseForegroundColor = .whatsAppBlack
         buttonConfig.imagePadding = 5
         buttonConfig.cornerStyle = .capsule
-        let font = UIFont.systemFont(ofSize: 12, weight: .black)
         buttonConfig.attributedTitle = AttributedString("Pull Down", attributes:
             AttributeContainer([NSAttributedString.Key.font: font]))
+        
         let button = UIButton(configuration: buttonConfig)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.alpha = 0
+        
         return button
     }()
 
@@ -122,6 +133,7 @@ final class MessageListController: UIViewController {
     
     private func messageListener() {
         let delay = 200
+        
         viewModel.$messages
             .debounce(for: .milliseconds(delay), scheduler: DispatchQueue.main)
             .sink {[weak self] _ in
@@ -178,17 +190,39 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UIApplication.dismissKeyboard()
-        let messageItem = viewModel.messages[indexPath.row]
-        switch messageItem.type {
-         
-        case .video:
-            guard let videoUrlString = messageItem.videoUrl,
-                  let videoUrl = URL(string: videoUrlString) else { return }
-            viewModel.showMediaPlayer(videoUrl)
-        default:
-            break
-        }
+        
+        guard let selectedCell = collectionView.cellForItem(at: indexPath) else { return }
+        
+        startingFrame = selectedCell.superview?.convert(selectedCell.frame, to: nil)
+        
+        guard let snapshotView = selectedCell.snapshotView(afterScreenUpdates: false) else { return }
+        
+        let focusedView = UIView(frame: startingFrame ?? .zero)
+        
+        focusedView.backgroundColor = .bubbleGreen
+        
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        guard let keyWindow = UIWindowScene.current?.keyWindow else { return }
+        
+        keyWindow.addSubview(blurView)
+        keyWindow.addSubview(focusedView)
+        
+        blurView.frame = keyWindow.frame
+        focusedView.center.y = keyWindow.center.y
+
+//        UIApplication.dismissKeyboard()
+//        let messageItem = viewModel.messages[indexPath.row]
+//        switch messageItem.type {
+//         
+//        case .video:
+//            guard let videoUrlString = messageItem.videoUrl,
+//                  let videoUrl = URL(string: videoUrlString) else { return }
+//            viewModel.showMediaPlayer(videoUrl)
+//        default:
+//            break
+//        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -209,4 +243,8 @@ private extension UICollectionView {
         let lastRowIndexPath = IndexPath(row: lastRowIndex, section: lastSectionIndex)
         scrollToItem(at: lastRowIndexPath, at: scrollPosition, animated: animated)
     }
+}
+
+#Preview {
+    MessageListController(ChatRoomViewModel(.placeholder))
 }
