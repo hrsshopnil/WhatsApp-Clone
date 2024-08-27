@@ -13,7 +13,8 @@ struct EmojiReaction {
     var opacity: CGFloat = 1
 }
 struct ReactionPickerView: View {
-    
+    let message: MessageItem
+    @State private var animatingBgView = false
     @State private var emojiState: [EmojiReaction] = [
         EmojiReaction(reaction: .like),
         EmojiReaction(reaction: .love),
@@ -27,13 +28,74 @@ struct ReactionPickerView: View {
     var body: some View {
         HStack(spacing: 10) {
             ForEach(Array(emojiState.enumerated()), id: \.offset) {index, item in
-                Text(item.reaction.emoji)
-                    .font(.system(size: 30))
+                reactionButton(item, at: index)
             }
         }
+        .padding(.horizontal, 15)
+        .padding(.vertical, 10)
+        .shadow(color: Color.gray.opacity(0.2), radius: 4, x: 0, y: 0)
+        .background(backgroundView())
+        .onAppear {
+            withAnimation(.easeIn(duration: 0.2)) {
+                animatingBgView = true
+            }
+        }
+    }
+    
+    private var springAnimatin: Animation {
+        Animation.spring(
+            response: 0.55, dampingFraction: 0.6, blendDuration: 0.05
+        ).speed(4)
+    }
+    
+    private func reactionButton(_ item: EmojiReaction, at index: Int) -> some View {
+        Button {
+            
+        } label: {
+            buttonLabel(item, at: index)
+                .scaleEffect(emojiState[index].isAnimating ? 1 : 0.1)
+                .opacity(item.opacity)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        withAnimation(springAnimatin.delay(Double(index) * 0.05)) {
+                            emojiState[index].isAnimating = true 
+                        }
+                    }
+                }
+        }
+    }
+    
+    @ViewBuilder
+    private func buttonLabel(_ item: EmojiReaction, at index: Int) -> some View {
+        if item.reaction == .more {
+            Image(systemName: "plus")
+                .bold()
+                .foregroundStyle(.gray)
+                .padding(8)
+                .background(Color(.systemGray5))
+                .clipShape(Circle())
+        } else {
+            Text(item.reaction.emoji)
+                .font(.system(size: 30))
+        }
+    }
+    
+    private func backgroundView() -> some View {
+        Capsule()
+            .fill(Color.contextMenuTint)
+            .mask {
+                Capsule()
+                    .fill(Color.contextMenuTint)
+                    .scaleEffect(animatingBgView ? 1 : 0, anchor: message.menuAnchor)
+                    .opacity(animatingBgView ? 1 : 0)
+            }
     }
 }
 
 #Preview {
-    ReactionPickerView()
+    ZStack {
+        Rectangle()
+            .fill(.thinMaterial)
+        ReactionPickerView(message: .receivedPlaceholder)
+    }
 }

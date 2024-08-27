@@ -61,6 +61,10 @@ struct MessageItem: Identifiable {
         return direction == .received ? 25 : 0
     }
     
+    var menuAnchor: UnitPoint {
+        return direction == .received ? .leading : .trailing
+    }
+    
     var imageSize: CGSize {
         let photoWidth = thumbnailWidth ?? 0
         let photoHeight = thumbnailHeight ?? 0
