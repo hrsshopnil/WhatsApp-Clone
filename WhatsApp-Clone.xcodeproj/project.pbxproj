@@ -50,6 +50,7 @@
 		B38D81022C4415BE00A0CF82 /* SetUpGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */; };
 		B397DB692C5A56C100BA7770 /* ChatRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */; };
 		B397DB6B2C5A6B5300BA7770 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397DB6A2C5A6B5300BA7770 /* MessageService.swift */; };
+		B39CCE292C7E4399007DB4EA /* ReactionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39CCE282C7E4399007DB4EA /* ReactionPickerView.swift */; };
 		B3A46FD32C624B0400E017BB /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A46FD22C624B0400E017BB /* MediaPickerItem+Types.swift */; };
 		B3A47B432C36BB3500CF9939 /* BubbleTailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */; };
 		B3A47B452C36BCC800CF9939 /* BubbleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */; };
@@ -130,6 +131,7 @@
 		B38D81012C4415BE00A0CF82 /* SetUpGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpGroupView.swift; sourceTree = "<group>"; };
 		B397DB682C5A56C100BA7770 /* ChatRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewModel.swift; sourceTree = "<group>"; };
 		B397DB6A2C5A6B5300BA7770 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		B39CCE282C7E4399007DB4EA /* ReactionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPickerView.swift; sourceTree = "<group>"; };
 		B3A46FD22C624B0400E017BB /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
 		B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailView.swift; sourceTree = "<group>"; };
 		B3A47B442C36BCC800CF9939 /* BubbleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTextView.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				B32BFB9A2C396633007B725D /* BubbleAudioView.swift */,
 				B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */,
 				B382B0F92C5D1DC400CC0D50 /* ChannelCreationTextView.swift */,
+				B39CCE282C7E4399007DB4EA /* ReactionPickerView.swift */,
 				B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */,
 				B3F8D9EF2C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift */,
 				B3BBFF162C75035600F9BBE2 /* BubbleView.swift */,
@@ -602,6 +605,7 @@
 				B33D470C2C31804600BD31A6 /* CallLinkSectionView.swift in Sources */,
 				B397DB6B2C5A6B5300BA7770 /* MessageService.swift in Sources */,
 				B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */,
+				B39CCE292C7E4399007DB4EA /* ReactionPickerView.swift in Sources */,
 				B3C2C3FB2C46EFEF004E7E9E /* ChannelTabViewModel.swift in Sources */,
 				B3AA26EB2C32C5E400CA8F9D /* RecentChatItem.swift in Sources */,
 				B3ED60812C3418E000B3B2CE /* SettingsItemView.swift in Sources */,

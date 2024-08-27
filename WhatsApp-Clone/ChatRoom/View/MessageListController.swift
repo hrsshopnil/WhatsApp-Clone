@@ -231,7 +231,6 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
             snapshotView.frame = focusedView.bounds
         }
 
-
 //        UIApplication.dismissKeyboard()
 //        let messageItem = viewModel.messages[indexPath.row]
 //        switch messageItem.type {
@@ -246,6 +245,7 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     @objc func dismissContextMenu() {
+        
         UIView.animate(withDuration: 0.6,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
