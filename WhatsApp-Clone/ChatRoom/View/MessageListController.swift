@@ -231,8 +231,14 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
             
             blurView.alpha = 1
-            focusedView.center.y = keyWindow.center.y
+            focusedView.center.y = keyWindow.center.y - 60
             snapshotView.frame = focusedView.bounds
+            
+            snapshotView.layer.shadowColor = Color.gray.cgColor
+            snapshotView.layer.shadowOpacity = 0.2
+            snapshotView.layer.shadowOffset = .init(width: 0, height: 2)
+            snapshotView.layer.shadowRadius = 4
+
         }
 
 //        UIApplication.dismissKeyboard()
@@ -271,11 +277,11 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         reactionHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
 
         reactionHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
-        
-        messageMenuHostVC.view.topAnchor.constraint(equalTo: focusedView.bottomAnchor, constant: -5).isActive = true
+          
+        messageMenuHostVC.view.topAnchor.constraint(equalTo: focusedView.bottomAnchor, constant: 0).isActive = true
         
         messageMenuHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
- 
+  
         messageMenuHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
 
         self.reactionHostVC = reactionHostVC
