@@ -24,7 +24,7 @@ struct ReactionPickerView: View {
         EmojiReaction(reaction: .pray),
         EmojiReaction(reaction: .more)
     ]
-    
+     
     var body: some View {
         HStack(spacing: 10) {
             ForEach(Array(emojiState.enumerated()), id: \.offset) {index, item in
@@ -41,7 +41,7 @@ struct ReactionPickerView: View {
             }
         }
     }
-    
+     
     private var springAnimatin: Animation {
         Animation.spring(
             response: 0.55, dampingFraction: 0.6, blendDuration: 0.05
@@ -54,14 +54,23 @@ struct ReactionPickerView: View {
         } label: {
             buttonLabel(item, at: index)
                 .scaleEffect(emojiState[index].isAnimating ? 1 : 0.1)
-                .opacity(item.opacity)
                 .onAppear {
+                    let dynamicIndex = getAnimationIndex(index)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        withAnimation(springAnimatin.delay(Double(index) * 0.05)) {
-                            emojiState[index].isAnimating = true 
+                        withAnimation(springAnimatin.delay(Double(dynamicIndex) * 0.05)) {
+                            emojiState[index].isAnimating = true
                         }
                     }
                 }
+        }
+    }
+    
+    private func getAnimationIndex(_ index: Int) -> Int {
+        if message.direction == .sent {
+            let reversedIndex = emojiState.count - 1 - index
+            return reversedIndex
+        } else {
+            return index
         }
     }
     
@@ -96,6 +105,6 @@ struct ReactionPickerView: View {
     ZStack {
         Rectangle()
             .fill(.thinMaterial)
-        ReactionPickerView(message: .receivedPlaceholder)
+        ReactionPickerView(message: .sentPlaceholder)
     }
 }

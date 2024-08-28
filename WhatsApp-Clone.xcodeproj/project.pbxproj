@@ -35,6 +35,7 @@
 		B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B353AE002C30274F001C8DD3 /* UpdateTabScreen.swift */; };
 		B35606712C380D1F008FD937 /* TimeStampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35606702C380D1F008FD937 /* TimeStampView.swift */; };
 		B3593DA72C6BE0480099AF02 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3593DA62C6BE0480099AF02 /* FirebaseHelper.swift */; };
+		B369F0102C7F8F710031411B /* MessageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B369F00F2C7F8F710031411B /* MessageMenuView.swift */; };
 		B374AC902C54FB3D00D9C79B /* MessageItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = B374AC8F2C54FB3D00D9C79B /* MessageItem+Types.swift */; };
 		B378762D2C711DA000B10394 /* SendingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378762C2C711DA000B10394 /* SendingMessage.swift */; };
 		B378762F2C711E2200B10394 /* UploadingFileUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B378762E2C711E2200B10394 /* UploadingFileUrl.swift */; };
@@ -116,6 +117,7 @@
 		B353AE002C30274F001C8DD3 /* UpdateTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTabScreen.swift; sourceTree = "<group>"; };
 		B35606702C380D1F008FD937 /* TimeStampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStampView.swift; sourceTree = "<group>"; };
 		B3593DA62C6BE0480099AF02 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
+		B369F00F2C7F8F710031411B /* MessageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageMenuView.swift; sourceTree = "<group>"; };
 		B374AC8F2C54FB3D00D9C79B /* MessageItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageItem+Types.swift"; sourceTree = "<group>"; };
 		B378762C2C711DA000B10394 /* SendingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingMessage.swift; sourceTree = "<group>"; };
 		B378762E2C711E2200B10394 /* UploadingFileUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadingFileUrl.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				B3A47B422C36BB3500CF9939 /* BubbleTailView.swift */,
 				B382B0F92C5D1DC400CC0D50 /* ChannelCreationTextView.swift */,
 				B39CCE282C7E4399007DB4EA /* ReactionPickerView.swift */,
+				B369F00F2C7F8F710031411B /* MessageMenuView.swift */,
 				B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */,
 				B3F8D9EF2C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift */,
 				B3BBFF162C75035600F9BBE2 /* BubbleView.swift */,
@@ -629,6 +632,7 @@
 				B353AE012C30274F001C8DD3 /* UpdateTabScreen.swift in Sources */,
 				B3AA26E62C32BA7400CA8F9D /* CommunitiesTabScreen.swift in Sources */,
 				B33D470E2C31805E00BD31A6 /* RecentItemView.swift in Sources */,
+				B369F0102C7F8F710031411B /* MessageMenuView.swift in Sources */,
 				B3B628DF2C42F7E600D226E8 /* SelectedPartnerView.swift in Sources */,
 				B35606712C380D1F008FD937 /* TimeStampView.swift in Sources */,
 				B341660A2C6A261300076DF3 /* DateExtension.swift in Sources */,
