@@ -46,6 +46,8 @@ final class MessageListController: UIViewController {
     private var blurView: UIVisualEffectView?
     private var focusedView: UIView?
     private var highlightedCell: UICollectionViewCell?
+    private var reactionHostVC: UIViewController?
+    private var messageMenuHostVC: UIViewController?
     
     private let pullToRefresh: UIRefreshControl = {
         let pullToRefresh = UIRefreshControl()
@@ -212,7 +214,6 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         
         blurView.contentView.isUserInteractionEnabled = true
         blurView.contentView.addGestureRecognizer(tapGesture)
-
         blurView.alpha = 0
         highlightedCell = selectedCell
         highlightedCell?.alpha = 0
@@ -223,7 +224,10 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         keyWindow.addSubview(focusedView)
         focusedView.addSubview(snapshotView)
         blurView.frame = keyWindow.frame
-
+        
+        let message = viewModel.messages[indexPath.item]
+        attachMenuActionItem(to: message, in: keyWindow)
+        
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
             
             blurView.alpha = 1
@@ -244,6 +248,40 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
 //        }
     }
     
+    private func attachMenuActionItem(to message: MessageItem, in window: UIWindow) {
+        guard let focusedView, let startingFrame else { return }
+        
+        let reactionPickerView = ReactionPickerView(message: message)
+        let messageMenu = MessageMenuView(message: message)
+        
+        let reactionHostVC = UIHostingController(rootView: reactionPickerView)
+        let messageMenuHostVC = UIHostingController(rootView: messageMenu)
+        
+        reactionHostVC.view.backgroundColor = .clear
+        reactionHostVC.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        messageMenuHostVC.view.backgroundColor = .clear
+        messageMenuHostVC.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        window.addSubview(reactionHostVC.view)
+        window.addSubview(messageMenuHostVC.view)
+        
+        reactionHostVC.view.bottomAnchor.constraint(equalTo: focusedView.topAnchor, constant: 5).isActive = true
+        
+        reactionHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
+
+        reactionHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
+        
+        messageMenuHostVC.view.topAnchor.constraint(equalTo: focusedView.bottomAnchor, constant: -5).isActive = true
+        
+        messageMenuHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
+ 
+        messageMenuHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
+
+        self.reactionHostVC = reactionHostVC
+        self.messageMenuHostVC = messageMenuHostVC
+    }
+     
     @objc func dismissContextMenu() {
         
         UIView.animate(withDuration: 0.6,
@@ -253,6 +291,8 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
                        options: .curveEaseOut) { [ weak self ] in
             
             self?.focusedView?.frame = self?.startingFrame ?? .zero
+            self?.reactionHostVC?.view.removeFromSuperview()
+            self?.messageMenuHostVC?.view.removeFromSuperview()
             self?.blurView?.alpha = 0
             
         } completion: { [weak self] _ in
@@ -288,5 +328,6 @@ private extension UICollectionView {
 }
 
 #Preview {
-    MessageListController(ChatRoomViewModel(.placeholder))
+    MessageListView(ChatRoomViewModel(.placeholder))
+        .environmentObject(VoiceMessagePlayer())
 }
