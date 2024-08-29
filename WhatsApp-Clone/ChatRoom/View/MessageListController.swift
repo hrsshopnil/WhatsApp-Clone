@@ -234,10 +234,7 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
             focusedView.center.y = keyWindow.center.y - 60
             snapshotView.frame = focusedView.bounds
             
-            snapshotView.layer.shadowColor = Color.gray.cgColor
-            snapshotView.layer.shadowOpacity = 0.2
-            snapshotView.layer.shadowOffset = .init(width: 0, height: 2)
-            snapshotView.layer.shadowRadius = 4
+            snapshotView.layer.applyShadow(color: .gray, alpha: 0.2, x: 0, y: 0, radius: 4)
 
         }
 
@@ -310,6 +307,8 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
             self?.highlightedCell = nil
             self?.blurView = nil
             self?.focusedView = nil
+            self?.reactionHostVC = nil
+            self?.reactionHostVC = nil
         }
     }
     
@@ -333,6 +332,15 @@ private extension UICollectionView {
     }
 }
 
+extension CALayer {
+    func applyShadow(color: UIColor, alpha: Float, x: CGFloat, y: CGFloat, radius: CGFloat) {
+        shadowColor = color.cgColor
+        shadowOpacity = alpha
+        shadowOffset = .init(width: x, height: y)
+        shadowRadius = radius
+        masksToBounds = false
+    }
+}
 #Preview {
     MessageListView(ChatRoomViewModel(.placeholder))
         .environmentObject(VoiceMessagePlayer())
