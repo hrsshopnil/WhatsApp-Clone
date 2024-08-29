@@ -19,6 +19,7 @@ final class MessageListController: UIViewController {
         view.backgroundColor = .clear
         setUpViews()
         messageListener()
+        setUpLongPressGesture()
     }
     
     init(_ viewModel: ChatRoomViewModel) {
@@ -195,63 +196,22 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let selectedCell = collectionView.cellForItem(at: indexPath) else { return }
-        
-        startingFrame = selectedCell.superview?.convert(selectedCell.frame, to: nil)
-        
-        guard let snapshotView = selectedCell.snapshotView(afterScreenUpdates: false) else { return }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissContextMenu))
-        let blurEffect = UIBlurEffect(style: .regular)
 
-        focusedView = UIView(frame: startingFrame ?? .zero)
-        blurView = UIVisualEffectView(effect: blurEffect)
-        
-        guard let focusedView, let blurView else { return }
-        
-        focusedView.isUserInteractionEnabled = false
-        
-        blurView.contentView.isUserInteractionEnabled = true
-        blurView.contentView.addGestureRecognizer(tapGesture)
-        blurView.alpha = 0
-        highlightedCell = selectedCell
-        highlightedCell?.alpha = 0
-        
-        guard let keyWindow = UIWindowScene.current?.keyWindow else { return }
-        
-        keyWindow.addSubview(blurView)
-        keyWindow.addSubview(focusedView)
-        focusedView.addSubview(snapshotView)
-        blurView.frame = keyWindow.frame
-        
-        let message = viewModel.messages[indexPath.item]
-        attachMenuActionItem(to: message, in: keyWindow)
-        
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
-            
-            blurView.alpha = 1
-            focusedView.center.y = keyWindow.center.y - 60
-            snapshotView.frame = focusedView.bounds
-            
-            snapshotView.layer.applyShadow(color: .gray, alpha: 0.2, x: 0, y: 0, radius: 4)
-
+        UIApplication.dismissKeyboard()
+        let messageItem = viewModel.messages[indexPath.row]
+        switch messageItem.type {
+         
+        case .video:
+            guard let videoUrlString = messageItem.videoUrl,
+                  let videoUrl = URL(string: videoUrlString) else { return }
+            viewModel.showMediaPlayer(videoUrl)
+        default:
+            break
         }
-
-//        UIApplication.dismissKeyboard()
-//        let messageItem = viewModel.messages[indexPath.row]
-//        switch messageItem.type {
-//         
-//        case .video:
-//            guard let videoUrlString = messageItem.videoUrl,
-//                  let videoUrl = URL(string: videoUrlString) else { return }
-//            viewModel.showMediaPlayer(videoUrl)
-//        default:
-//            break
-//        }
     }
     
     private func attachMenuActionItem(to message: MessageItem, in window: UIWindow) {
+        
         guard let focusedView, let startingFrame else { return }
         
         let reactionPickerView = ReactionPickerView(message: message)
@@ -269,7 +229,7 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         window.addSubview(reactionHostVC.view)
         window.addSubview(messageMenuHostVC.view)
         
-        reactionHostVC.view.bottomAnchor.constraint(equalTo: focusedView.topAnchor, constant: 5).isActive = true
+        reactionHostVC.view.bottomAnchor.constraint(equalTo: focusedView.topAnchor, constant: 2).isActive = true
         
         reactionHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
 
@@ -317,6 +277,65 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
             pullDownHUDView.alpha = viewModel.isPaginatable ? 1 : 0
         } else {
             pullDownHUDView.alpha = 0
+        }
+    }
+}
+
+extension MessageListController {
+    
+    private func setUpLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(showContextMenu))
+        longPressGesture.minimumPressDuration = 0.5
+        messagesCollectionView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func showContextMenu(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        
+        let point = gesture.location(in: messagesCollectionView)
+        
+        guard let indexPath = messagesCollectionView.indexPathForItem(at: point) else { return }
+                
+        guard let selectedCell = messagesCollectionView.cellForItem(at: indexPath) else { return }
+        
+        startingFrame = selectedCell.superview?.convert(selectedCell.frame, to: nil)
+        
+        guard let snapshotView = selectedCell.snapshotView(afterScreenUpdates: false) else { return }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissContextMenu))
+        let blurEffect = UIBlurEffect(style: .regular)
+
+        focusedView = UIView(frame: startingFrame ?? .zero)
+        blurView = UIVisualEffectView(effect: blurEffect)
+        
+        guard let focusedView, let blurView else { return }
+        
+        focusedView.isUserInteractionEnabled = false
+        
+        blurView.contentView.isUserInteractionEnabled = true
+        blurView.contentView.addGestureRecognizer(tapGesture)
+        blurView.alpha = 0
+        highlightedCell = selectedCell
+        highlightedCell?.alpha = 0
+        
+        guard let keyWindow = UIWindowScene.current?.keyWindow else { return }
+        
+        keyWindow.addSubview(blurView)
+        keyWindow.addSubview(focusedView)
+        focusedView.addSubview(snapshotView)
+        blurView.frame = keyWindow.frame
+        
+        let message = viewModel.messages[indexPath.item]
+        attachMenuActionItem(to: message, in: keyWindow)
+        
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
+            
+            blurView.alpha = 1
+            focusedView.center.y = keyWindow.center.y - 70
+            snapshotView.frame = focusedView.bounds
+            
+            snapshotView.layer.applyShadow(color: .gray, alpha: 0.2, x: 0, y: 0, radius: 4)
+
         }
     }
 }
