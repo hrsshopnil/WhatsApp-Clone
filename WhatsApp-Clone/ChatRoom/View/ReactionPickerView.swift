@@ -79,6 +79,12 @@ struct ReactionPickerView: View {
         }
     }
     
+    private func emojiButtonBg(_ reaction: Reaction) -> some View {
+        Color(.systemGray5)
+            .frame(width: 45, height: 45)
+            .clipShape(Circle())
+    }
+    
     @ViewBuilder
     private func buttonLabel(_ item: EmojiReaction, at index: Int) -> some View {
         if item.reaction == .more {
@@ -91,6 +97,7 @@ struct ReactionPickerView: View {
         } else {
             Text(item.reaction.emoji)
                 .font(.system(size: 30))
+                .background(emojiButtonBg(item.reaction))
         }
     }
     
