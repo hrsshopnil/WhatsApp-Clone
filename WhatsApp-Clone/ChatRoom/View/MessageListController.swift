@@ -294,7 +294,9 @@ extension MessageListController {
         
         let shrinkCell = shrinkCall(startingFrame.height)
         
-        let reactionPickerView = ReactionPickerView(message: message)
+        let reactionPickerView = ReactionPickerView(message: message) {[weak self] reaction in
+            self?.dismissContextMenu()
+        }
         let messageMenu = MessageMenuView(message: message)
         
         let reactionHostVC = UIHostingController(rootView: reactionPickerView)
@@ -313,8 +315,8 @@ extension MessageListController {
         var menuPadding: CGFloat = 0
         
         if shrinkCell {
-            reactionPadding += (startingFrame.height / 3)
-            menuPadding -= (startingFrame.height / 2.5)
+            reactionPadding += (startingFrame.height / 4)
+            menuPadding -= (startingFrame.height / 3.5)
         }
         
         reactionHostVC.view.bottomAnchor.constraint(equalTo: focusedView.topAnchor, constant: reactionPadding).isActive = true

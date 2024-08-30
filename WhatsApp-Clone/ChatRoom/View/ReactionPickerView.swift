@@ -13,9 +13,13 @@ struct EmojiReaction {
     var opacity: CGFloat = 1
 }
 struct ReactionPickerView: View {
+    
     let message: MessageItem
+    let onTap: ((_ selectedEmoji: Reaction) -> Void)
+    
     @State private var animatingBgView = false
     @State private var emojiState: [EmojiReaction] = [
+        
         EmojiReaction(reaction: .like),
         EmojiReaction(reaction: .love),
         EmojiReaction(reaction: .laugh),
@@ -50,7 +54,8 @@ struct ReactionPickerView: View {
     
     private func reactionButton(_ item: EmojiReaction, at index: Int) -> some View {
         Button {
-            
+            guard item.reaction != .more else { return }
+            onTap(item.reaction)
         } label: {
             buttonLabel(item, at: index)
                 .scaleEffect(emojiState[index].isAnimating ? 1 : 0.1)
@@ -105,6 +110,8 @@ struct ReactionPickerView: View {
     ZStack {
         Rectangle()
             .fill(.thinMaterial)
-        ReactionPickerView(message: .sentPlaceholder)
+        ReactionPickerView(message: .sentPlaceholder) {_ in
+            
+        }
     }
 }
