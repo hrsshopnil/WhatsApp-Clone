@@ -115,44 +115,6 @@ extension MessageItem {
         self.audioDuration = dict[.audioDuration] as? TimeInterval ?? nil
     }
 }
-/// Cases: admin, text, photo, video, audio
-enum MessageType: Hashable {
-    case admin(_ type: AdminMessageType), text, photo, video, audio
-    
-    var title: String {
-        switch self {
-        case .admin:
-            return "admin"
-        case .text:
-            return "text"
-        case .photo:
-            return "photo"
-        case .video:
-            return "video"
-        case .audio:
-            return "audio"
-        }
-    }
-    
-    init?(_ stringValue: String) {
-        switch stringValue {
-        case "text":
-            self = .text
-        case "photo":
-            self = .photo
-        case "video":
-            self = .video
-        case "audio":
-            self = .audio
-        default:
-            if let adminMessageType = AdminMessageType(rawValue: stringValue) {
-                self = .admin(adminMessageType)
-            } else {
-                return nil
-            }
-        }
-    }
-}
 
 extension MessageType: Equatable {
     

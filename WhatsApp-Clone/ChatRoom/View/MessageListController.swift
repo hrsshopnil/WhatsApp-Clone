@@ -210,68 +210,6 @@ extension MessageListController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-    private func attachMenuActionItem(to message: MessageItem, in window: UIWindow) {
-        
-        guard let focusedView, let startingFrame else { return }
-        
-        let reactionPickerView = ReactionPickerView(message: message)
-        let messageMenu = MessageMenuView(message: message)
-        
-        let reactionHostVC = UIHostingController(rootView: reactionPickerView)
-        let messageMenuHostVC = UIHostingController(rootView: messageMenu)
-        
-        reactionHostVC.view.backgroundColor = .clear
-        reactionHostVC.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        messageMenuHostVC.view.backgroundColor = .clear
-        messageMenuHostVC.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        window.addSubview(reactionHostVC.view)
-        window.addSubview(messageMenuHostVC.view)
-        
-        reactionHostVC.view.bottomAnchor.constraint(equalTo: focusedView.topAnchor, constant: 2).isActive = true
-        
-        reactionHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
-
-        reactionHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
-          
-        messageMenuHostVC.view.topAnchor.constraint(equalTo: focusedView.bottomAnchor, constant: 0).isActive = true
-        
-        messageMenuHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
-  
-        messageMenuHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
-
-        self.reactionHostVC = reactionHostVC
-        self.messageMenuHostVC = messageMenuHostVC
-    }
-     
-    @objc func dismissContextMenu() {
-        
-        UIView.animate(withDuration: 0.6,
-                       delay: 0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 1,
-                       options: .curveEaseOut) { [ weak self ] in
-            
-            self?.focusedView?.frame = self?.startingFrame ?? .zero
-            self?.reactionHostVC?.view.removeFromSuperview()
-            self?.messageMenuHostVC?.view.removeFromSuperview()
-            self?.blurView?.alpha = 0
-            
-        } completion: { [weak self] _ in
-            self?.highlightedCell?.alpha = 1
-            self?.blurView?.removeFromSuperview()
-            self?.focusedView?.removeFromSuperview()
-            
-            //Clearing References
-            self?.highlightedCell = nil
-            self?.blurView = nil
-            self?.focusedView = nil
-            self?.reactionHostVC = nil
-            self?.reactionHostVC = nil
-        }
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y <= 0 {
             pullDownHUDView.alpha = viewModel.isPaginatable ? 1 : 0
@@ -293,8 +231,10 @@ extension MessageListController {
         guard gesture.state == .began else { return }
         
         let point = gesture.location(in: messagesCollectionView)
-        
         guard let indexPath = messagesCollectionView.indexPathForItem(at: point) else { return }
+        let message = viewModel.messages[indexPath.item]
+        guard message.type.isAdminMessage == false else { return }
+        
                 
         guard let selectedCell = messagesCollectionView.cellForItem(at: indexPath) else { return }
         
@@ -325,8 +265,10 @@ extension MessageListController {
         focusedView.addSubview(snapshotView)
         blurView.frame = keyWindow.frame
         
-        let message = viewModel.messages[indexPath.item]
-        attachMenuActionItem(to: message, in: keyWindow)
+        let isNewDay = viewModel.isNewDay(for: message, at: indexPath.item)
+        let shrinkCell = shrinkCall(startingFrame?.height ?? 0)
+        
+        attachMenuActionItem(to: message, in: keyWindow, isNewDay)
         
         UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
             
@@ -335,8 +277,94 @@ extension MessageListController {
             snapshotView.frame = focusedView.bounds
             
             snapshotView.layer.applyShadow(color: .gray, alpha: 0.2, x: 0, y: 0, radius: 4)
+            
+            if shrinkCell {
+                let xTranslation: CGFloat = message.direction == .received ? -80 : 80
+                let translation = CGAffineTransform(translationX: xTranslation, y: 0)
+                
+                focusedView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5).concatenating(translation)
+            }
 
         }
+    }
+    
+    private func attachMenuActionItem(to message: MessageItem, in window: UIWindow, _ isNewDay: Bool) {
+        
+        guard let focusedView, let startingFrame else { return }
+        
+        let shrinkCell = shrinkCall(startingFrame.height)
+        
+        let reactionPickerView = ReactionPickerView(message: message)
+        let messageMenu = MessageMenuView(message: message)
+        
+        let reactionHostVC = UIHostingController(rootView: reactionPickerView)
+        let messageMenuHostVC = UIHostingController(rootView: messageMenu)
+        
+        reactionHostVC.view.backgroundColor = .clear
+        reactionHostVC.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        messageMenuHostVC.view.backgroundColor = .clear
+        messageMenuHostVC.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        window.addSubview(reactionHostVC.view)
+        window.addSubview(messageMenuHostVC.view)
+        
+        var reactionPadding: CGFloat = isNewDay ? 55 : 2
+        var menuPadding: CGFloat = 0
+        
+        if shrinkCell {
+            reactionPadding += (startingFrame.height / 3)
+            menuPadding -= (startingFrame.height / 2.5)
+        }
+        
+        reactionHostVC.view.bottomAnchor.constraint(equalTo: focusedView.topAnchor, constant: reactionPadding).isActive = true
+        
+        reactionHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
+
+        reactionHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
+          
+        messageMenuHostVC.view.topAnchor.constraint(equalTo: focusedView.bottomAnchor, constant: menuPadding).isActive = true
+        
+        messageMenuHostVC.view.leadingAnchor.constraint(equalTo: focusedView.leadingAnchor, constant: 20).isActive = message.direction == .received
+  
+        messageMenuHostVC.view.trailingAnchor.constraint(equalTo: focusedView.trailingAnchor, constant: -20).isActive = message.direction == .sent
+
+        self.reactionHostVC = reactionHostVC
+        self.messageMenuHostVC = messageMenuHostVC
+    }
+     
+    @objc func dismissContextMenu() {
+        
+        UIView.animate(withDuration: 0.6,
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseOut) { [ weak self ] in
+            
+            self?.focusedView?.transform = .identity
+            self?.focusedView?.frame = self?.startingFrame ?? .zero
+            self?.reactionHostVC?.view.removeFromSuperview()
+            self?.messageMenuHostVC?.view.removeFromSuperview()
+            self?.blurView?.alpha = 0
+            
+        } completion: { [weak self] _ in
+            self?.highlightedCell?.alpha = 1
+            self?.blurView?.removeFromSuperview()
+            self?.focusedView?.removeFromSuperview()
+            
+            //Clearing References
+            self?.highlightedCell = nil
+            self?.focusedView = nil
+            self?.blurView = nil
+            self?.reactionHostVC = nil
+            self?.messageMenuHostVC = nil
+        }
+    }
+    
+    private func shrinkCall(_ cellHeight: CGFloat) -> Bool {
+        let screenHeight = (UIWindowScene.current?.screenHeight ?? 0) / 1.2
+        let spacingForMenu = screenHeight - cellHeight
+        return spacingForMenu < 190
     }
 }
 
