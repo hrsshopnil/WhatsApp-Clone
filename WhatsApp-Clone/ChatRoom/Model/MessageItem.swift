@@ -65,6 +65,10 @@ struct MessageItem: Identifiable {
         return direction == .received ? .leading : .trailing
     }
     
+    var reactionAnchor: Alignment {
+        return direction == .sent ? .bottomTrailing : .bottomLeading
+    }
+    
     var imageSize: CGSize {
         let photoWidth = thumbnailWidth ?? 0
         let photoHeight = thumbnailHeight ?? 0
