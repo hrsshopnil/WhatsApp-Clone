@@ -21,10 +21,11 @@ struct BubblePhotoView: View {
             
             messagePhotoView()
                 .shadow(color: Color(.systemGray3).opacity(0.1), radius: 5, x: 0, y: 20)
-                .overlay{
-                    if item.type == .video {
-                        PlayButton(item: item, icon: "play.fill")
-                    }
+            
+                .overlay(alignment: item.reactionAnchor) {
+                    MessageReactionView(message: item)
+                        .padding(12)
+                        .padding(.bottom, -20)
                 }
             
             if item.direction == .received { Spacer() }
@@ -50,6 +51,11 @@ struct BubblePhotoView: View {
                         .background(Color(.systemGray3))
                         .clipShape(Capsule())
                         .padding(10)
+                }
+                .overlay{
+                    if item.type == .video {
+                        PlayButton(item: item, icon: "play.fill")
+                    }
                 }
             if !item.text.isEmptyOrWhiteSpaces {
                 Text(item.text)

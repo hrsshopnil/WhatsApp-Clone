@@ -48,6 +48,7 @@ struct BubbleAudioView: View {
             .padding(5)
             .background(item.bgColor)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
             .applyTail(item.direction)
             
             if item.direction == .received {
@@ -58,7 +59,10 @@ struct BubbleAudioView: View {
         .frame(maxWidth: .infinity, alignment: item.alignment)
         .padding(.leading, item.leadingPadding)
         .padding(.trailing, item.trailingPadding)
-        
+        .overlay(alignment: item.reactionAnchor) {
+            MessageReactionView(message: item)
+                .offset(x: item.showSenderProfile ? 50 : 0, y: 10)
+        }
         .onReceive(voiceMessagePlayer.$playbackState) { state in
             observePlaybackState(state)
         }

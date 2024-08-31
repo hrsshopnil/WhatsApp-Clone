@@ -172,10 +172,10 @@ class MessageService {
 
     static func addReaction(_ reaction: Reaction, to message: MessageItem, in channel: ChannelItem, from currentUser: UserItem, completion: @escaping(_ emojiCount: Int) -> Void) {
         // Increase emoji reaction count
-        let reactionRef = FirebaseConstants.MessageRef.child(channel.id).child(message.id).child("reaction").child(reaction.emoji)
+        let reactionRef = FirebaseConstants.MessageRef.child(channel.id).child(message.id).child(.reactions).child(reaction.emoji)
         
         increaseCountViaTransaction(at: reactionRef) { emojiCount in
-            FirebaseConstants.MessageRef.child(channel.id).child(message.id).child("userReaction").child(currentUser.id).setValue(reaction.emoji)
+            FirebaseConstants.MessageRef.child(channel.id).child(message.id).child(.userReactions).child(currentUser.id).setValue(reaction.emoji)
             
             completion(emojiCount)
         }

@@ -9,6 +9,10 @@ import Firebase
 
 struct MessageItem: Identifiable {
     
+    typealias emoji = String
+    typealias emojiCount = Int
+    typealias userId = String
+    
     let id: String
     let isGroupChat: Bool
     let text: String
@@ -22,6 +26,8 @@ struct MessageItem: Identifiable {
     var videoUrl: String?
     var audioUrl: String?
     var audioDuration: TimeInterval?
+    var reactions: [emoji: emojiCount] = [:]
+    var userReaction: [userId: emoji] = [:]
     
     var imageUrl: String {
         guard let thumbnailUrl else { return ""}
@@ -69,6 +75,9 @@ struct MessageItem: Identifiable {
         return direction == .sent ? .bottomTrailing : .bottomLeading
     }
     
+    var hasReaction: Bool {
+        return !reactions.isEmpty
+    }
     var imageSize: CGSize {
         let photoWidth = thumbnailWidth ?? 0
         let photoHeight = thumbnailHeight ?? 0
@@ -117,6 +126,9 @@ extension MessageItem {
         self.videoUrl = dict[.videoUrl] as? String ?? nil
         self.audioUrl = dict[.audioUrl] as? String ?? nil
         self.audioDuration = dict[.audioDuration] as? TimeInterval ?? nil
+        self.reactions = dict[.reactions] as? [emoji: emojiCount] ?? [:]
+        self.userReaction = dict[.userReactions] as? [userId: emoji] ?? [:]
+
     }
 }
 

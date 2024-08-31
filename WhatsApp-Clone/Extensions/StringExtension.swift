@@ -39,6 +39,8 @@ extension String {
     static let videoUrl = "videoUrl"
     static let audioUrl = "audioUrl"
     static let audioDuration = "audioDuration"
+    static let reactions = "reactions"
+    static let userReactions = "userReactions"
 
     
     var isEmptyOrWhiteSpaces: Bool {

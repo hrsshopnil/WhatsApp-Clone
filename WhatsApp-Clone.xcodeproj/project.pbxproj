@@ -505,8 +505,8 @@
 				B382B0FB2C5D29BA00CC0D50 /* AdminTextView.swift */,
 				B3F8D9EF2C5FFDBD00A4BA13 /* MediaAttachmentPreview.swift */,
 				B3BBFF162C75035600F9BBE2 /* BubbleView.swift */,
-				B32BFB962C3964D0007B725D /* ViewComponents */,
 				B39F4CA32C836033000C4D02 /* MessageReactionView.swift */,
+				B32BFB962C3964D0007B725D /* ViewComponents */,
 			);
 			path = View;
 			sourceTree = "<group>";

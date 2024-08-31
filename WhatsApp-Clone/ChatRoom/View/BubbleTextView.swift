@@ -31,6 +31,10 @@ struct BubbleTextView: View {
         .frame(maxWidth: .infinity, alignment: item.alignment)
         .padding(.leading, item.leadingPadding)
         .padding(.trailing, item.trailingPadding)
+        .overlay(alignment: item.reactionAnchor) {
+            MessageReactionView(message: item)
+                .offset(x: item.showSenderProfile ? 50 : 0, y: 10)
+        }
     }
 }
 
