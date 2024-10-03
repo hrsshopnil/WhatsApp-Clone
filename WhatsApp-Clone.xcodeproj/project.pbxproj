@@ -345,7 +345,6 @@
 				B3BCCAE42C417BF900B19191 /* ViewModel */,
 				B3AA26E82C32C2E100CA8F9D /* ChatTabScreen.swift */,
 				B3AA26EA2C32C5E400CA8F9D /* RecentChatItem.swift */,
-				B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */,
 				B3D467972C41567200FE4263 /* ChatPartnerPickerScreen.swift */,
 				B3D467992C4159DA00FE4263 /* ChatPartnerRowView.swift */,
 				B3BCCAE72C41837B00B19191 /* GroupPartnerPickerScreen.swift */,
@@ -376,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				B3C2C3F82C46E449004E7E9E /* ChannelItem.swift */,
+				B38D80DF2C43F1AF00A0CF82 /* ChatPartnerPickerOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

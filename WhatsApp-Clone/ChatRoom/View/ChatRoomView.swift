@@ -18,6 +18,7 @@ struct ChatRoomView: View {
         self.channel = channel
         _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel))
     }
+    
     var body: some View {
         
         MessageListView(viewModel)

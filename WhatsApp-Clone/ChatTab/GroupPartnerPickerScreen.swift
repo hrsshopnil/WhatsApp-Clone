@@ -17,6 +17,7 @@ struct GroupPartnerPickerScreen: View {
                     viewModel.handleItemSelection(user)
                 }
             }
+            
             Section {
                 ForEach(viewModel.users) {item in
                     Button {
@@ -26,9 +27,11 @@ struct GroupPartnerPickerScreen: View {
                     }
                 }
             }
+            
             if viewModel.isPaginatable {
-                loadMoreMessage()
+                laodMoreUser()
             }
+            
         }
         .animation(.easeInOut, value: viewModel.showSelectedUser)
         .searchable(text: $searchText,
@@ -67,7 +70,7 @@ struct GroupPartnerPickerScreen: View {
         }
     }
     
-    private func loadMoreMessage() -> some View {
+    private func laodMoreUser() -> some View {
         ProgressView()
             .frame(maxWidth: .infinity)
             .listRowBackground(Color.clear)

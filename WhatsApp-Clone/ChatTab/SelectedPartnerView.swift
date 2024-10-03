@@ -15,7 +15,7 @@ struct SelectedPartnerView: View {
             HStack {
                 ForEach(users) {item in
                     VStack {
-                        CircularProfileImageView(size: .medium, profileImageUrl: item.profileImageUrl)
+                        Circle()
                             .frame(width: 60, height: 60)
                             .foregroundStyle(.gray)
                             .overlay(alignment: .topTrailing) {

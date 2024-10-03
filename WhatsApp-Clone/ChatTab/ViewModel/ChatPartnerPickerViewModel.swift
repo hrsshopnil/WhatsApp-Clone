@@ -15,6 +15,7 @@ enum ChatCreationRoute {
 enum ChannelCreationError: Error {
     case noParticipant, failedToCreateUniqueID
 }
+
 enum ChannelConstants {
     static let maxGroupParticipants = 12
 }
@@ -38,6 +39,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         subscription?.cancel()
         subscription = nil
     }
+    
     var showSelectedUser: Bool {
         return !selectedChatPartners.isEmpty
     }
@@ -71,6 +73,7 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             }
         }
     }
+    
     var isDirectchannel: Bool {
         return selectedChatPartners.count == 1
     }

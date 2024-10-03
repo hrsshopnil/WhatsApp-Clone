@@ -25,7 +25,7 @@ struct ChatPartnerRowView<Content: View>: View {
                 Text(user.bioUnwrapped)
                     .font(.footnote)
                     .foregroundStyle(.gray)
-            }
+            } 
             trailingItem
         }
     }

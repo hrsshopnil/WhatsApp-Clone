@@ -23,7 +23,7 @@ struct WhatsApp_CloneApp: App {
 
   var body: some Scene {
     WindowGroup {
-        RootView()
+        MainTabView(UserItem(email: "", id: "", username: ""))
     }
   }
 }

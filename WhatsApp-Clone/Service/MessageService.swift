@@ -136,11 +136,15 @@ class MessageService {
     
     static func getFirstMessages(for channel: ChannelItem, completion: @escaping (MessageItem) -> Void) {
         FirebaseConstants.MessageRef.child(channel.id).queryLimited(toFirst: 1).observeSingleEvent(of: .value) { snapshot in
+            
             guard let dictionary = snapshot.value as? [String: Any] else { return }
+            
             dictionary.forEach { key, value in
                 guard let messageDict = snapshot.value as? [String: Any] else { return }
+                
                 var firstMessage = MessageItem(id: key, isGroupChat: channel.isGroupChat, dict: messageDict)
                 let messageSender = channel.members.first(where: { $0.id == firstMessage.ownerId })
+                
                 firstMessage.sender = messageSender
                 completion(firstMessage)
             }
@@ -149,9 +153,12 @@ class MessageService {
     
     static func listenForNewMessages(for channel: ChannelItem, completion: @escaping (MessageItem) -> Void) {
         FirebaseConstants.MessageRef.child(channel.id).queryLimited(toLast: 1).observe(.childAdded) { snapshot in
+            
             guard let messageDict = snapshot.value as? [String: Any] else { return }
+            
             var newMessage = MessageItem(id: snapshot.key, isGroupChat: channel.isGroupChat, dict: messageDict)
             let messageSender = channel.members.first(where: { $0.id == newMessage.ownerId })
+            
             newMessage.sender = messageSender
             completion(newMessage)
         }
