@@ -20,10 +20,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct WhatsApp_CloneApp: App {
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    @StateObject private var viewModel = GetCurrentUser()
   var body: some Scene {
     WindowGroup {
-        MainTabView(UserItem(email: "", id: "", username: ""))
+        RootView()
     }
   }
 }

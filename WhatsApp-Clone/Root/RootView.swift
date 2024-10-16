@@ -14,10 +14,19 @@ struct RootView: View {
         case .pending:
             ProgressView()
                 .controlSize(.large)
+                .onAppear {
+                    print("Progress view: \(viewmodel.authstate)")
+                }
         case .loggedin(let user):
             MainTabView(user)
+                .onAppear {
+                    print("main tab view: \(viewmodel.authstate)")
+                }
         case .loggedout:
             LoginView()
+                .onAppear {
+                    print("login view: \(viewmodel.authstate)")
+                }
         }
     }
 }

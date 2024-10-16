@@ -24,7 +24,6 @@ struct UpdateTabScreen: View {
                     ChannelListView()
                 } header: {
                     channelSectionHeader()
-                    
                 }
             }
             

@@ -44,7 +44,9 @@ protocol AuthProvidor {
 final class AuthManager: AuthProvidor {
     
     private init() {
-        Task { await autoLogin() }
+        Task {
+            await autoLogin()
+        }
     }
     
     static let shared: AuthProvidor = AuthManager()
