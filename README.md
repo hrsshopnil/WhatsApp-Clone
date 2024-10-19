@@ -1,7 +1,7 @@
 # WhatsApp Clone
 
 <p align="center">
-  <img src="https://github.com/hrsshopnil/BookBuddy/assets/89196977/17c009b6-1151-4851-b0d1-86027a7532b4" alt="Demo Video">
+  <img src="https://github.com/user-attachments/assets/487f662b-9eaf-449c-ac2c-14d9f48894c9" alt="Demo Video">
 </p>
 
 ## Overview
