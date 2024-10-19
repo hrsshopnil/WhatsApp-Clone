@@ -1,6 +1,8 @@
 # WhatsApp Clone
 
-[![WhatsApp Clone Demo](https://github.com/user-attachments/assets/487f662b-9eaf-449c-ac2c-14d9f48894c9)
+<p align="center">
+  <img src="https://github.com/hrsshopnil/BookBuddy/assets/89196977/17c009b6-1151-4851-b0d1-86027a7532b4" alt="Demo Video">
+</p>
 
 ## Overview
 This is a fully functional WhatsApp clone built using **SwiftUI**, **Firebase**, and **Combine**. The app allows users to chat in real-time, share images, and maintain a persistent message history, leveraging Firebase for authentication, real-time data storage, and media handling. We also use **Kingfisher** for image caching and downloading, ensuring smooth image loading in chat.
