@@ -10,9 +10,11 @@ import SwiftUI
 struct RecentChatItem: View {
     
     let channel: ChannelItem
+    var image: UIImage?
     
     var body: some View {
         HStack(alignment: .top) {
+            Image(channel.coverImageUrl)
             CircularProfileImageView(channel, size: .medium)
                 .frame(width: 55, height: 55)
             VStack(alignment: .leading) {
@@ -32,6 +34,7 @@ struct RecentChatItem: View {
                 .font(.caption)
                 .foregroundStyle(.gray)
         }
+        
     }
 }
 
