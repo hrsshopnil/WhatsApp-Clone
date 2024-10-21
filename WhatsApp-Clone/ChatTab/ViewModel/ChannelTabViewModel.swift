@@ -24,6 +24,7 @@ final class ChannelTabViewModel: ObservableObject {
     init() {
         fetchCurrentUserChannel()
     }
+    
     func onNewChannelCreation(_ channel: ChannelItem) {
         navigateToChatRoom = true
         newChannel = channel
