@@ -67,6 +67,16 @@ struct MessageItem: Identifiable {
         return direction == .received ? 25 : 0
     }
     
+    var currentUserHasReacted: Bool {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return false }
+        return userReaction.contains { $0.key == currentUid }
+    }
+    
+    var currentUserReaction: String? {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return nil }
+        return userReaction[currentUid]
+    }
+    
     var menuAnchor: UnitPoint {
         return direction == .received ? .leading : .trailing
     }

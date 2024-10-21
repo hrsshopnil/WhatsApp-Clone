@@ -12,6 +12,7 @@ struct EmojiReaction {
     var isAnimating = false
     var opacity: CGFloat = 1
 }
+
 struct ReactionPickerView: View {
     
     let message: MessageItem
@@ -79,10 +80,13 @@ struct ReactionPickerView: View {
         }
     }
     
+    @ViewBuilder
     private func emojiButtonBg(_ reaction: Reaction) -> some View {
-        Color(.systemGray5)
-            .frame(width: 45, height: 45)
-            .clipShape(Circle())
+        if message.currentUserHasReacted, let userReaction = message.currentUserReaction, userReaction == reaction.emoji {
+            Color(.systemGray5)
+                .frame(width: 45, height: 45)
+                .clipShape(Circle())
+        }
     }
     
     @ViewBuilder
