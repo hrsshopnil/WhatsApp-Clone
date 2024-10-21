@@ -25,6 +25,8 @@ struct BubbleView: View {
             }
             composeDynamicBubbleView()
         }
+        .frame(maxWidth: .infinity)
+        .padding(.bottom, message.hasReaction ? 8 : 0)
     }
     
     @ViewBuilder

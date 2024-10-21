@@ -25,7 +25,7 @@ struct MessageReactionView: View {
                 ForEach(emojis, id: \.self) { emoji in
                     Text(emoji)
                 }
-                if emojiCount > 2 {
+                if emojiCount > 1 {
                     Text(emojiCount.description)
                 }
             }
