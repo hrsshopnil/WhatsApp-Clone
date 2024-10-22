@@ -21,6 +21,7 @@ struct ChannelItem: Identifiable, Hashable {
     private var thumbnailUrl: String?
     var createdBy: String
     let lastMessageType: MessageType
+    var unreadCount: Int = 0
     
     // MARK: gives a name that is computed in local machine
     var isGroupChat: Bool {

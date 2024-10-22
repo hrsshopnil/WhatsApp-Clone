@@ -29,11 +29,28 @@ struct RecentChatItem: View {
                 .foregroundStyle(.gray)
             }
             Spacer()
-            Text(channel.lastMessageTimeStamp.dayOrTimeRepresentation)
-                .font(.caption)
-                .foregroundStyle(.gray)
+            VStack(alignment: .trailing) {
+                Text(channel.lastMessageTimeStamp.dayOrTimeRepresentation)
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                if channel.unreadCount > 0 {
+                    badgeView(count: channel.unreadCount)
+                }
+            }
+            
         }
         
+    }
+    
+    private func badgeView(count: Int) -> some View {
+        Text(count.description)
+            .foregroundStyle(.white)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 2)
+            .background(.badge)
+            .bold()
+            .font(.caption)
+            .clipShape(Capsule())
     }
 }
 
