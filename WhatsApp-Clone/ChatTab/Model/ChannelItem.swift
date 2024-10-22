@@ -60,7 +60,7 @@ struct ChannelItem: Identifiable, Hashable {
         return nil
     }
     
-    private var membersExcludingMe: [UserItem] {
+    var membersExcludingMe: [UserItem] {
         guard let currentId = Auth.auth().currentUser?.uid else { return [] }
         return members.filter {$0.id != currentId}
     }

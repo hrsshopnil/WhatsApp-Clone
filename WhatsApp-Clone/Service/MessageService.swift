@@ -30,33 +30,9 @@ class MessageService {
         
         FirebaseConstants.ChannelsRef.child(channel.id).updateChildValues(channelDict)
         FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageDict)
-        
+        increaseUnreadCountForMembers(in: channel)
         completion()
     }
-    
-    ///Gets Messages for the selected channel
-//    static func getMessages(_ channel: ChannelItem, completion: @escaping ([MessageItem]) -> Void) {
-//        FirebaseConstants.MessageRef.child(channel.id).observe(.value) { snapshot in
-//            guard let dict = snapshot.value as? [String: Any] else { return }
-//            var messages: [MessageItem] = []
-//            dict.forEach { key, value in
-//                
-//                let messageDict = value as? [String: Any] ?? [:]
-//                var message = MessageItem(id: key, isGroupChat: channel.isGroupChat, dict: messageDict)
-//                let messageSender = channel.members.first(where: { $0.id == message.ownerId })
-//                
-//                message.sender = messageSender
-//                messages.append(message)
-//                
-//                if messages.count == snapshot.childrenCount {
-//                    messages.sort { $0.timeStamp < $1.timeStamp }
-//                    completion(messages)
-//                }
-//            }
-//        } withCancel: { error in
-//            print("Failed to get message for \(channel.id)")
-//        }
-//    }
     
     
     ///Sends messages that include Photo, Video or audio
@@ -89,6 +65,7 @@ class MessageService {
         
         FirebaseConstants.ChannelsRef.child(channel.id).updateChildValues(channelDict)
         FirebaseConstants.MessageRef.child(channel.id).child(messageId).setValue(messageDict)
+        increaseUnreadCountForMembers(in: channel)
         completion()
     }
     
@@ -185,6 +162,14 @@ class MessageService {
             FirebaseConstants.MessageRef.child(channel.id).child(message.id).child(.userReactions).child(currentUser.id).setValue(reaction.emoji)
             
             completion(emojiCount)
+        }
+    }
+    
+    static func increaseUnreadCountForMembers(in channel: ChannelItem) {
+        let memberUids = channel.membersExcludingMe.map { $0.id }
+        for uid in memberUids {
+            let channelUnreadCountRef = FirebaseConstants.UserChannelRef.child(uid).child(channel.id)
+            increaseCountViaTransaction(at: channelUnreadCountRef)
         }
     }
 }
