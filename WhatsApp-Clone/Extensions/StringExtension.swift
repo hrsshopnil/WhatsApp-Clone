@@ -67,3 +67,8 @@ extension PhotosPickerItem {
 }
 
 
+extension Array where Element == String {
+    func uidExcludingMe(currentId: String) -> [String] {
+        return self.filter { $0 != currentId } ?? []
+    }
+}

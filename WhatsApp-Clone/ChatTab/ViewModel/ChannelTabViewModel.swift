@@ -49,14 +49,39 @@ final class ChannelTabViewModel: ObservableObject {
     }
     
     private func getChannel(with channelID: String) {
-        FirebaseConstants.ChannelsRef.child(channelID).observe(.value) {[weak self] snapshot   in
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        FirebaseConstants.ChannelsRef.child(channelID).observe(.value) { [weak self] snapshot in
             guard let dict = snapshot.value as? [String: Any] else { return }
-            let channel = ChannelItem(dict: dict)
-            self?.channelDictionary[channelID] = channel
-            self?.reloadData()
+            var channel = ChannelItem(dict: dict)
+            
+            if let memberUid = channel.membersUids.first(where: { $0 != currentUid }) {
+                // Fetch the member's name asynchronously
+                self?.getChannelMembersName(with: memberUid) { name in
+                    channel.name = name // Update the channel's name
+                    
+                    // Once the name is updated, update the dictionary and reload the data
+                    self?.channelDictionary[channelID] = channel
+                    self?.reloadData()
+                    
+                    print("name: \(name)") // For debugging purposes
+                }
+            } else {
+                // If no other member is found, update the dictionary immediately
+                self?.channelDictionary[channelID] = channel
+                self?.reloadData()
+            }
         }
     }
+
+
     
+    private func getChannelMembersName(with memberUid: String, completion: @escaping (String) -> Void) {
+        FirebaseConstants.UserRef.child(memberUid).observeSingleEvent(of: .value) { snapshot in
+            guard let dict = snapshot.value as? [String: Any] else { return }
+            let member = UserItem(dictionary: dict)
+            completion(member.username)
+        }
+    }
     private func reloadData() {
         self.channels = Array(channelDictionary.values)
         self.channels.sort {$0.lastMessageTimeStamp > $1.lastMessageTimeStamp}
