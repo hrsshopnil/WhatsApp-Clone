@@ -61,40 +61,36 @@ struct ChannelItem: Identifiable, Hashable {
         return nil
     }
     
+
     var membersExcludingMe: [UserItem] {
         guard let currentId = Auth.auth().currentUser?.uid else { return [] }
         return members.filter {$0.id != currentId}
     }
-//
-//    private var membersExcludingMe: [UserItem] {
-//        guard let currentId = Auth.auth().currentUser?.uid else { return [] }
-//        return members.filter {$0.id != currentId}
-//    }
-//    
-//    var title: String {
-//        if let name = name {
-//            return name
-//        }
-//        
-//        if isGroupChat {
-//            return groupMemberNames
-//        } else {
-//            return membersExcludingMe.first?.username ?? "Unknown"
-//        }
-//    }
-//    
-//    private var groupMemberNames: String {
-//        let membmersCount = membersExcludingMe.count
-//        let fullNames: [String] = membersExcludingMe.map { $0.username }
-//        
-//        if membmersCount == 2 {
-//            return fullNames.joined(separator: " and ")
-//        } else if membmersCount > 2 {
-//            let remainingCount = membmersCount - 2
-//            return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
-//        }   
-//        return "Unknown"
-//    }
+    
+    var channelName: String {
+        if let name = name {
+            return name
+        }
+        
+        if isGroupChat {
+            return groupMemberNames
+        } else {
+            return membersExcludingMe.first?.username ?? "Unknown"
+        }
+    }
+    
+    private var groupMemberNames: String {
+        let membmersCount = membersExcludingMe.count
+        let fullNames: [String] = membersExcludingMe.map { $0.username }
+        
+        if membmersCount == 2 {
+            return fullNames.joined(separator: " and ")
+        } else if membmersCount > 2 {
+            let remainingCount = membmersCount - 2
+            return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) others"
+        }
+        return "Unknown"
+    }
     
     var previewMessage: String {
         switch lastMessageType {

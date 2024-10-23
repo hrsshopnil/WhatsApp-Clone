@@ -41,6 +41,7 @@ extension String {
     static let audioDuration = "audioDuration"
     static let reactions = "reactions"
     static let userReactions = "userReactions"
+    static let unreadCount = "unreadCount"
 
     
     var isEmptyOrWhiteSpaces: Bool {
