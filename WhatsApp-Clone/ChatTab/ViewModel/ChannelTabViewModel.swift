@@ -39,7 +39,7 @@ final class ChannelTabViewModel: ObservableObject {
                 print(key)
                 let channelID = key
                 let unreadCount = value
-                self?.getChannel(with: channelID)
+                self?.getChannel(with: channelID, unreadCount: unreadCount)
                 print("unreadCount: \(unreadCount)")
             }
             
@@ -48,25 +48,18 @@ final class ChannelTabViewModel: ObservableObject {
         }
     }
     
-    private func getChannel(with channelID: String) {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+    private func getChannel(with channelID: String, unreadCount: Int) {
+        
+        guard let currentUser = Auth.auth().currentUser else { return }
+        print(currentUser)
         FirebaseConstants.ChannelsRef.child(channelID).observe(.value) { [weak self] snapshot in
             guard let dict = snapshot.value as? [String: Any] else { return }
             var channel = ChannelItem(dict: dict)
             
-            if let memberUid = channel.membersUids.first(where: { $0 != currentUid }) {
-                // Fetch the member's name asynchronously
-                self?.getChannelMembersName(with: memberUid) { name in
-                    channel.name = name // Update the channel's name
-                    
-                    // Once the name is updated, update the dictionary and reload the data
-                    self?.channelDictionary[channelID] = channel
-                    self?.reloadData()
-                    
-                    print("name: \(name)") // For debugging purposes
-                }
-            } else {
-                // If no other member is found, update the dictionary immediately
+            self?.getChannelMembers(with: channel) { members in
+                channel.members = members
+          //      channel.members.append(currentUser)
+                channel.unreadCount = unreadCount
                 self?.channelDictionary[channelID] = channel
                 self?.reloadData()
             }
@@ -75,11 +68,11 @@ final class ChannelTabViewModel: ObservableObject {
 
 
     
-    private func getChannelMembersName(with memberUid: String, completion: @escaping (String) -> Void) {
-        FirebaseConstants.UserRef.child(memberUid).observeSingleEvent(of: .value) { snapshot in
-            guard let dict = snapshot.value as? [String: Any] else { return }
-            let member = UserItem(dictionary: dict)
-            completion(member.username)
+    private func getChannelMembers(with channel: ChannelItem, completion: @escaping ([UserItem]) -> Void) {
+        //guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        //let memberUids = Array(channel.membersUids.filter { $0 != currentUid }.prefix(2))
+        UserService.getUsers(with: channel.membersUids) { userNode in
+            completion(userNode.users)
         }
     }
     private func reloadData() {
