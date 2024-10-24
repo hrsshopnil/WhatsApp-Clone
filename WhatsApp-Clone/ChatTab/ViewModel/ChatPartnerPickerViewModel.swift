@@ -52,13 +52,13 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         return !users.isEmpty
     }
     
-    private func name(_ channelName: String?) -> String {
-        if let safeChannelName = channelName, !safeChannelName.isEmptyOrWhiteSpaces {
-            return safeChannelName
-        } else {
-            return title
-        }
-    }
+//    private func name(_ channelName: String?) -> String {
+//        if let safeChannelName = channelName, !safeChannelName.isEmptyOrWhiteSpaces {
+//            return safeChannelName
+//        } else {
+//            return title
+//        }
+//    }
     
     private func listenToAuthState() {
         subscription = AuthManager.shared.authstate.receive(on: DispatchQueue.main).sink { [weak self] authState in
@@ -87,13 +87,13 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         return selectedChatPartners.filter {$0.id != currentId}
     }
     
-    var title: String {
-        if isGroupChat {
-            return groupMemberNames
-        } else {
-            return membersExcludingMe.first?.username ?? "Unknown"
-        }
-    }
+//    var title: String {
+//        if isGroupChat {
+//            return groupMemberNames
+//        } else {
+//            return membersExcludingMe.first?.username ?? "Unknown"
+//        }
+//    }
     
     private var groupMemberNames: String {
         let membmersCount = membersExcludingMe.count
@@ -214,12 +214,10 @@ final class ChatPartnerPickerViewModel: ObservableObject {
         
         let timeStamp = Date().timeIntervalSince1970
         var memberUids = selectedChatPartners.compactMap {$0.id}
-        let name = name(channelName)
         memberUids.append(currentId)
         let newChannelBroadCast = AdminMessageType.channelCreation.rawValue
         
-        let channelDict: [String: Any] = [
-            .name: name,
+        var channelDict: [String: Any] = [
             .id: channelID,
             .lastMessage: newChannelBroadCast,
             .lastMessageType: newChannelBroadCast,
@@ -230,6 +228,10 @@ final class ChatPartnerPickerViewModel: ObservableObject {
             .adminUids: [currentId],
             .createdBy: currentId
         ]
+        
+        if let name = channelName {
+            channelDict[.name] = name
+        }
         
         let messageDict: [String: Any] = [.text: newChannelBroadCast, .type: newChannelBroadCast, .timeStamp: timeStamp, .ownerId: currentId]
         

@@ -147,7 +147,7 @@ class MessageService {
                 count += 1
                 currentData.value = count
             } else {
-                currentData.value = 1
+                currentData.value = 0
             }
             completion?(currentData.value as? Int ?? 0)
             return TransactionResult.success(withValue: currentData)

@@ -58,7 +58,6 @@ final class ChannelTabViewModel: ObservableObject {
             
             self?.getChannelMembers(with: channel) { members in
                 channel.members = members
-          //      channel.members.append(currentUser)
                 channel.unreadCount = unreadCount
                 self?.channelDictionary[channelID] = channel
                 self?.reloadData()
@@ -69,8 +68,8 @@ final class ChannelTabViewModel: ObservableObject {
 
     
     private func getChannelMembers(with channel: ChannelItem, completion: @escaping ([UserItem]) -> Void) {
-        //guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        //let memberUids = Array(channel.membersUids.filter { $0 != currentUid }.prefix(2))
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let memberUids = Array(channel.membersUids.filter { $0 != currentUid }.prefix(2))
         UserService.getUsers(with: channel.membersUids) { userNode in
             completion(userNode.users)
         }
