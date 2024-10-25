@@ -152,6 +152,8 @@ final class ChatRoomViewModel: ObservableObject {
         MessageService.listenForNewMessages(for: channel) {[weak self] newMessage in
             self?.messages.append(newMessage)
             self?.scrollToBottom(isAnimated: false)
+            guard let self else { return }
+            MessageService.resetUnreadCount(in: self.channel)
         }
     }
     ///Fetches all the members of a channel
