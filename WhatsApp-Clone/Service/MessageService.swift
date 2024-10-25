@@ -141,6 +141,21 @@ class MessageService {
         }
     }
     
+    
+    static func increaseUnreadCountForMembers(in channel: ChannelItem) {
+        let memberUids = Set(channel.membersExcludingMe.map { $0.id }).map { $0 }
+        
+        for uid in memberUids {
+            let channelUnreadCountRef = FirebaseConstants.UserChannelRef.child(uid).child(channel.id)
+            increaseCountViaTransaction(at: channelUnreadCountRef)
+        }
+    }
+    
+    static func resetUnreadCount(in channel: ChannelItem) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        FirebaseConstants.UserChannelRef.child(currentUid).child(channel.id).setValue(0)
+    }
+    
     static func increaseCountViaTransaction(at ref: DatabaseReference, completion: ((Int) -> Void)? = nil) {
         ref.runTransactionBlock { currentData in
             if var count = currentData.value as? Int{
@@ -162,14 +177,6 @@ class MessageService {
             FirebaseConstants.MessageRef.child(channel.id).child(message.id).child(.userReactions).child(currentUser.id).setValue(reaction.emoji)
             
             completion(emojiCount)
-        }
-    }
-    
-    static func increaseUnreadCountForMembers(in channel: ChannelItem) {
-        let memberUids = channel.membersExcludingMe.map { $0.id }
-        for uid in memberUids {
-            let channelUnreadCountRef = FirebaseConstants.UserChannelRef.child(uid).child(channel.id)
-            increaseCountViaTransaction(at: channelUnreadCountRef)
         }
     }
 }
