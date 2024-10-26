@@ -10,7 +10,6 @@ import SwiftUI
 struct RecentChatItem: View {
     
     let channel: ChannelItem
-    var image: UIImage?
     
     var body: some View {
         HStack(alignment: .top) {

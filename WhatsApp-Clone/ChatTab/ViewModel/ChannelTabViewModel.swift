@@ -53,14 +53,21 @@ final class ChannelTabViewModel: ObservableObject {
         guard let currentUser = Auth.auth().currentUser else { return }
         print(currentUser)
         FirebaseConstants.ChannelsRef.child(channelID).observe(.value) { [weak self] snapshot in
-            guard let dict = snapshot.value as? [String: Any] else { return }
+            guard let dict = snapshot.value as? [String: Any], let self else { return }
             var channel = ChannelItem(dict: dict)
             
-            self?.getChannelMembers(with: channel) { members in
+            if let memCachedChannel = self.channelDictionary[channelID], !memCachedChannel.members.isEmpty {
+                channel.members = memCachedChannel.members
+                channel.unreadCount = memCachedChannel.unreadCount
+                self.channelDictionary[channelID] = channel
+                self.reloadData()
+            }
+            self.getChannelMembers(with: channel) { members in
                 channel.members = members
                 channel.unreadCount = unreadCount
-                self?.channelDictionary[channelID] = channel
-                self?.reloadData()
+                self.channelDictionary[channelID] = channel
+                self.reloadData()
+                print("Channel Members: ---------------\(channel.members)")
             }
         }
     }
@@ -68,8 +75,8 @@ final class ChannelTabViewModel: ObservableObject {
 
     
     private func getChannelMembers(with channel: ChannelItem, completion: @escaping ([UserItem]) -> Void) {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        let memberUids = Array(channel.membersUids.filter { $0 != currentUid }.prefix(2))
+//        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+//        _ = Array(channel.membersUids.filter { $0 != currentUid }.prefix(2))
         UserService.getUsers(with: channel.membersUids) { userNode in
             completion(userNode.users)
         }

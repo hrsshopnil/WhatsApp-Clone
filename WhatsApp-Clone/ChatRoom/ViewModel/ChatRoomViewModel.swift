@@ -72,6 +72,7 @@ final class ChatRoomViewModel: ObservableObject {
             case .loggedin(let currenUser):
                 self?.currentUser = currenUser
                 self?.fetchAllChannelMembers()
+                self?.getHistoricalMessages()
             default:
                 break
             }
