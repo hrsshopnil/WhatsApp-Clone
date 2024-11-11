@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import FirebaseAuth
 import FirebaseDatabase
+import StreamVideo
 
 enum AuthState {
     case pending, loggedin(UserItem), loggedout
@@ -53,18 +54,24 @@ final class AuthManager: AuthProvidor {
     
     var authstate = CurrentValueSubject<AuthState, Never>(.pending)
     
+    @Published var streamVideo: StreamVideo?
+    
     func autoLogin() async {
         if Auth.auth().currentUser == nil {
             authstate.send(.loggedout)
         } else {
-            fetchCurrentUser()
+            fetchCurrentUser {[weak self] currentUser in
+                self?.setUp(currentUser)
+            }
         }
     }
     
     func login(email: String, password: String) async throws {
         do {
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
-            fetchCurrentUser()
+            fetchCurrentUser {[weak self] currentUser in
+                self?.setUp(currentUser)
+            }
             if let userEmail = authResult.user.email {
                 print("Successfully logged in \(userEmail)")
             }
@@ -113,17 +120,35 @@ extension AuthManager {
         }
     }
     
-    private func fetchCurrentUser() {
+    private func fetchCurrentUser(completion: @escaping(UserItem) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else {return}
         
-        FirebaseConstants.UserRef.child(currentUid).observeSingleEvent(of: .value) {[weak self] snapshot in
+        FirebaseConstants.UserRef.child(currentUid).observeSingleEvent(of: .value) { snapshot in
             guard let userDictionary = snapshot.value as? [String: Any] else {return}
             let loggedInUser = UserItem(dictionary: userDictionary)
-            self?.authstate.send(.loggedin(loggedInUser))
+            completion(loggedInUser)
             print("🔐\(loggedInUser.username) is logged in")
             
         } withCancel: { error in
             print("Failed to get current user info")
         }
+    }
+    
+    private func setUp(_ currentUser: UserItem) {
+        setUpStreamSdk(for: currentUser)
+        authstate.send(.loggedin(currentUser))
+    }
+}
+
+
+extension AuthManager {
+    
+   private func setUpStreamSdk(for user: UserItem) {
+        let api = "786yarz3qp5q"
+        let user = User(id: "3", name: "hrsshopnil")
+        let token = UserToken(rawValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdHJlYW0tdmlkZW8tZ29AdjAuMS4wIiwic3ViIjoidXNlci90ZXN0dXNlciIsImlhdCI6MTY2NjY5ODczMSwidXNlcl9pZCI6InRlc3R1c2VyIn0.h4lnaF6OFYaNPjeK8uFkKirR5kHtj1vAKuipq3A5nM0")
+        
+        streamVideo = StreamVideo(apiKey: api, user: user, token: token)
+       print("Stream Video setup complete with API key: \(api)")
     }
 }

@@ -67,7 +67,6 @@ final class ChannelTabViewModel: ObservableObject {
                 channel.unreadCount = unreadCount
                 self.channelDictionary[channelID] = channel
                 self.reloadData()
-                print("Channel Members: ---------------\(channel.members)")
             }
         }
     }

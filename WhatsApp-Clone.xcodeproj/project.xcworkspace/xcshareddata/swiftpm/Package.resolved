@@ -1,5 +1,5 @@
 {
-  "originHash" : "38f72d7a61ecc425e686111b9ac112ae00fb35b7286f758f589f217f5b5c5bb6",
+  "originHash" : "5f60466e0a1cff6dbe226b42d160f0b10dedc411c193e4ccee1244896b89f8ac",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -125,6 +125,24 @@
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "stream-video-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GetStream/stream-video-swift.git",
+      "state" : {
+        "revision" : "dd2562eeb81d4095f458fe1947d8ee60e049a3f6",
+        "version" : "1.14.0"
+      }
+    },
+    {
+      "identity" : "stream-video-swift-webrtc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GetStream/stream-video-swift-webrtc.git",
+      "state" : {
+        "revision" : "2f7e07b4de39aeb65f3fdc83e4fdbefe5d7d5292",
+        "version" : "114.5735.8"
       }
     },
     {

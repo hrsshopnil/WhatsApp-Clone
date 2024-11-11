@@ -81,6 +81,8 @@
 		B3D4679A2C4159DA00FE4263 /* ChatPartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D467992C4159DA00FE4263 /* ChatPartnerRowView.swift */; };
 		B3D6E2002C40FAB70086A14C /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6E1FF2C40FAB70086A14C /* UserItem.swift */; };
 		B3D6E2042C40FB3F0086A14C /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6E2032C40FB3F0086A14C /* FirebaseConstants.swift */; };
+		B3D7806B2CE278040036C77F /* StreamVideo in Frameworks */ = {isa = PBXBuildFile; productRef = B3D7806A2CE278040036C77F /* StreamVideo */; };
+		B3D7806D2CE278040036C77F /* StreamVideoSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B3D7806C2CE278040036C77F /* StreamVideoSwiftUI */; };
 		B3D9A7E82C4596DA00AA5FC9 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9A7E72C4596DA00AA5FC9 /* UserService.swift */; };
 		B3DD11E82C6E587A0087A96F /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DD11E72C6E587A0087A96F /* UIApplicationExtension.swift */; };
 		B3DD11EA2C6E6E180087A96F /* UIWindowSceneExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DD11E92C6E6E180087A96F /* UIWindowSceneExtension.swift */; };
@@ -182,11 +184,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D7806D2CE278040036C77F /* StreamVideoSwiftUI in Frameworks */,
 				B382B0FF2C5D361700CC0D50 /* Kingfisher in Frameworks */,
 				B3A7ADF92C7A516E001CF687 /* AlertKit in Frameworks */,
 				B345D5932C3A9DE000346152 /* FirebaseDatabaseSwift in Frameworks */,
 				B345D5912C3A9DE000346152 /* FirebaseDatabase in Frameworks */,
 				B345D5972C3A9DE000346152 /* FirebaseStorage in Frameworks */,
+				B3D7806B2CE278040036C77F /* StreamVideo in Frameworks */,
 				B345D58F2C3A9DE000346152 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,6 +539,8 @@
 				B345D5962C3A9DE000346152 /* FirebaseStorage */,
 				B382B0FE2C5D361700CC0D50 /* Kingfisher */,
 				B3A7ADF82C7A516E001CF687 /* AlertKit */,
+				B3D7806A2CE278040036C77F /* StreamVideo */,
+				B3D7806C2CE278040036C77F /* StreamVideoSwiftUI */,
 			);
 			productName = "WhatsApp-Clone";
 			productReference = B380DDFF2C2EEDB00091BB7C /* WhatsApp-Clone.app */;
@@ -568,6 +574,7 @@
 				B345D58D2C3A9DE000346152 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B382B0FD2C5D361700CC0D50 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				B3A7ADF72C7A516E001CF687 /* XCRemoteSwiftPackageReference "AlertKit" */,
+				B3D780692CE278040036C77F /* XCRemoteSwiftPackageReference "stream-video-swift" */,
 			);
 			productRefGroup = B380DE002C2EEDB00091BB7C /* Products */;
 			projectDirPath = "";
@@ -808,7 +815,8 @@
 				DEVELOPMENT_TEAM = 9M2847JBF8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Allow to record Audio.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -838,7 +846,8 @@
 				DEVELOPMENT_TEAM = 9M2847JBF8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Allow to record Audio.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -905,6 +914,14 @@
 				minimumVersion = 5.1.9;
 			};
 		};
+		B3D780692CE278040036C77F /* XCRemoteSwiftPackageReference "stream-video-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GetStream/stream-video-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.14.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -937,6 +954,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3A7ADF72C7A516E001CF687 /* XCRemoteSwiftPackageReference "AlertKit" */;
 			productName = AlertKit;
+		};
+		B3D7806A2CE278040036C77F /* StreamVideo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3D780692CE278040036C77F /* XCRemoteSwiftPackageReference "stream-video-swift" */;
+			productName = StreamVideo;
+		};
+		B3D7806C2CE278040036C77F /* StreamVideoSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3D780692CE278040036C77F /* XCRemoteSwiftPackageReference "stream-video-swift" */;
+			productName = StreamVideoSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
