@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import StreamVideoSwiftUI
 
 struct MainTabView: View {
     
     private let loggedInUser: UserItem
-    
+    @StateObject var viewModel = CallViewModel()
     init(_ user: UserItem) {
         
         self.loggedInUser = user
@@ -48,6 +49,8 @@ struct MainTabView: View {
                     Text(Tab.settings.title)
                 }
         }
+        .modifier(CallModifier(viewModel: viewModel))
+        .environmentObject(viewModel)
     }
     
     private func makeTabBarOpaque(){

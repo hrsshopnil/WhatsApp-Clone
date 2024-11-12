@@ -143,12 +143,12 @@ extension AuthManager {
 
 extension AuthManager {
     
-   private func setUpStreamSdk(for user: UserItem) {
-        let api = "786yarz3qp5q"
-        let user = User(id: "3", name: "hrsshopnil")
-        let token = UserToken(rawValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdHJlYW0tdmlkZW8tZ29AdjAuMS4wIiwic3ViIjoidXNlci90ZXN0dXNlciIsImlhdCI6MTY2NjY5ODczMSwidXNlcl9pZCI6InRlc3R1c2VyIn0.h4lnaF6OFYaNPjeK8uFkKirR5kHtj1vAKuipq3A5nM0")
-        
-        streamVideo = StreamVideo(apiKey: api, user: user, token: token)
-       print("Stream Video setup complete with API key: \(api)")
+    private func setUpStreamSdk(for currentUser: UserItem) {
+        let apiKey = "mmhfdz0Ssvj2"
+        let user = User(id: "Shmi_Skywalker", name: "Martin")
+        let token = UserToken(rawValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleJljMnVyXzIkIjgiLCJzdGF2YTc3zp3ycXXIlLCJpc3MiOiJSdWNvbmduIiwibGljZW5zZXJfa2V5IjoicWVoYW5OZGFlWmfXuNdB1f"
+        )
+        streamVideo = StreamVideo(apiKey: apiKey, user: user, token: token)
+        print("⚡ Stream Video SetUp Completed with user token: \(token)")
     }
 }

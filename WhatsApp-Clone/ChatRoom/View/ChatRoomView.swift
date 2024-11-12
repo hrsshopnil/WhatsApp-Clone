@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import StreamVideoSwiftUI
+import StreamVideo
 
 struct ChatRoomView: View {
     
@@ -13,7 +15,7 @@ struct ChatRoomView: View {
     
     @StateObject private var viewModel: ChatRoomViewModel
     @StateObject private var voiceMessagePlayer = VoiceMessagePlayer()
-    
+    @EnvironmentObject private var callViewModel: CallViewModel
     init(channel: ChannelItem) {
         self.channel = channel
         _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel))
@@ -42,7 +44,7 @@ struct ChatRoomView: View {
                 
                 ToolbarItemGroup {
                     Button {
-                        
+                        startVideoCall()
                     } label: {
                         Image(systemName: "video")
                     }
@@ -90,6 +92,13 @@ struct ChatRoomView: View {
                 viewModel.handleAction(action)
             }
         }
+    }
+    
+    private func startVideoCall() {
+        guard callViewModel.call == nil else { return }
+        let user = User(id: "", name: "")
+        let channelMembers = channel.membersExcludingMe
+        callViewModel.joinCall(callType: .default, callId: "JJBOdPGdaIi9")
     }
 }
 
